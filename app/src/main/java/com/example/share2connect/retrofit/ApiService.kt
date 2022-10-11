@@ -1,9 +1,9 @@
-package com.example.bitirmeprojesi.retrofit
+package com.example.share2connect.retrofit
 
-import com.example.bitirmeprojesi.Models.LoginReq
-import com.example.bitirmeprojesi.Models.LoginResponse
-import com.example.bitirmeprojesi.Models.SignupReq
-import com.example.bitirmeprojesi.Models.SignupResponse
+import com.example.share2connect.Models.LoginReq
+import com.example.share2connect.Models.LoginResponse
+import com.example.share2connect.Models.SignupReq
+import com.example.share2connect.Models.SignupResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.FormUrlEncoded

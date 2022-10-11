@@ -1,4 +1,4 @@
-package com.example.bitirmeprojesi
+package com.example.share2connect
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,4 +1,4 @@
-package com.example.bitirmeprojesi.retrofit
+package com.example.share2connect.retrofit
 
 object Constants {
 

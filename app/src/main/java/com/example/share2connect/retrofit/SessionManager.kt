@@ -1,8 +1,8 @@
-package com.example.bitirmeprojesi.retrofit
+package com.example.share2connect.retrofit
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.bitirmeprojesi.R
+import com.example.share2connect.R
 
 
 class SessionManager (context: Context) {

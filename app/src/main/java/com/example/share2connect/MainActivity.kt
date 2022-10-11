@@ -1,4 +1,4 @@
-package com.example.bitirmeprojesi
+package com.example.share2connect
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

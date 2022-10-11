@@ -1,8 +1,10 @@
-package com.example.bitirmeprojesi.Models
+package com.example.share2connect.Models
 
 import com.google.gson.annotations.SerializedName
 
-data class SignupReq (
+data class UserModel (
+    @SerializedName("id")
+    var id: String,
 
     @SerializedName("fullName")
     var fullName: String,

@@ -1,4 +1,4 @@
-package com.example.bitirmeprojesi
+package com.example.share2connect
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.bitirmeprojesi.databinding.FragmentFirstBinding
+import com.example.share2connect.databinding.FragmentFirstBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.

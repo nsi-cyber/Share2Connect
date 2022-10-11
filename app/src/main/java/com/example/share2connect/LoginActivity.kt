@@ -1,4 +1,4 @@
-package com.example.bitirmeprojesi
+package com.example.share2connect
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,10 +7,10 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.bitirmeprojesi.Models.LoginReq
-import com.example.bitirmeprojesi.Models.LoginResponse
-import com.example.bitirmeprojesi.retrofit.ApiClient
-import com.example.bitirmeprojesi.retrofit.SessionManager
+import com.example.share2connect.Models.LoginReq
+import com.example.share2connect.Models.LoginResponse
+import com.example.share2connect.retrofit.ApiClient
+import com.example.share2connect.retrofit.SessionManager
 import com.google.android.material.card.MaterialCardView
 import retrofit2.Call
 import retrofit2.Callback

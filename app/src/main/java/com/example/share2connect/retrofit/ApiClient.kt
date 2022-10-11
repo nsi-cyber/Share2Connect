@@ -1,4 +1,4 @@
-package com.example.bitirmeprojesi.retrofit
+package com.example.share2connect.retrofit
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -9,7 +9,6 @@ class ApiClient {
 
     fun getApiService(): ApiService {
 
-        // Initialize ApiService if not initialized yet
         if (!::apiService.isInitialized) {
             val retrofit = Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)

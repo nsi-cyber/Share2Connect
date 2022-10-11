@@ -1,14 +1,14 @@
-package com.example.bitirmeprojesi
+package com.example.share2connect
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import com.example.bitirmeprojesi.Models.SignupReq
-import com.example.bitirmeprojesi.Models.SignupResponse
-import com.example.bitirmeprojesi.retrofit.ApiClient
-import com.example.bitirmeprojesi.retrofit.SessionManager
+import com.example.share2connect.Models.SignupReq
+import com.example.share2connect.Models.SignupResponse
+import com.example.share2connect.retrofit.ApiClient
+import com.example.share2connect.retrofit.SessionManager
 import com.google.android.material.card.MaterialCardView
 import retrofit2.Call
 import retrofit2.Callback
