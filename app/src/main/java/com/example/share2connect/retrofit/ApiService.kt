@@ -12,12 +12,10 @@ import retrofit2.http.POST
 interface ApiService {
 
     @POST(Constants.LOGIN_URL)
-    @FormUrlEncoded
     fun login(@Body request: LoginReq): Call<LoginResponse>
 
 
     @POST(Constants.SIGNUP_URL)
-    @FormUrlEncoded
     fun singup(@Body request: SignupReq): Call<SignupResponse>
 
 }

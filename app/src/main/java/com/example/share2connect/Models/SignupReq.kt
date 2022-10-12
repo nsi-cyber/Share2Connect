@@ -4,16 +4,16 @@ import com.google.gson.annotations.SerializedName
 
 data class SignupReq (
 
-    @SerializedName("fullName")
-    var fullName: String,
+    @SerializedName("FullName")
+    var FullName: String,
 
-    @SerializedName("email")
-    var email: String,
+    @SerializedName("Email")
+    var Email: String,
 
-    @SerializedName("password")
-    var password: String,
+    @SerializedName("Password")
+    var Password: String,
 
-    @SerializedName("gender")
-    var gender: String
+    @SerializedName("Gender")
+    var Gender: String
 
 )

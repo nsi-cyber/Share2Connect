@@ -63,17 +63,19 @@ class SignupActivity : AppCompatActivity() {
             genderText = radioButton.text.toString()
         })
         var intent = Intent(this, LoginActivity::class.java)
+
         signupButton.setOnClickListener {
             if (checkEmpty()) {
                 apiClient.getApiService().singup(
                     SignupReq(
-                        email = editMail.text.toString(),
-                        password = editPass.text.toString(),
-                        gender = genderText,
-                        fullName = editName.text.toString()
+                        Email = editMail.text.toString(),
+                        Password = editPass.text.toString(),
+                        Gender = genderText,
+                        FullName = editName.text.toString()
                     )
                 )
                     .enqueue(object : Callback<SignupResponse> {
+
                         override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
                             // Error logging in
                         }

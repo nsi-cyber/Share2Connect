@@ -41,11 +41,13 @@ class LoginActivity : AppCompatActivity() {
         apiClient = ApiClient()
         sessionManager = SessionManager(this)
 
-        apiClient.getApiService()
+        loginButton.setOnClickListener {
+            apiClient.getApiService()
             .login(LoginReq(email = editMail.text.toString(), password = editPass.text.toString()))
             .enqueue(object : Callback<LoginResponse> {
+
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    // Error logging in
+                    println("error= "+ t )
                 }
 
                 override fun onResponse(
@@ -62,7 +64,8 @@ class LoginActivity : AppCompatActivity() {
                         // Error logging in
                     }
                 }
-            })
+            })}
+
 
     }
 }
