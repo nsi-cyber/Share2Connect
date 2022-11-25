@@ -16,10 +16,10 @@
         android:theme="@style/Theme.BitirmeProjesi"
         tools:targetApi="31">
         <activity
-            android:name="com.example.share2connect.SignupActivity"
+            android:name="com.example.share2connect.Pages.SignupActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.share2connect.LoginActivity"
+            android:name="com.example.share2connect.Pages.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.BitirmeProjesi.NoActionBar">

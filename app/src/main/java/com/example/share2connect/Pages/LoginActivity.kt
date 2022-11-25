@@ -1,4 +1,4 @@
-package com.example.share2connect
+package com.example.share2connect.Pages
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,10 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.share2connect.MainActivity
 import com.example.share2connect.Models.LoginReq
 import com.example.share2connect.Models.LoginResponse
+import com.example.share2connect.R
 import com.example.share2connect.retrofit.ApiClient
 import com.example.share2connect.retrofit.SessionManager
 import com.google.android.material.card.MaterialCardView
@@ -29,8 +31,7 @@ class LoginActivity : AppCompatActivity() {
         var editPass = findViewById<EditText>(R.id.editPass)
         var loginButton = findViewById<Button>(R.id.buttonLogin)
         var signupButton = findViewById<TextView>(R.id.buttonSignup)
-        var mailCard = findViewById<MaterialCardView>(R.id.mailCard)
-        var passCard = findViewById<MaterialCardView>(R.id.passCard)
+
 
         signupButton.setOnClickListener {
             val intent = Intent(this, SignupActivity::class.java)

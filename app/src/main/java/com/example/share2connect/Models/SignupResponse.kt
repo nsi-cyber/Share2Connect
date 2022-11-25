@@ -11,18 +11,8 @@ data class SignupResponse (
     @SerializedName("message")
     var message: String,
 
-    @SerializedName("id")
-    var id: String,
-
-    @SerializedName("fullName")
-    var fullName: String,
-
-    @SerializedName("email")
-    var email: String,
-
-
-    @SerializedName("gender")
-    var gender: String,
+    @SerializedName("user")
+    var user: UserModel,
 
     @SerializedName("token")
     var token: String

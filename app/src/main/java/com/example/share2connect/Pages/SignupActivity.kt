@@ -1,4 +1,4 @@
-package com.example.share2connect
+package com.example.share2connect.Pages
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.share2connect.Models.SignupReq
 import com.example.share2connect.Models.SignupResponse
+import com.example.share2connect.R
 import com.example.share2connect.retrofit.ApiClient
 import com.example.share2connect.retrofit.SessionManager
 import com.google.android.material.card.MaterialCardView
@@ -44,9 +45,7 @@ class SignupActivity : AppCompatActivity() {
         editPass = findViewById<EditText>(R.id.editPass)
         editPassConf = findViewById<EditText>(R.id.editPassConf)
         signupButton = findViewById<TextView>(R.id.buttonSignup)
-        mailCard = findViewById<MaterialCardView>(R.id.mailCard)
-        passCard = findViewById<MaterialCardView>(R.id.passCard)
-        passConfCard = findViewById<MaterialCardView>(R.id.passConfCard)
+
         changePhoto = findViewById<CardView>(R.id.changeCard)
         radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
 

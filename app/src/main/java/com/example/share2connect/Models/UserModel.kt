@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class UserModel (
     @SerializedName("id")
-    var id: String,
+    var id: Int,
 
     @SerializedName("fullName")
     var fullName: String,
