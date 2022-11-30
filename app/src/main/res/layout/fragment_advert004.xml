@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-black"
-                android:text="GRUP İÇİ AKTİVİTELER"
+                android:text="EV, EŞYA İLANLARI"
                 android:textSize="34sp" />
 
             <ImageView
@@ -34,8 +34,8 @@
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_weight="0"
-                android:tint="#F44336"
-                tools:srcCompat="@drawable/ic_group_activities" />
+                android:tint="#2196F3"
+                tools:srcCompat="@drawable/ic_home_activities" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,7 +53,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical" >
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_baslik"
@@ -70,7 +70,7 @@
                             android:id="@+id/textView2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Etkinlik Başlığı *" />
+                            android:text="İlan Başlığı *" />
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
@@ -85,7 +85,7 @@
                                 android:layout_margin="5dp"
                                 android:background="#B3B3B3"
                                 android:ems="10"
-                                android:hint="Etkinlik başlığını giriniz..."
+                                android:hint="İlan başlığını giriniz..."
                                 android:inputType="textPersonName" />
                         </androidx.cardview.widget.CardView>
                     </LinearLayout>
@@ -95,7 +95,8 @@
                     android:id="@+id/card_detay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -106,7 +107,7 @@
                             android:id="@+id/textView4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Etkinlik Detayı *" />
+                            android:text="İlan Detayı *" />
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
@@ -127,7 +128,7 @@
                                     android:layout_weight="1"
                                     android:background="#B3B3B3"
                                     android:ems="10"
-                                    android:hint="Etkinlik detayını giriniz..."
+                                    android:hint="İlan detayını giriniz..."
                                     android:inputType="textPersonName"
                                     android:maxLines="5"
                                     android:minLines="1"
@@ -144,7 +145,7 @@
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:layout_margin="12dp"
                                     android:layout_weight="0"
                                     android:orientation="vertical">
@@ -160,7 +161,7 @@
                                         android:id="@+id/addPhotoText"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
+                                        android:layout_weight="0"
                                         android:gravity="center"
                                         android:text="Fotoğraf Ekle"
                                         android:textSize="10sp" />
@@ -173,57 +174,9 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/card_tarih"
+                    android:id="@+id/card_baskonum"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Etkinlik Tarihi *" />
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="#B3B3B3"
-                            app:cardCornerRadius="12dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:id="@+id/selectDate"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Tarih Seç" />
-
-                                <TextView
-                                    android:id="@+id/selectTime"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Saat Seç" />
-                            </LinearLayout>
-
-                        </androidx.cardview.widget.CardView>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card__konum"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="20dp">
 
                     <LinearLayout
@@ -248,39 +201,18 @@
                                 android:layout_height="match_parent"
                                 android:orientation="horizontal">
 
-                                <LinearLayout
+                                <EditText
+                                    android:id="@+id/editTextPlaceFirst"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_margin="5dp"
                                     android:layout_weight="1"
-                                    android:orientation="vertical">
-
-                                    <EditText
-                                        android:id="@+id/editTextPlace"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_margin="5dp"
-                                        android:layout_weight="0"
-                                        android:background="#B3B3B3"
-                                        android:ems="10"
-                                        android:hint="Konumun adını giriniz..."
-                                        android:inputType="textPersonName"
-                                        android:singleLine="true" />
-
-                                    <TextView
-                                        android:id="@+id/textView16"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0"
-                                        android:text="Popüler Konumlar" />
-
-                                    <androidx.recyclerview.widget.RecyclerView
-                                        android:id="@+id/recyclerView"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="20dp"
-                                        android:layout_gravity="bottom"
-                                        android:layout_weight="0"
-                                        android:orientation="horizontal" />
-                                </LinearLayout>
+                                    android:background="#B3B3B3"
+                                    android:ems="10"
+                                    android:hint="Konumun adını giriniz..."
+                                    android:inputType="textPersonName"
+                                    android:minLines="2"
+                                    android:singleLine="false" />
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
                                     android:layout_width="1dp"
@@ -328,7 +260,7 @@
                             android:id="@+id/textView17"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Katılım Ücreti" />
+                            android:text="Ücreti" />
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
