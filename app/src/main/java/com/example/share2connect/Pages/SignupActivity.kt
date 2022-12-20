@@ -64,6 +64,8 @@ class SignupActivity : AppCompatActivity() {
         var intent = Intent(this, LoginActivity::class.java)
 
         signupButton.setOnClickListener {
+            /* (if api connected)
+
             if (checkEmpty()) {
                 apiClient.getApiService().singup(
                     SignupReq(
@@ -97,6 +99,13 @@ class SignupActivity : AppCompatActivity() {
             } else
                 Toast.makeText(this, "Please fill all spaces correctly !", Toast.LENGTH_SHORT)
                     .show()
+             */
+            startActivity(intent)
+
+
+
+
+
 
         }
 

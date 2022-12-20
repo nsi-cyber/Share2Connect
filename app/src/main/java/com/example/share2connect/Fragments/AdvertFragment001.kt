@@ -50,9 +50,6 @@ class AdvertFragment001 : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-
-
-
     }
 
     fun getGps():String{
@@ -67,9 +64,7 @@ class AdvertFragment001 : Fragment() {
     }
 
 fun checkNull():Boolean{
-    if()
-    return false
-    return true
+   return true;
 }
 
     override fun onCreateView(

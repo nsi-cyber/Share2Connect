@@ -5,7 +5,7 @@ import java.io.Serializable
 
 class BaseModel : Serializable {
 
-    @SerializedName("components")
-    val components: List<BaseComponent>? = null
+    @SerializedName("announcements")
+    val announcements: List<BaseComponent>? = null
 
 }

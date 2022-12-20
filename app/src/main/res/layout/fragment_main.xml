@@ -118,7 +118,7 @@
                                 android:layout_height="50dp"
                                 android:background="#000000"
                                 android:tint="#FFEB3B"
-                                tools:srcCompat="@drawable/ic_sun" />
+                                app:srcCompat="@drawable/ic_sun" />
                         </androidx.cardview.widget.CardView>
 
                         <TextView
@@ -156,7 +156,7 @@
                                 android:layout_height="50dp"
                                 android:background="#000000"
                                 android:tint="#F44336"
-                                tools:srcCompat="@drawable/ic_group_activities" />
+                                app:srcCompat="@drawable/ic_group_activities" />
                         </androidx.cardview.widget.CardView>
 
                         <TextView
@@ -195,7 +195,7 @@
                                 android:layout_height="50dp"
                                 android:background="#000000"
                                 android:tint="#4CAF50"
-                                tools:srcCompat="@drawable/ic_club_activities" />
+                                app:srcCompat="@drawable/ic_club_activities" />
                         </androidx.cardview.widget.CardView>
 
                         <TextView
@@ -233,7 +233,7 @@
                                 android:layout_height="50dp"
                                 android:background="#000000"
                                 android:tint="#2196F3"
-                                tools:srcCompat="@drawable/ic_road_activities" />
+                                app:srcCompat="@drawable/ic_road_activities" />
                         </androidx.cardview.widget.CardView>
 
                         <TextView
@@ -279,7 +279,7 @@
                                 android:layout_height="50dp"
                                 android:background="#000000"
                                 android:tint="#9C27B0"
-                                tools:srcCompat="@drawable/ic_home_activities" />
+                                app:srcCompat="@drawable/ic_home_activities" />
                         </androidx.cardview.widget.CardView>
 
                         <TextView
@@ -317,7 +317,7 @@
                                 android:layout_height="50dp"
                                 android:background="#000000"
                                 android:tint="#7C7C7C"
-                                tools:srcCompat="@drawable/ic_study_activities" />
+                                app:srcCompat="@drawable/ic_study_activities" />
                         </androidx.cardview.widget.CardView>
 
                         <TextView
@@ -356,7 +356,7 @@
                                 android:layout_height="50dp"
                                 android:background="#000000"
                                 android:tint="#FF9800"
-                                tools:srcCompat="@drawable/ic_party_activities" />
+                                app:srcCompat="@drawable/ic_party_activities" />
                         </androidx.cardview.widget.CardView>
 
                         <TextView
@@ -394,7 +394,7 @@
                                 android:layout_height="50dp"
                                 android:background="#000000"
                                 android:tint="#FFFFFF"
-                                tools:srcCompat="@drawable/ic_threedot" />
+                                app:srcCompat="@drawable/ic_threedot" />
                         </androidx.cardview.widget.CardView>
 
                         <TextView

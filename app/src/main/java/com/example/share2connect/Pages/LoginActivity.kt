@@ -43,6 +43,10 @@ class LoginActivity : AppCompatActivity() {
         sessionManager = SessionManager(this)
 
         loginButton.setOnClickListener {
+            /* (if api connected)
+
+
+
             apiClient.getApiService()
             .login(LoginReq(email = editMail.text.toString(), password = editPass.text.toString()))
             .enqueue(object : Callback<LoginResponse> {
@@ -65,7 +69,13 @@ class LoginActivity : AppCompatActivity() {
                         // Error logging in
                     }
                 }
-            })}
+            })
+             */
+
+            startActivity(intentLogin)
+
+
+        }
 
 
     }

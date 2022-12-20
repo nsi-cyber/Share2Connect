@@ -1,14 +1,8 @@
 package com.example.share2connect.retrofit
 
-import com.example.share2connect.Models.LoginReq
-import com.example.share2connect.Models.LoginResponse
-import com.example.share2connect.Models.SignupReq
-import com.example.share2connect.Models.SignupResponse
+import com.example.share2connect.Models.*
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -22,5 +16,11 @@ interface ApiService {
     @Headers("Accept: application/json",
         "Content-Type: application/json")
     fun singup(@Body request: SignupReq): Call<SignupResponse>
+
+
+    @GET(Constants.GET_DATA_ALL)
+    @Headers("Accept: application/json",
+        "Content-Type: application/json")
+    fun getHomeData(): Call<BaseModel>
 
 }

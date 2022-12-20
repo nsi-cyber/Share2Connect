@@ -1,0 +1,172 @@
+ {"announcements": [
+{
+"category":"E001",
+"user_id": "0",
+"post_id": "0",
+"data": {
+"title": "Masa-Ustu Oyun Gecesi",
+"desc": "Munchkin, D&D gecemize davetlisin",
+"price":"25 TL",
+"place": "Meeple Game Cafe"
+
+}
+}
+
+,
+{
+"category":"E002",
+"user_id": "0",
+"post_id": "0",
+"data": {
+"title": "Kulubumuze Katılın",
+"info": "Eski uyeler uyelik yeniletmelidir",
+"club": "Yazılım Kulubu",
+"desc": "Hello Worldun ötesine gec",
+"price":"5TL",
+"place": "Kulup Standları"
+
+}
+}
+,
+{
+"category":"E003",
+"user_id": "0",
+"post_id": "0",
+"data": {
+"title": "Tramvay Bekleme",
+"desc": "Sabah okula giderken yolculuk arkadasım olur musun?",
+"price":"5Tl",
+"seat":"3",
+"end":"Muhendislik Fak.",
+"start":"Espark"
+
+}
+},
+
+{
+"category":"E004",
+"user_id": "0",
+"post_id": "0",
+"data": {
+"title": "Canon E450 Kamera",
+"desc": "Cok temiz, az kullanıldı. Pazarlık olmaz",
+"price":"550 Tl",
+"place": "EskiBaglar"
+
+}
+}
+
+,
+{
+"category":"E005",
+"user_id": "0",
+"post_id": "0",
+"data": {
+"title": "Sefo Parti",
+"date": "10/09/2022",
+"ticket": "120",
+"desc": "Sefo ile muhtesem bir gece gecirmeye hazır mısın!",
+"price":"150 Tl",
+"place": "Milyon Performance Hall"
+
+}
+}
+,
+{
+"category":"E006",
+"user_id": "0",
+"post_id": "0",
+"data": {
+"title": "Ders Calısalım",
+"desc": "Matematikten kalmak uzereyim birlikte calısalım mı",
+"date":"Uyanık Kutuphane"
+
+}
+},
+
+   {
+     "category":"E001",
+     "user_id": "0",
+     "post_id": "0",
+     "data": {
+       "title": "Okeye 4.",
+       "desc": "Buyukderede erkek okey arkadası aranır",
+       "price":"25 TL",
+       "place": "Bardak Cafe"
+
+     }
+   }
+
+ ,
+   {
+     "category":"E002",
+     "user_id": "0",
+     "post_id": "0",
+     "data": {
+       "title": "Tanısma Partisi",
+       "info": "Sadece uyelerimize ozeldir",
+       "club": "Iletisim Kulubu",
+       "desc": "Iletisimimizi arttıralım",
+       "price":"35TL",
+       "place": "Social Club"
+
+     }
+   }
+ ,
+   {
+     "category":"E003",
+     "user_id": "0",
+     "post_id": "0",
+     "data": {
+       "title": "Cıkısta Espark",
+       "desc": "Ders bitisinde seni esparka bırakabilirim",
+       "price":"0",
+       "seat":"3",
+       "end":"Espark",
+       "start":"Tıp Kapısı"
+
+     }
+   },
+
+   {
+     "category":"E004",
+     "user_id": "0",
+     "post_id": "0",
+     "data": {
+       "title": "Gitar Super Temiz",
+       "desc": "Akdeniz aksamlarından baska bir sey calınmadı",
+       "price":"100 Tl",
+       "place": "Buyukdere"
+
+     }
+   }
+
+ ,
+   {
+     "category":"E005",
+     "user_id": "0",
+     "post_id": "0",
+     "data": {
+       "title": "Cakal&Reckol",
+       "date": "10/12/2022",
+       "ticket": "100",
+       "desc": "Cakal ve Reckol ile sabahı bekle!",
+       "price":"330 Tl",
+       "place": "IF Performance"
+
+     }
+   }
+ ,
+   {
+     "category":"E006",
+     "user_id": "0",
+     "post_id": "0",
+     "data": {
+       "title": "Kodlayalım",
+       "desc": "Yazılım odevimi yaparken codding buddym olur musun",
+       "date":"Starbucks"
+
+     }
+   }
+]
+}

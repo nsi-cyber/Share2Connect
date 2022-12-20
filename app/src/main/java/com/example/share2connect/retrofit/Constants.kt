@@ -6,6 +6,7 @@ object Constants {
     const val BASE_URL = "https://192.168.43.2:7195/"
     const val LOGIN_URL = "api/login"
     const val SIGNUP_URL = "api/register"
+    const val GET_DATA_ALL = "ilanlar/category"
 
     // const val POSTS_URL = "posts"
 
