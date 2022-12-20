@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -52,6 +53,8 @@ class MainFragment : Fragment() {
     lateinit var category004:CardView
     lateinit var category005:CardView
     lateinit var category006:CardView
+    lateinit var searchBox:EditText
+
 
 
 
@@ -65,6 +68,7 @@ class MainFragment : Fragment() {
 
     var adapter = GroupAdapter<ViewHolder>()
     var baseModel: BaseModel? = null
+    var searchList: BaseModel? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,6 +88,16 @@ class MainFragment : Fragment() {
 val view=inflater.inflate(R.layout.fragment_main, container, false)
 getData()
         recyclerView=view.findViewById(R.id.recyclerView)
+        searchBox=view.findViewById(R.id.searchEditText)
+        searchBox.setOnKeyListener { view, i, keyEvent ->
+            searchData(searchBox.text.toString().lowercase())
+            return@setOnKeyListener true
+        }
+
+
+
+
+
 
         category001=view.findViewById(R.id.catGroup)
         category001.setOnClickListener { filter=1
@@ -165,6 +179,26 @@ getData()
         fragmentTransaction?.replace(R.id.frameLayout, fragment)
         fragmentTransaction?.commit()
     }
+
+    fun searchData(str: String)  {
+        adapter.clear()
+
+        for (obj in baseModel?.announcements!!) {
+
+            if (obj.data?.get("title").toString().lowercase().contains(str)
+                ||
+                obj.data?.get("desc").toString().lowercase().contains(str))
+            {
+                val component = AdvertEnum.get(key = obj.category) ?: continue
+                val row = component.type.newInstance()
+                row.model = obj
+                println(obj.data)
+                row.fragment = this
+                adapter.add(row)
+            }
+        }
+    }
+
 
 
 

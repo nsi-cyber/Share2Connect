@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.share2connect.Models.AdvertModel001
 import com.example.share2connect.R
-import java.text.DateFormat
+import com.example.share2connect.Utils.Helper.Companion.changeFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,6 +39,7 @@ class AdvertFragment001 : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var advertFee:EditText
     lateinit var inspect: Button
+    lateinit var returnFirst: Button
     var gpsCoordinate:String=""
 
 
@@ -72,7 +73,7 @@ fun checkNull():Boolean{
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view=inflater.inflate(R.layout.fragment_advert_001, container, false)
+        var view=inflater.inflate(R.layout.fragment_advert001, container, false)
         with(view){
             advertName=findViewById(R.id.editTextTitle)
             advertDesc=findViewById(R.id.editTextDesc)
@@ -84,7 +85,8 @@ fun checkNull():Boolean{
             advertFee=findViewById(R.id.editTextFee)
             inspect=findViewById(R.id.button)
         }
-
+        returnFirst=view.findViewById(R.id.button1)
+        returnFirst.setOnClickListener { activity?.let { changeFragment(ChooseCategoryFragment(), it.supportFragmentManager) } }
 
 
 

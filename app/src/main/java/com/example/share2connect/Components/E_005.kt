@@ -23,7 +23,6 @@ class E_005: BaseComponentClass() {
     lateinit var date :TextView
     lateinit var button:Button
     ////
-    var adapter = GroupAdapter<ViewHolder>()
     private var itemModel: Model? = null
 
 

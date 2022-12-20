@@ -54,6 +54,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+    }
+    override fun onBackPressed() {
+       changeFragment(MainFragment())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
