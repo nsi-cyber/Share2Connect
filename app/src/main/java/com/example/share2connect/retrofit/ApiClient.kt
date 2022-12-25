@@ -14,7 +14,7 @@ class ApiClient(val context:Context) {
 
     fun getApiService(): ApiService {
 
-        if(SessionManager(context).fetchAuthToken().toString()!=""){
+        if(SessionManager(context).fetchAuthToken().toString()!=null){
             val retrofit = Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
 
@@ -36,16 +36,6 @@ class ApiClient(val context:Context) {
         else {
             val retrofit = Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
-
-
-                .client(OkHttpClient.Builder().addInterceptor { chain ->
-                    val request = chain.request().newBuilder().addHeader("Authorization", "Bearer ${SessionManager(context).fetchAuthToken()
-                    }").build()
-                    chain.proceed(request)
-                }.build())
-
-
-
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 

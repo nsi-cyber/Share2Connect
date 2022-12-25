@@ -27,6 +27,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import com.ace1ofspades.recyclerview.items.Item
 import com.example.share2connect.Fragments.ChooseCategoryFragment
+import com.example.share2connect.Fragments.DetailFragment
 import com.example.share2connect.MainActivity
 
 // TODO: Rename parameter arguments, choose names that match
@@ -145,6 +146,11 @@ val view=inflater.inflate(R.layout.fragment_main, container, false)
 
         button.setOnClickListener {
             changeFragment(ChooseCategoryFragment())
+        }
+
+        adapter.setOnItemClickListener { item, view -> var pos= item.getPosition(item)
+        changeFragment(DetailFragment(baseModel!!.announcements!!.get(pos).category.toString(),baseModel!!.announcements!!.get(pos).postId.toString()))
+
         }
 
         return view

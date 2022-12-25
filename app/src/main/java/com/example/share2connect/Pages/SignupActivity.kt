@@ -1,6 +1,8 @@
 package com.example.share2connect.Pages
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +17,7 @@ import com.google.android.material.card.MaterialCardView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 
 class SignupActivity : AppCompatActivity() {
     companion object {
@@ -29,6 +32,7 @@ class SignupActivity : AppCompatActivity() {
     lateinit var mailCard: MaterialCardView
     lateinit var signupButton: TextView
     lateinit var editBio: EditText
+    lateinit var editTextPhone: EditText
     lateinit var editFaculty: EditText
     lateinit var editPassConf: EditText
     lateinit var editPass: EditText
@@ -52,6 +56,7 @@ class SignupActivity : AppCompatActivity() {
         editBio = findViewById<EditText>(R.id.editBio)
         editPassConf = findViewById<EditText>(R.id.editPassConf)
         signupButton = findViewById<TextView>(R.id.buttonSignup)
+        editTextPhone = findViewById<EditText>(R.id.editTextPhone)
 
         changePhoto = findViewById<CardView>(R.id.changeCard)
         radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
@@ -81,7 +86,11 @@ class SignupActivity : AppCompatActivity() {
                          password = editPass.text.toString(),
                          gender = genderText,
                          fullName = editName.text.toString(),
-                         department = editFaculty.text.toString())
+                         department = editFaculty.text.toString(),
+                     phone = editTextPhone.text.toString(),
+                         image = imageToBitmap(photo),
+                         about = editBio.text.toString()
+                     )
                  )
                      .enqueue(object : Callback<SignupResponse> {
 
@@ -124,7 +133,13 @@ class SignupActivity : AppCompatActivity() {
 
     }
 
+    private fun imageToBitmap(image: ImageView): ByteArray {
+        val bitmap = (image.drawable as BitmapDrawable).bitmap
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream)
 
+        return stream.toByteArray()
+    }
     private fun checkEmpty(): Boolean {
         return (editPass.text.toString().equals(editPassConf.text.toString()))
                 && (editName.text.length > 1)

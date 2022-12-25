@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
 
         apiClient = ApiClient(this)
         sessionManager = SessionManager(this)
-
+sessionManager.clearAll()
         loginButton.setOnClickListener {
             if(1==1){
 
@@ -86,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
                         intentLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
 
                         //Todo save to sharedpreferences name
-sessionManager.saveUserObject(response.body()!!.user)
+                        sessionManager.saveUserObject(response.body()!!.user)
 
                         startActivity(intentLogin)
                         finish()

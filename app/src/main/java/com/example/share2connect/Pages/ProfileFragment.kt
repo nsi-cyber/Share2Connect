@@ -46,6 +46,7 @@ lateinit var userObject:UserModel
     lateinit var userDepartment:TextView
     lateinit var userMail:TextView
     lateinit var userPhone:TextView
+
     lateinit var userAttends:LinearLayout
     lateinit var userAdverts:LinearLayout
 
@@ -92,6 +93,7 @@ userObject=sessionManager.getUserObject()!!
             userMail.text = userObject.email
             userPhone.text = userObject.phone
             if(userObject.Image!=null){
+
             val bmp = BitmapFactory.decodeByteArray(userObject.Image, 0, userObject.Image.size)
             userImage.setImageBitmap(
                 Bitmap.createScaledBitmap(
@@ -100,7 +102,8 @@ userObject=sessionManager.getUserObject()!!
                     userImage.height,
                     false
                 )
-            )}
+            )
+            }
         }
 
 userAdverts.setOnClickListener {

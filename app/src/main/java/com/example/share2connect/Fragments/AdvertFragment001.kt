@@ -40,6 +40,7 @@ class AdvertFragment001 : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
     lateinit var advertName:EditText
     lateinit var advertDesc:EditText
     lateinit var selectDate:TextView
@@ -50,6 +51,7 @@ class AdvertFragment001 : Fragment() {
     lateinit var advertFee:EditText
     lateinit var inspect: Button
     lateinit var returnFirst: Button
+
     var gpsCoordinate:String=""
 
 
@@ -92,6 +94,7 @@ fun checkNull():Boolean{
         // Inflate the layout for this fragment
         var view=inflater.inflate(R.layout.fragment_advert001, container, false)
         with(view){
+
             advertName=findViewById(R.id.editTextTitle)
             advertDesc=findViewById(R.id.editTextDesc)
             selectDate=findViewById(R.id.selectDate)
@@ -101,57 +104,30 @@ fun checkNull():Boolean{
             recyclerView=findViewById(R.id.recyclerView)
             advertFee=findViewById(R.id.editTextFee)
             inspect=findViewById(R.id.button)
+
         }
         returnFirst=view.findViewById(R.id.button1)
         returnFirst.setOnClickListener { activity?.let { changeFragment(ChooseCategoryFragment(), it.supportFragmentManager) } }
 
-
 inspect.setOnClickListener { post() }
-
-
-
 
         return view
     }
 
+
 fun post(){
 
-    apiClient = context?.let { ApiClient(it) }!!
-    sessionManager = context?.let { SessionManager(it) }!!
-    apiClient.getApiService().post(
-        AdvertDataModel(
+        changeFragment(AdvertShareFragment(AdvertDataModel(
             adNameText = advertName.text.toString(),
-
             publishDate = phoneDate(),
-
             adDescText = advertDesc.text.toString(),
             adDateText = "12",
             adImage = imageToBitmap(descImage),
             adPlaceText = placeName.text.toString(),
             adPriceText = advertFee.text.toString(),
             adCategory = "E001"
-        )
-    )
-        .enqueue(object : Callback<AdvertResponse> {
+        )),requireActivity().supportFragmentManager)
 
-            override fun onFailure(call: Call<AdvertResponse>, t: Throwable) {
-                println(t.toString())
-            }
-
-            override fun onResponse(
-                call: Call<AdvertResponse>,
-                response: Response<AdvertResponse>
-            ) {
-                val postResponse = response.body()
-
-                if (postResponse?.status == 200) {
-                    changeFragment(MainFragment(),activity!!.supportFragmentManager)
-
-                } else {
-                    // Error logging in
-                }
-            }
-        })
 
 
 }

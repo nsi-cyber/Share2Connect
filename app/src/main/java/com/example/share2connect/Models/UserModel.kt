@@ -23,7 +23,7 @@ data class UserModel (
     @SerializedName("userBio")
     var about: String,
 
-    @SerializedName("userPhone")
+    @SerializedName("userPhoneNumber")
     var phone: String,
 
     @SerializedName("userDepartment")

@@ -84,6 +84,8 @@ lateinit var returnFirst:Button
             advertFee=findViewById(R.id.editTextFee)
             inspect=findViewById(R.id.button)
         }
+        inspect.setOnClickListener { post() }
+
         returnFirst.setOnClickListener { changeFragment(ChooseCategoryFragment()) }
         return view
     }
@@ -107,44 +109,23 @@ lateinit var returnFirst:Button
     }
     fun post(){
 
-       var apiClient = context?.let { ApiClient(it) }!!
-        var sessionManager = context?.let { SessionManager(it) }!!
-        apiClient.getApiService().post(
-            AdvertDataModel(
-                adNameText = advertName.text.toString(),
-                adClubName = advertClub.text.toString(),
+       changeFragment(
+            AdvertShareFragment(
 
-                publishDate = phoneDate(),
+                    AdvertDataModel(
+                        adNameText = advertName.text.toString(),
+                        adClubName = advertClub.text.toString(),
 
-                adDescText = advertDesc.text.toString(),
-                adDateText = "12",
-                adImage = imageToBitmap(descImage),
-                adPlaceText = placeName.text.toString(),
-                adPriceText = advertFee.text.toString(),
-                adCategory = "E002"
-            )
-        )
-            .enqueue(object : Callback<AdvertResponse> {
+                        publishDate = phoneDate(),
 
-                override fun onFailure(call: Call<AdvertResponse>, t: Throwable) {
-                    println(t.toString())
-                }
+                        adDescText = advertDesc.text.toString(),
+                        adDateText = "12",
+                        adImage = imageToBitmap(descImage),
+                        adPlaceText = placeName.text.toString(),
+                        adPriceText = advertFee.text.toString(),
+                        adCategory = "E002"
 
-                override fun onResponse(
-                    call: Call<AdvertResponse>,
-                    response: Response<AdvertResponse>
-                ) {
-                    val postResponse = response.body()
-
-                    if (postResponse?.status == 200) {
-                        Helper.changeFragment(MainFragment(), activity!!.supportFragmentManager)
-
-                    } else {
-                        // Error logging in
-                    }
-                }
-            })
-
+                )))
 
     }
     companion object {

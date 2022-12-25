@@ -17,6 +17,7 @@ import com.example.share2connect.Models.AdvertResponse
 import com.example.share2connect.Pages.MainFragment
 import com.example.share2connect.R
 import com.example.share2connect.Utils.Helper
+import com.example.share2connect.Utils.Helper.Companion.changeFragment
 import com.example.share2connect.retrofit.ApiClient
 import com.example.share2connect.retrofit.SessionManager
 import retrofit2.Call
@@ -64,10 +65,18 @@ class AdvertFragment003 : Fragment() {
     lateinit var advertSeat:EditText
     lateinit var placeFirstName: EditText
     lateinit var placeLastName: EditText
+
     lateinit var recyclerView: RecyclerView
+
+
     lateinit var advertFee: EditText
+
     lateinit var inspect: Button
     lateinit var returnFirst: Button
+
+
+
+
     fun phoneDate(): String {
         return  SimpleDateFormat("dd.MM.yyyy  h:mm a").format(Calendar.getInstance().getTime())
 
@@ -81,14 +90,13 @@ class AdvertFragment003 : Fragment() {
     }
     fun post(){
 
-        var apiClient = context?.let { ApiClient(it) }!!
-        var sessionManager = context?.let { SessionManager(it) }!!
-        apiClient.getApiService().post(
-            AdvertDataModel(
+        changeFragment(
+            AdvertShareFragment(
+
+                AdvertDataModel(
                 adNameText = advertName.text.toString(),
                 adSeatText = advertSeat.text.toString(),
                 publishDate = phoneDate(),
-
                 adDescText = advertDesc.text.toString(),
                 adDateText = "12",
                 adImage = imageToBitmap(descImage),
@@ -97,27 +105,7 @@ class AdvertFragment003 : Fragment() {
                 adPriceText = advertFee.text.toString(),
                 adCategory = "E003"
             )
-        )
-            .enqueue(object : Callback<AdvertResponse> {
-
-                override fun onFailure(call: Call<AdvertResponse>, t: Throwable) {
-                    println(t.toString())
-                }
-
-                override fun onResponse(
-                    call: Call<AdvertResponse>,
-                    response: Response<AdvertResponse>
-                ) {
-                    val postResponse = response.body()
-
-                    if (postResponse?.status == 200) {
-                        Helper.changeFragment(MainFragment(), activity!!.supportFragmentManager)
-
-                    } else {
-                        // Error logging in
-                    }
-                }
-            })
+        ),requireActivity().supportFragmentManager)
 
 
     }
@@ -145,6 +133,8 @@ class AdvertFragment003 : Fragment() {
             advertFee=findViewById(R.id.editTextFee)
             inspect=findViewById(R.id.button)
         }
+        inspect.setOnClickListener { post() }
+
         returnFirst=view.findViewById(R.id.button1)
         returnFirst.setOnClickListener { activity?.let {
             Helper.changeFragment(

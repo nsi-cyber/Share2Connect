@@ -18,7 +18,7 @@ class SessionManager(context: Context) {
         const val USER_OBJECT = "userObject"
         const val USERNAME = "userName"
     }
-
+fun clearAll(){prefs.edit().clear().apply()}
     /**
      * Function to save auth token
      */

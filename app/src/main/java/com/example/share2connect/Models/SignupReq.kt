@@ -18,15 +18,15 @@ data class SignupReq (
 
     @SerializedName("userDepartment")
     var department: String,
-    /*
+
     @SerializedName("userBio")
     var about: String,
 
-    @SerializedName("Image")
-    var Image: ByteArray,
+    @SerializedName("userImage")
+    var image: ByteArray,
 
-    @SerializedName("userPhone")
+    @SerializedName("userPhoneNumber")
     var phone: String,
-*/
+
 
 )
