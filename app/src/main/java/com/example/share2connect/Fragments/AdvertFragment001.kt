@@ -1,5 +1,8 @@
 package com.example.share2connect.Fragments
 
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +13,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.share2connect.Models.AdvertModel001
+import com.example.share2connect.Models.*
+import com.example.share2connect.Pages.MainFragment
 import com.example.share2connect.R
 import com.example.share2connect.Utils.Helper.Companion.changeFragment
+import com.example.share2connect.retrofit.ApiClient
+import com.example.share2connect.retrofit.SessionManager
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -43,6 +53,8 @@ class AdvertFragment001 : Fragment() {
     var gpsCoordinate:String=""
 
 
+    private lateinit var sessionManager: SessionManager
+    private lateinit var apiClient: ApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,16 +69,21 @@ class AdvertFragment001 : Fragment() {
         return ""
     }
 
-    fun dataToModel(view:View): AdvertModel001 {
-        val df = SimpleDateFormat("dd.MM.yyyy  h:mm a")
-        val date = df.format(Calendar.getInstance().getTime())
-        var model=AdvertModel001(date,true,advertName.text.toString(),advertDesc.text.toString(),advertFee.text.toString(),selectTime.text.toString(),selectDate.text.toString(),"photo",placeName.text.toString(),"")
-    return model
+    fun phoneDate(): String {
+        return  SimpleDateFormat("dd.MM.yyyy  h:mm a").format(Calendar.getInstance().getTime())
+
     }
 
 fun checkNull():Boolean{
    return true;
 }
+    private fun imageToBitmap(image: ImageView): ByteArray {
+        val bitmap = (image.drawable as BitmapDrawable).bitmap
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream)
+
+        return stream.toByteArray()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,6 +106,7 @@ fun checkNull():Boolean{
         returnFirst.setOnClickListener { activity?.let { changeFragment(ChooseCategoryFragment(), it.supportFragmentManager) } }
 
 
+inspect.setOnClickListener { post() }
 
 
 
@@ -96,6 +114,47 @@ fun checkNull():Boolean{
         return view
     }
 
+fun post(){
+
+    apiClient = context?.let { ApiClient(it) }!!
+    sessionManager = context?.let { SessionManager(it) }!!
+    apiClient.getApiService().post(
+        AdvertDataModel(
+            adNameText = advertName.text.toString(),
+
+            publishDate = phoneDate(),
+
+            adDescText = advertDesc.text.toString(),
+            adDateText = "12",
+            adImage = imageToBitmap(descImage),
+            adPlaceText = placeName.text.toString(),
+            adPriceText = advertFee.text.toString(),
+            adCategory = "E001"
+        )
+    )
+        .enqueue(object : Callback<AdvertResponse> {
+
+            override fun onFailure(call: Call<AdvertResponse>, t: Throwable) {
+                println(t.toString())
+            }
+
+            override fun onResponse(
+                call: Call<AdvertResponse>,
+                response: Response<AdvertResponse>
+            ) {
+                val postResponse = response.body()
+
+                if (postResponse?.status == 200) {
+                    changeFragment(MainFragment(),activity!!.supportFragmentManager)
+
+                } else {
+                    // Error logging in
+                }
+            }
+        })
+
+
+}
     companion object {
         /**
          * Use this factory method to create a new instance of

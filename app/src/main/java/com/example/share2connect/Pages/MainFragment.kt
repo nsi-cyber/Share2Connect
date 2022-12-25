@@ -85,8 +85,11 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        apiClient= context?.let { ApiClient(it) }!!
 val view=inflater.inflate(R.layout.fragment_main, container, false)
-getData()
+//getData()
+    getDataApi()
+
         recyclerView=view.findViewById(R.id.recyclerView)
         searchBox=view.findViewById(R.id.searchEditText)
         searchBox.setOnKeyListener { view, i, keyEvent ->
@@ -147,7 +150,7 @@ getData()
         return view
     }
 
-    /*
+
     fun getDataApi() {
         apiClient.getApiService()
             .getHomeData()
@@ -163,7 +166,7 @@ getData()
                 ) {
                     if (response.code() == 200) {
                         baseModel = response.body()!!
-                        configure()
+                        initializeData()
                     }
                     else {
                         // Error logging in
@@ -172,7 +175,7 @@ getData()
 
             })
         }
-*/
+
 
     fun changeFragment(fragment: Fragment) {
         val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()

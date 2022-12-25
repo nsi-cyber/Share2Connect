@@ -3,30 +3,30 @@ package com.example.share2connect.Models
 import com.google.gson.annotations.SerializedName
 
 data class UserModel (
-    @SerializedName("id")
+    @SerializedName("userId")
     var id: Int,
 
-    @SerializedName("FullName")
-    var FullName: String,
+    @SerializedName("userNameText")
+    var fullName: String,
 
     @SerializedName("Image")
     var Image: ByteArray,
 
-    @SerializedName("Email")
-    var Email: String,
-    @SerializedName("Gender")
-    var Gender: String,
+    @SerializedName("userMail")
+    var email: String,
+    @SerializedName("userGender")
+    var gender: String,
 
-    @SerializedName("Password")
-    var Password: String,
+    @SerializedName("userPassword")
+    var password: String,
 
-    @SerializedName("About")
-    var About: String,
+    @SerializedName("userBio")
+    var about: String,
 
-    @SerializedName("Phone")
-    var Phone: String,
+    @SerializedName("userPhone")
+    var phone: String,
 
-    @SerializedName("Department")
-    var Department: String
+    @SerializedName("userDepartment")
+    var department: String
 
 )

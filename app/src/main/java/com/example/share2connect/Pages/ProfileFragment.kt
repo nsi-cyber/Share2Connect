@@ -61,7 +61,7 @@ lateinit var userObject:UserModel
         }
          sessionManager = SessionManager(this.requireContext())
 
-        if(1==0)
+        if(1==1)
 userObject=sessionManager.getUserObject()!!
 
     }
@@ -85,12 +85,13 @@ userObject=sessionManager.getUserObject()!!
 
 
 
-        if(1==0) {//api
-            userName.text = userObject.FullName
-            userBio.text = userObject.About
-            userDepartment.text = userObject.Department
-            userMail.text = userObject.Email
-            userPhone.text = userObject.Phone
+        if(1==1) {//shared
+            userName.text = userObject.fullName
+            userBio.text = userObject.about
+            userDepartment.text = userObject.department
+            userMail.text = userObject.email
+            userPhone.text = userObject.phone
+            if(userObject.Image!=null){
             val bmp = BitmapFactory.decodeByteArray(userObject.Image, 0, userObject.Image.size)
             userImage.setImageBitmap(
                 Bitmap.createScaledBitmap(
@@ -99,7 +100,7 @@ userObject=sessionManager.getUserObject()!!
                     userImage.height,
                     false
                 )
-            )
+            )}
         }
 
 userAdverts.setOnClickListener {

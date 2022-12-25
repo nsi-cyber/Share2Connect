@@ -17,6 +17,11 @@ interface ApiService {
         "Content-Type: application/json")
     fun singup(@Body request: SignupReq): Call<SignupResponse>
 
+    @POST(Constants.NEW_POST)
+    @Headers("Accept: application/json",
+        "Content-Type: application/json")
+    fun post(@Body request: AdvertDataModel): Call<AdvertResponse>
+
 
     @GET(Constants.GET_DATA_ALL)
     @Headers("Accept: application/json",

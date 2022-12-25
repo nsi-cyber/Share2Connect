@@ -58,11 +58,11 @@ class LoginActivity : AppCompatActivity() {
         }
         val intentLogin = Intent(this, MainActivity::class.java)
 
-        apiClient = ApiClient()
+        apiClient = ApiClient(this)
         sessionManager = SessionManager(this)
 
         loginButton.setOnClickListener {
-            if(1==0){
+            if(1==1){
 
 
 
@@ -83,10 +83,13 @@ class LoginActivity : AppCompatActivity() {
                     if (loginResponse?.status == 200 && loginResponse.user != null) {
 
                         sessionManager.saveAuthToken(loginResponse.token)
+                        intentLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
 
-                        //Todo save to sharedpreferences(userobject and name)
+                        //Todo save to sharedpreferences name
+sessionManager.saveUserObject(response.body()!!.user)
 
                         startActivity(intentLogin)
+                        finish()
 
                     } else {
                         // Error logging in

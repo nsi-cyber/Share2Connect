@@ -1,13 +1,30 @@
 package com.example.share2connect.Fragments
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.share2connect.Models.AdvertDataModel
+import com.example.share2connect.Models.AdvertResponse
+import com.example.share2connect.Pages.MainFragment
 import com.example.share2connect.R
 import com.example.share2connect.Utils.Helper
+import com.example.share2connect.retrofit.ApiClient
+import com.example.share2connect.retrofit.SessionManager
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,7 +40,7 @@ class AdvertFragment003 : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-lateinit var returnFirst: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +50,81 @@ lateinit var returnFirst: Button
         }
     }
 
+
+
+
+
+
+
+    lateinit var advertName: EditText
+    lateinit var advertDesc: EditText
+    lateinit var selectDate: TextView
+    lateinit var selectTime: TextView
+    lateinit var descImage:ImageView
+    lateinit var advertSeat:EditText
+    lateinit var placeFirstName: EditText
+    lateinit var placeLastName: EditText
+    lateinit var recyclerView: RecyclerView
+    lateinit var advertFee: EditText
+    lateinit var inspect: Button
+    lateinit var returnFirst: Button
+    fun phoneDate(): String {
+        return  SimpleDateFormat("dd.MM.yyyy  h:mm a").format(Calendar.getInstance().getTime())
+
+    }
+    private fun imageToBitmap(image: ImageView): ByteArray {
+        val bitmap = (image.drawable as BitmapDrawable).bitmap
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream)
+
+        return stream.toByteArray()
+    }
+    fun post(){
+
+        var apiClient = context?.let { ApiClient(it) }!!
+        var sessionManager = context?.let { SessionManager(it) }!!
+        apiClient.getApiService().post(
+            AdvertDataModel(
+                adNameText = advertName.text.toString(),
+                adSeatText = advertSeat.text.toString(),
+                publishDate = phoneDate(),
+
+                adDescText = advertDesc.text.toString(),
+                adDateText = "12",
+                adImage = imageToBitmap(descImage),
+                adRouteEndText = placeLastName.text.toString(),
+                adRouteStartText = placeFirstName.text.toString(),
+                adPriceText = advertFee.text.toString(),
+                adCategory = "E003"
+            )
+        )
+            .enqueue(object : Callback<AdvertResponse> {
+
+                override fun onFailure(call: Call<AdvertResponse>, t: Throwable) {
+                    println(t.toString())
+                }
+
+                override fun onResponse(
+                    call: Call<AdvertResponse>,
+                    response: Response<AdvertResponse>
+                ) {
+                    val postResponse = response.body()
+
+                    if (postResponse?.status == 200) {
+                        Helper.changeFragment(MainFragment(), activity!!.supportFragmentManager)
+
+                    } else {
+                        // Error logging in
+                    }
+                }
+            })
+
+
+    }
+
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,7 +132,19 @@ lateinit var returnFirst: Button
         // Inflate the layout for this fragment
 
         var view=inflater.inflate(R.layout.fragment_advert003, container, false)
-
+        with(view){
+            advertName=findViewById(R.id.editTextTitle)
+            advertSeat=findViewById(R.id.editTextSeat)
+            advertDesc=findViewById(R.id.editTextDesc)
+            selectDate=findViewById(R.id.selectDate)
+            selectTime=findViewById(R.id.selectTime)
+            descImage=findViewById(R.id.imageViewDesc)
+            placeFirstName=findViewById(R.id.editTextPlaceFirst)
+            placeLastName=findViewById(R.id.editTextPlaceLast)
+            recyclerView=findViewById(R.id.recyclerView)
+            advertFee=findViewById(R.id.editTextFee)
+            inspect=findViewById(R.id.button)
+        }
         returnFirst=view.findViewById(R.id.button1)
         returnFirst.setOnClickListener { activity?.let {
             Helper.changeFragment(

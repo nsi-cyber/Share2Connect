@@ -57,7 +57,7 @@ class SignupActivity : AppCompatActivity() {
         radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
 
 
-        apiClient = ApiClient()
+        apiClient = ApiClient(this)
         sessionManager = SessionManager(this)
 
         changePhoto.setOnClickListener {
@@ -72,16 +72,16 @@ class SignupActivity : AppCompatActivity() {
 
         signupButton.setOnClickListener {
             //if api connected
-         if (1==0) {
+         if (1==1) {
 
              if (checkEmpty()) {
+
                  apiClient.getApiService().singup(
-                     SignupReq(Email = editMail.text.toString(),
-                         Password = editPass.text.toString(),
-                         Gender = genderText,
-                         FullName = editName.text.toString(),
-                         About = editBio.text.toString(),
-                         Department = editFaculty.text.toString())
+                     SignupReq(email = editMail.text.toString(),
+                         password = editPass.text.toString(),
+                         gender = genderText,
+                         fullName = editName.text.toString(),
+                         department = editFaculty.text.toString())
                  )
                      .enqueue(object : Callback<SignupResponse> {
 
@@ -96,9 +96,10 @@ class SignupActivity : AppCompatActivity() {
                              val signupResponse = response.body()
 
                              if (signupResponse?.status == 200) {
+                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
 
                                  startActivity(intent)
-
+                                 finish()
                              } else {
                                  // Error logging in
                              }
@@ -109,8 +110,10 @@ class SignupActivity : AppCompatActivity() {
                  Toast.makeText(this, "Please fill all spaces correctly !", Toast.LENGTH_SHORT)
                      .show()
          } else
-            startActivity(intent)
+             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
 
+            startActivity(intent)
+            finish()
 
 
 

@@ -91,11 +91,11 @@ class UserProfileFragment : Fragment() {
 
 
         if(1==0) {//api
-            userName.text = userObject.FullName
-            userBio.text = userObject.About
-            userDepartment.text = userObject.Department
-            userMail.text = userObject.Email
-            userPhone.text = userObject.Phone
+            userName.text = userObject.fullName
+            userBio.text = userObject.about
+            userDepartment.text = userObject.department
+            userMail.text = userObject.email
+            userPhone.text = userObject.phone
             val bmp = BitmapFactory.decodeByteArray(userObject.Image, 0, userObject.Image.size)
             userImage.setImageBitmap(
                 Bitmap.createScaledBitmap(
@@ -114,8 +114,8 @@ class UserProfileFragment : Fragment() {
 
 
 
-        whatsapp.setOnClickListener { openWhatsApp(userObject.Phone) }
-        gmail.setOnClickListener { openMail(userObject.Email) }
+        whatsapp.setOnClickListener { openWhatsApp(userObject.phone) }
+        gmail.setOnClickListener { openMail(userObject.email) }
 
 
 

@@ -114,15 +114,15 @@ fun initializeData(data:Map<*,*>){
     fun getData(postId:String){
 
 
-        var apiClient = ApiClient()
+        var apiClient = this.context?.let { ApiClient(it) }
         var sessionManager = this.context?.let { SessionManager(it) }
 
 
 
 
-        apiClient.getApiService()
-.getPost(postId)
-            .enqueue(object : Callback<Map<*, *>> {
+        apiClient?.getApiService()
+?.getPost(postId)
+            ?.enqueue(object : Callback<Map<*, *>> {
                 override fun onResponse(call: Call<Map<*, *>>, response: Response<Map<*, *>>) {
 
 data= response.body()!!
