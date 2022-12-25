@@ -21,22 +21,17 @@
         <activity
             android:name="com.example.share2connect.Pages.LoginActivity"
             android:exported="true"
-            android:label="@string/title_activity_login"
+            android:clearTaskOnLaunch="true"
             android:theme="@style/Theme.BitirmeProjesi.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.example.share2connect.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

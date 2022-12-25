@@ -2,9 +2,12 @@ package com.example.share2connect.Pages
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.share2connect.MainActivity
@@ -17,10 +20,26 @@ import com.google.android.material.card.MaterialCardView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.FileNameMap
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
+
+
+    private var doubleBackToExitPressedOnce = false
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+
+        Handler(Looper.getMainLooper()).postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,12 +62,12 @@ class LoginActivity : AppCompatActivity() {
         sessionManager = SessionManager(this)
 
         loginButton.setOnClickListener {
-            /* (if api connected)
+            if(1==0){
 
 
 
             apiClient.getApiService()
-            .login(LoginReq(email = editMail.text.toString(), password = editPass.text.toString()))
+            .login(LoginReq(userMail = editMail.text.toString(), userPassword = editPass.text.toString()))
             .enqueue(object : Callback<LoginResponse> {
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
@@ -62,7 +81,11 @@ class LoginActivity : AppCompatActivity() {
                     val loginResponse = response.body()
 
                     if (loginResponse?.status == 200 && loginResponse.user != null) {
+
                         sessionManager.saveAuthToken(loginResponse.token)
+
+                        //Todo save to sharedpreferences(userobject and name)
+
                         startActivity(intentLogin)
 
                     } else {
@@ -70,13 +93,17 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             })
-             */
+
+            }
+                else{
+            intentLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
 
             startActivity(intentLogin)
-
+                finish()
 
         }
 
 
+
     }
-}
+}}

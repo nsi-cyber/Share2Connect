@@ -23,4 +23,13 @@ interface ApiService {
         "Content-Type: application/json")
     fun getHomeData(): Call<BaseModel>
 
+
+
+
+
+
+    @GET(Constants.GET_POST)
+    fun getPost(@Body postId: String): Call<Map<*,*>>
+
+
 }

@@ -10,6 +10,7 @@ import com.example.share2connect.Models.SignupResponse
 import com.example.share2connect.R
 import com.example.share2connect.retrofit.ApiClient
 import com.example.share2connect.retrofit.SessionManager
+import com.google.android.gms.security.ProviderInstaller
 import com.google.android.material.card.MaterialCardView
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,6 +28,8 @@ class SignupActivity : AppCompatActivity() {
     lateinit var passCard: MaterialCardView
     lateinit var mailCard: MaterialCardView
     lateinit var signupButton: TextView
+    lateinit var editBio: EditText
+    lateinit var editFaculty: EditText
     lateinit var editPassConf: EditText
     lateinit var editPass: EditText
     lateinit var editMail: EditText
@@ -39,10 +42,14 @@ class SignupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
+        ProviderInstaller.installIfNeeded(this);
+
         photo = findViewById<ImageView>(R.id.picture)
         editMail = findViewById<EditText>(R.id.editMail)
         editName = findViewById<EditText>(R.id.editName)
         editPass = findViewById<EditText>(R.id.editPass)
+        editFaculty = findViewById<EditText>(R.id.editFaculty)
+        editBio = findViewById<EditText>(R.id.editBio)
         editPassConf = findViewById<EditText>(R.id.editPassConf)
         signupButton = findViewById<TextView>(R.id.buttonSignup)
 
@@ -64,42 +71,44 @@ class SignupActivity : AppCompatActivity() {
         var intent = Intent(this, LoginActivity::class.java)
 
         signupButton.setOnClickListener {
-            /* (if api connected)
+            //if api connected
+         if (1==0) {
 
-            if (checkEmpty()) {
-                apiClient.getApiService().singup(
-                    SignupReq(
-                        Email = editMail.text.toString(),
-                        Password = editPass.text.toString(),
-                        Gender = genderText,
-                        FullName = editName.text.toString()
-                    )
-                )
-                    .enqueue(object : Callback<SignupResponse> {
+             if (checkEmpty()) {
+                 apiClient.getApiService().singup(
+                     SignupReq(Email = editMail.text.toString(),
+                         Password = editPass.text.toString(),
+                         Gender = genderText,
+                         FullName = editName.text.toString(),
+                         About = editBio.text.toString(),
+                         Department = editFaculty.text.toString())
+                 )
+                     .enqueue(object : Callback<SignupResponse> {
 
-                        override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
-                            // Error logging in
-                        }
+                         override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
+                                    println(t.toString())
+                         }
 
-                        override fun onResponse(
-                            call: Call<SignupResponse>,
-                            response: Response<SignupResponse>
-                        ) {
-                            val signupResponse = response.body()
+                         override fun onResponse(
+                             call: Call<SignupResponse>,
+                             response: Response<SignupResponse>
+                         ) {
+                             val signupResponse = response.body()
 
-                            if (signupResponse?.status == 200) {
-                                startActivity(intent)
+                             if (signupResponse?.status == 200) {
 
-                            } else {
-                                // Error logging in
-                            }
-                        }
-                    })
+                                 startActivity(intent)
 
-            } else
-                Toast.makeText(this, "Please fill all spaces correctly !", Toast.LENGTH_SHORT)
-                    .show()
-             */
+                             } else {
+                                 // Error logging in
+                             }
+                         }
+                     })
+
+             } else
+                 Toast.makeText(this, "Please fill all spaces correctly !", Toast.LENGTH_SHORT)
+                     .show()
+         } else
             startActivity(intent)
 
 
@@ -120,6 +129,8 @@ class SignupActivity : AppCompatActivity() {
                 && (editPass.text.length > 1)
                 && (editMail.text.length > 1)
                 && (genderText.length > 1)
+                && (editBio.text.length > 1)
+                && (editFaculty.text.length > 1)
 
     }
 

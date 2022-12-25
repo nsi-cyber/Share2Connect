@@ -6,16 +6,27 @@ data class UserModel (
     @SerializedName("id")
     var id: Int,
 
-    @SerializedName("fullName")
-    var fullName: String,
+    @SerializedName("FullName")
+    var FullName: String,
 
-    @SerializedName("email")
-    var email: String,
+    @SerializedName("Image")
+    var Image: ByteArray,
 
-    @SerializedName("password")
-    var password: String,
+    @SerializedName("Email")
+    var Email: String,
+    @SerializedName("Gender")
+    var Gender: String,
 
-    @SerializedName("gender")
-    var gender: String
+    @SerializedName("Password")
+    var Password: String,
+
+    @SerializedName("About")
+    var About: String,
+
+    @SerializedName("Phone")
+    var Phone: String,
+
+    @SerializedName("Department")
+    var Department: String
 
 )

@@ -30,16 +30,6 @@
             android:text="ENES AY"
             android:textSize="34sp" />
 
-        <TextView
-            android:id="@+id/editProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableRight="@drawable/ic_edit"
-            android:drawablePadding="5dp"
-            android:text="Edit Profile"
-            android:textSize="16sp" />
-
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView112"
             android:layout_width="match_parent"
@@ -54,7 +44,7 @@
             tools:layout_editor_absoluteY="87dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -83,7 +73,7 @@
                         android:layout_weight="0"
                         android:fontFamily="sans-serif-medium"
                         android:gravity="center"
-                        android:text="My Adverts"
+                        android:text="Ilanlar"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -113,11 +103,11 @@
                     <TextView
                         android:id="@+id/textView15"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="0"
                         android:fontFamily="sans-serif-medium"
                         android:gravity="center"
-                        android:text="My Attends"
+                        android:text="Katılımlar"
                         android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -144,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:minLines="2"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam laoreet tempor imperdiet. Donec finibus leo elit, at lobortis diam tristique eget. Vestibulum sodales"
+                android:text="TextView"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -168,7 +158,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Lorem İpsum" />
+                android:text="TextView" />
         </LinearLayout>
 
         <LinearLayout
@@ -191,7 +181,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="sgdasdfsklj@gmailçcom" />
+                android:text="TextView" />
         </LinearLayout>
 
         <LinearLayout
@@ -213,7 +203,75 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="123213123" />
+                android:text="TextView" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="İletişime Geç" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/whatsappCard"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView15"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        tools:src="@tools:sample/avatars" />
+
+                    <TextView
+                        android:id="@+id/textView28"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="WhatsApp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mailCard"
+                android:layout_width="100dp"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView135"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        tools:src="@tools:sample/avatars" />
+
+                    <TextView
+                        android:id="@+id/textView228"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mail" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
 
     </LinearLayout>

@@ -9,11 +9,16 @@ data class SignupReq (
 
     @SerializedName("Email")
     var Email: String,
+    @SerializedName("Gender")
+    var Gender: String,
 
     @SerializedName("Password")
     var Password: String,
 
-    @SerializedName("Gender")
-    var Gender: String
+    @SerializedName("About")
+    var About: String,
+
+    @SerializedName("Department")
+    var Department: String
 
 )

@@ -149,7 +149,7 @@
                     android:backgroundTint="#4CAF50"
                     android:drawableRight="@drawable/ic_tick"
                     android:drawableTint="#FFFFFF"
-                    android:text="Başvur" />
+                    android:text="göster" />
 
             </LinearLayout>
 
