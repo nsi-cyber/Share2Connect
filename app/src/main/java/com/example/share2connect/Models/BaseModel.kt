@@ -3,9 +3,9 @@ package com.example.share2connect.Models
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-class BaseModel : Serializable {
+data class BaseModel (
 
     @SerializedName("announcements")
-    val announcements: List<BaseComponent>? = null
+    var announcements: List<BaseComponent>
 
-}
+)

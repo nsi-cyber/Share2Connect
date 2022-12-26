@@ -25,6 +25,7 @@ class SignupActivity : AppCompatActivity() {
     }
 
     var genderText = ""
+    var imageHas=false
     lateinit var radioGroup: RadioGroup
     lateinit var changePhoto: CardView
     lateinit var passConfCard: MaterialCardView
@@ -80,18 +81,30 @@ class SignupActivity : AppCompatActivity() {
          if (1==1) {
 
              if (checkEmpty()) {
+if(imageHas){
+    apiClient.getApiService().singup(
+    SignupReq(userMail = editMail.text.toString(),
+        userPassword = editPass.text.toString(),
+        userGender = genderText,
+        userNameText = editName.text.toString(),
+        userDepartment = editFaculty.text.toString(),
+        userPhoneNumber = editTextPhone.text.toString(),
+        userImage = imageToBitmap(photo),
+        userBio = editBio.text.toString()
+    )
+)}
+                 else{      apiClient.getApiService().singup(
+    SignupReq(userMail = editMail.text.toString(),
+        userPassword = editPass.text.toString(),
+        userGender = genderText,
+        userNameText = editName.text.toString(),
+        userDepartment = editFaculty.text.toString(),
+        userPhoneNumber = editTextPhone.text.toString(),
+        userBio = editBio.text.toString()
+    )
+)}
 
-                 apiClient.getApiService().singup(
-                     SignupReq(email = editMail.text.toString(),
-                         password = editPass.text.toString(),
-                         gender = genderText,
-                         fullName = editName.text.toString(),
-                         department = editFaculty.text.toString(),
-                     phone = editTextPhone.text.toString(),
-                         image = imageToBitmap(photo),
-                         about = editBio.text.toString()
-                     )
-                 )
+
                      .enqueue(object : Callback<SignupResponse> {
 
                          override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
@@ -103,10 +116,8 @@ class SignupActivity : AppCompatActivity() {
                              response: Response<SignupResponse>
                          ) {
                              val signupResponse = response.body()
-
                              if (signupResponse?.status == 200) {
                                  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-
                                  startActivity(intent)
                                  finish()
                              } else {
@@ -162,6 +173,7 @@ class SignupActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
             photo.setImageURI(data?.data)
+            imageHas=true
         }
     }
 }

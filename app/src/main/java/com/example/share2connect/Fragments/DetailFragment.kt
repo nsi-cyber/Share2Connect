@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import com.example.share2connect.Models.BaseComponent
 import com.example.share2connect.R
 import com.example.share2connect.retrofit.ApiClient
 import com.example.share2connect.retrofit.SessionManager
@@ -30,7 +31,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [DetailFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class DetailFragment(var category: String,var postId:String) : Fragment() {
+class DetailFragment(var baseComponent: BaseComponent) : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -111,17 +112,16 @@ fun initializeData(data:Map<*,*>){
     }
 
 
-    fun getData(postId:String){
+    fun getData(userId:Int){
 
 
         var apiClient = this.context?.let { ApiClient(it) }
-        var sessionManager = this.context?.let { SessionManager(it) }
 
 
 
 
         apiClient?.getApiService()
-?.getPost(postId)
+?.getUser(userId)
             ?.enqueue(object : Callback<Map<*, *>> {
                 override fun onResponse(call: Call<Map<*, *>>, response: Response<Map<*, *>>) {
 
@@ -180,11 +180,11 @@ adPlaceCard = view.findViewById(R.id.adPlaceCard)
 adRouteText = view.findViewById(R.id.adRouteText)
 adPlaceText = view.findViewById(R.id.adPlaceText)
 
-    disableViews(category)
+    disableViews(baseComponent.category.toString())
 
 
 
-    getData(postId)
+    getData(baseComponent.userId!!.toInt())
 
 
 

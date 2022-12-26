@@ -13,9 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ace1ofspades.recyclerview.GroupAdapter
 import com.ace1ofspades.recyclerview.viewHolders.ViewHolder
-import com.example.share2connect.Models.BaseModel
-import com.example.share2connect.Models.LoginReq
-import com.example.share2connect.Models.LoginResponse
 import com.example.share2connect.R
 import com.example.share2connect.Utils.AdvertEnum
 import com.example.share2connect.retrofit.ApiClient
@@ -29,6 +26,7 @@ import com.ace1ofspades.recyclerview.items.Item
 import com.example.share2connect.Fragments.ChooseCategoryFragment
 import com.example.share2connect.Fragments.DetailFragment
 import com.example.share2connect.MainActivity
+import com.example.share2connect.Models.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -160,18 +158,20 @@ val view=inflater.inflate(R.layout.fragment_main, container, false)
     fun getDataApi() {
         apiClient.getApiService()
             .getHomeData()
-            .enqueue(object : Callback<BaseModel> {
+            .enqueue(object : Callback<AnnouncementsResponse> {
 
-                override fun onFailure(call: Call<BaseModel>, t: Throwable) {
+                override fun onFailure(call: Call<AnnouncementsResponse>, t: Throwable) {
                     println("error= "+ t )
                 }
 
                 override fun onResponse(
-                    call: Call<BaseModel>,
-                    response: Response<BaseModel>
+                    call: Call<AnnouncementsResponse>,
+                    response: Response<AnnouncementsResponse>
                 ) {
                     if (response.code() == 200) {
-                        baseModel = response.body()!!
+
+                        baseModel=BaseModel(announcements = response.body()!!.data)
+
                         initializeData()
                     }
                     else {
@@ -194,9 +194,9 @@ val view=inflater.inflate(R.layout.fragment_main, container, false)
 
         for (obj in baseModel?.announcements!!) {
 
-            if (obj.data?.get("title").toString().lowercase().contains(str)
+            if (obj.data?.adNameText.toString().lowercase().contains(str)
                 ||
-                obj.data?.get("desc").toString().lowercase().contains(str))
+                obj.data?.adDescText.toString().lowercase().contains(str))
             {
                 val component = AdvertEnum.get(key = obj.category) ?: continue
                 val row = component.type.newInstance()

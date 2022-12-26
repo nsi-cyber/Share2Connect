@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ace1ofspades.recyclerview.GroupAdapter
 import com.ace1ofspades.recyclerview.viewHolders.ViewHolder
+import com.example.share2connect.Models.AdvertDataModel
 import com.example.share2connect.R
 import com.example.share2connect.Utils.BaseComponentClass
 import com.example.share2connect.Utils.Helper
@@ -21,7 +22,7 @@ class E_006: BaseComponentClass() {
     lateinit var date :TextView
     lateinit var button:Button
     ////
-    private var itemModel: Model? = null
+    private var itemModel: AdvertDataModel? = null
 
 
 
@@ -30,12 +31,12 @@ class E_006: BaseComponentClass() {
 
     override fun configure() {
         super.configure()
-        itemModel = Parser.parse<Model>(model?.data)
+        itemModel = Parser.parse<AdvertDataModel>(model?.data)
         with(itemModel){
-            title.text=itemModel?.title
-            desc.text=itemModel?.desc
-            date.setText("Tarih: "+itemModel?.date)
-            place.setText("Konum: "+itemModel?.place)
+            title.text=itemModel?.adNameText
+            desc.text=itemModel?.adDescText
+            date.setText("Tarih: "+itemModel?.adDateText)
+            place.setText("Konum: "+itemModel?.adPlaceText)
         }
     }
 
@@ -57,24 +58,10 @@ class E_006: BaseComponentClass() {
     }
 
 
-    private data class Model(
-        @SerializedName("title")
-        var title: String?,
-        @SerializedName("date")
-        var date: String?,
-
-        @SerializedName("desc")
-        val desc: String?,
-
-
-        @SerializedName("place")
-        val place: String?,
-
-    ) : Serializable {
 
 
 
-    }
+
 
 }
 

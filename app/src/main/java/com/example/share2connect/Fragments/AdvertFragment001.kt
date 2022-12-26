@@ -119,14 +119,13 @@ fun post(){
 
         changeFragment(AdvertShareFragment(AdvertDataModel(
             adNameText = advertName.text.toString(),
-            publishDate = phoneDate(),
+            //publishDate = phoneDate(),
             adDescText = advertDesc.text.toString(),
             adDateText = "12",
             adImage = imageToBitmap(descImage),
             adPlaceText = placeName.text.toString(),
             adPriceText = advertFee.text.toString(),
-            adCategory = "E001"
-        )),requireActivity().supportFragmentManager)
+        ),"E001"),requireActivity().supportFragmentManager)
 
 
 

@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ace1ofspades.recyclerview.GroupAdapter
 import com.ace1ofspades.recyclerview.viewHolders.ViewHolder
+import com.example.share2connect.Models.AdvertDataModel
 import com.example.share2connect.R
 import com.example.share2connect.Utils.BaseComponentClass
 import com.example.share2connect.Utils.Helper
@@ -24,7 +25,7 @@ class E_002: BaseComponentClass() {
     lateinit var button:Button
     ////
     var adapter = GroupAdapter<ViewHolder>()
-    private var itemModel: Model? = null
+    private var itemModel: AdvertDataModel? = null
 
 
 
@@ -33,14 +34,14 @@ class E_002: BaseComponentClass() {
 
     override fun configure() {
         super.configure()
-        itemModel = Parser.parse<Model>(model?.data)
+        itemModel = Parser.parse<AdvertDataModel>(model?.data)
         with(itemModel){
-            title.text=itemModel?.title
-            club.text=itemModel?.club
-            info.text=itemModel?.info
-            desc.text=itemModel?.desc
-            price.setText("Fiyat: "+itemModel?.price)
-            place.setText("Konum: "+itemModel?.place)
+            title.text=itemModel?.adNameText
+            club.text=itemModel?.adClubName
+            info.text=itemModel?.adDescText
+            desc.text=itemModel?.adDescText
+            price.setText("Fiyat: "+itemModel?.adPriceText)
+            place.setText("Konum: "+itemModel?.adPlaceText)
         }
     }
 

@@ -4,19 +4,19 @@ import com.example.share2connect.Utils.AdvertEnum
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-open class BaseComponent {
+data class BaseComponent (
 
 
     @SerializedName("category")
-    val category: String? = null
+    var category: String? = null,
 
     @SerializedName("user_id")
-    val userId: Int? = null
+    val userId: Int? = 0,
 
     @SerializedName("post_id")
-    val postId: Int? = null
+    val postId: Int? = 0,
 
     @SerializedName("data")
-    var data: Map<*, *>? = null
+    var data: AdvertDataModel? = null
 
-}
+)

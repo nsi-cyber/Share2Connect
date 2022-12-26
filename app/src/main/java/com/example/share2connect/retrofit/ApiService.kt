@@ -20,13 +20,13 @@ interface ApiService {
     @POST(Constants.NEW_POST)
     @Headers("Accept: application/json",
         "Content-Type: application/json")
-    fun post(@Body request: AdvertDataModel): Call<AdvertResponse>
+    fun post(@Body request: BaseComponent): Call<AdvertResponse>
 
 
     @GET(Constants.GET_DATA_ALL)
     @Headers("Accept: application/json",
         "Content-Type: application/json")
-    fun getHomeData(): Call<BaseModel>
+    fun getHomeData(): Call<AnnouncementsResponse>
 
 
 
@@ -35,6 +35,10 @@ interface ApiService {
 
     @GET(Constants.GET_POST)
     fun getPost(@Body postId: String): Call<Map<*,*>>
+
+
+    @GET(Constants.GET_USER)
+    fun getUser(@Body userId: Int): Call<Map<*,*>>
 
 
 }

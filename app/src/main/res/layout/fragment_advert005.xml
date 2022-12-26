@@ -233,7 +233,7 @@
                                 android:orientation="vertical">
 
                                 <EditText
-                                    android:id="@+id/editTextPlaceLast"
+                                    android:id="@+id/editTextPlace"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
@@ -252,7 +252,7 @@
                                     android:text="Popüler Konumlar" />
 
                                 <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/recyclerView2"
+                                    android:id="@+id/recyclerView"
                                     android:layout_width="match_parent"
                                     android:layout_height="20dp"
                                     android:layout_gravity="bottom"

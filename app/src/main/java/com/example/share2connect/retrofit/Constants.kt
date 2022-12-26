@@ -9,6 +9,7 @@ object Constants {
     const val GET_DATA_ALL = "api/announcements/all "
     const val GET_POST = "api/ilanlar/"
     const val NEW_POST = "api/announcements/new"
+    const val GET_USER = "api/announcements/new"
 
     // const val POSTS_URL = "posts"
 

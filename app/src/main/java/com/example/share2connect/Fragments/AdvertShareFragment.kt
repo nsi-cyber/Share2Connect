@@ -37,7 +37,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AdvertShareFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AdvertShareFragment(var advertModel:AdvertDataModel) : Fragment() {
+class AdvertShareFragment(var advertModel:AdvertDataModel,var category: String) : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -65,22 +65,23 @@ lateinit var button:Button
         button=view.findViewById(R.id.button)
         recyclerView.layoutManager= GridLayoutManager(context, 1)
         recyclerView.adapter=adapter
-        val component = AdvertEnum.get(key = advertModel.adCategory)
-        val row = component!!.type.newInstance()
+        val component = AdvertEnum.get(key = category)
         var asd=BaseComponent()
-        val gson = GsonBuilder().create()
-        val type = object: TypeToken<Map<*, *>>(){}.type
-        val result = gson.fromJson<Map<*, *>>(Gson().toJson(advertModel), type)
-        asd.data=result
+
+        asd.data=advertModel
+        asd.category=category
+        val row = component!!.type.newInstance()
+
         row.model = asd
         println(advertModel)
         row.fragment = this
         adapter.add(row)
+
         button.setOnClickListener {
 
                 var apiClient = context?.let { ApiClient(it) }!!
                 apiClient.getApiService().post(
-                advertModel)  .enqueue(object : Callback<AdvertResponse> {
+                asd)  .enqueue(object : Callback<AdvertResponse> {
 
                     override fun onFailure(call: Call<AdvertResponse>, t: Throwable) {
                         println(t.toString())
@@ -109,30 +110,11 @@ lateinit var button:Button
 
 
 
-
+println(asd.toString())
 
 
         }
         return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AdvertShareFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AdvertShareFragment(AdvertDataModel()).apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

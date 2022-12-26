@@ -13,8 +13,8 @@ class ApiClient(val context:Context) {
     private lateinit var apiService: ApiService
 
     fun getApiService(): ApiService {
-
-        if(SessionManager(context).fetchAuthToken().toString()!=null){
+println(SessionManager(context).fetchAuthToken().toString())
+        if(SessionManager(context).fetchAuthToken().toString()!="null"){
             val retrofit = Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
 

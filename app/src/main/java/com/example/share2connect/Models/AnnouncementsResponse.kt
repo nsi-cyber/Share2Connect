@@ -2,8 +2,7 @@ package com.example.share2connect.Models
 
 import com.google.gson.annotations.SerializedName
 
-
-data class AdvertResponse (
+data class AnnouncementsResponse (
 
     @SerializedName("status")
     var status: Int,
@@ -12,7 +11,7 @@ data class AdvertResponse (
     var message: String,
 
     @SerializedName("data")
-    var data: BaseComponent
+    var data: List<BaseComponent>
 
 
 

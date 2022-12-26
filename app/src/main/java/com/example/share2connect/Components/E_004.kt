@@ -4,6 +4,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.ace1ofspades.recyclerview.GroupAdapter
 import com.ace1ofspades.recyclerview.viewHolders.ViewHolder
+import com.example.share2connect.Models.AdvertDataModel
 import com.example.share2connect.R
 import com.example.share2connect.Utils.BaseComponentClass
 import com.example.share2connect.Utils.Parser
@@ -20,16 +21,16 @@ class E_004 : BaseComponentClass() {
 
     ////
     var adapter = GroupAdapter<ViewHolder>()
-    private var itemModel: Model? = null
+    private var itemModel: AdvertDataModel? = null
 
 
     override fun configure() {
         super.configure()
-        itemModel = Parser.parse<Model>(model?.data)
+        itemModel = Parser.parse<AdvertDataModel>(model?.data)
         with(itemModel) {
-            title.text = itemModel?.title
-            desc.text = itemModel?.desc
-            price.text = "Fiyat: " + itemModel?.price
+            title.text = itemModel?.adNameText
+            desc.text = itemModel?.adDescText
+            price.text = "Fiyat: " + itemModel?.adPriceText
         }
     }
 

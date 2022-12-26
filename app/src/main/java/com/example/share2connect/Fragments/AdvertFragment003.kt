@@ -96,15 +96,14 @@ class AdvertFragment003 : Fragment() {
                 AdvertDataModel(
                 adNameText = advertName.text.toString(),
                 adSeatText = advertSeat.text.toString(),
-                publishDate = phoneDate(),
+              //  publishDate = phoneDate(),
                 adDescText = advertDesc.text.toString(),
                 adDateText = "12",
                 adImage = imageToBitmap(descImage),
                 adRouteEndText = placeLastName.text.toString(),
                 adRouteStartText = placeFirstName.text.toString(),
                 adPriceText = advertFee.text.toString(),
-                adCategory = "E003"
-            )
+            ),"E003"
         ),requireActivity().supportFragmentManager)
 
 

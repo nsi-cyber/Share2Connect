@@ -5,28 +5,28 @@ import com.google.gson.annotations.SerializedName
 data class SignupReq (
 
     @SerializedName("userNameText")
-    var fullName: String,
+    var userNameText: String,
 
 
     @SerializedName("userMail")
-    var email: String,
+    var userMail: String,
     @SerializedName("userGender")
-    var gender: String,
+    var userGender: String,
 
     @SerializedName("userPassword")
-    var password: String,
+    var userPassword: String,
 
     @SerializedName("userDepartment")
-    var department: String,
+    var userDepartment: String,
 
     @SerializedName("userBio")
-    var about: String,
+    var userBio: String,
 
     @SerializedName("userImage")
-    var image: ByteArray,
+    var userImage: ByteArray?=null,
 
     @SerializedName("userPhoneNumber")
-    var phone: String,
+    var userPhoneNumber: String,
 
 
 )

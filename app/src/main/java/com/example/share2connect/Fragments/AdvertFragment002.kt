@@ -116,16 +116,16 @@ lateinit var returnFirst:Button
                         adNameText = advertName.text.toString(),
                         adClubName = advertClub.text.toString(),
 
-                        publishDate = phoneDate(),
+                        //publishDate = phoneDate(),
 
                         adDescText = advertDesc.text.toString(),
                         adDateText = "12",
                         adImage = imageToBitmap(descImage),
                         adPlaceText = placeName.text.toString(),
                         adPriceText = advertFee.text.toString(),
-                        adCategory = "E002"
 
-                )))
+                )
+            ,"E002"))
 
     }
     companion object {

@@ -74,12 +74,11 @@ class AdvertFragment005 : Fragment() {
 
                 AdvertDataModel(
                 adNameText = advertName.text.toString(),
-                publishDate = phoneDate(),
+               // publishDate = phoneDate(),
                 adDescText = advertDesc.text.toString(),
                 adDateText = "12",
                 adPlaceText = placeName.text.toString(),
-                adCategory = "E005"
-            )
+            ),"E006"
         ),requireActivity().supportFragmentManager)
 
 
@@ -93,7 +92,7 @@ class AdvertFragment005 : Fragment() {
         with(view){
             advertName=findViewById(R.id.editTextTitle)
             advertDesc=findViewById(R.id.editTextDesc)
-            placeName=findViewById(R.id.editTextPlaceFirst)
+            placeName=findViewById(R.id.editTextPlace)
             recyclerView=findViewById(R.id.recyclerView)
             inspect=findViewById(R.id.button)
         }

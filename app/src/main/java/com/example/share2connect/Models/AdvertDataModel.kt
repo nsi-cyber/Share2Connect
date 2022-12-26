@@ -6,11 +6,11 @@ import java.io.Serializable
 data class AdvertDataModel (
 
 
-    @SerializedName("adCategory")
-    var adCategory: String?=null,
+    //@SerializedName("adCategory")
+  //  var adCategory: String?=null,
 
-    @SerializedName("publishDate")
-    var publishDate: String?=null,
+  //  @SerializedName("publishDate")
+  //  var publishDate: String?=null,
 
     @SerializedName("isAvailable")
     var isAvailable: Boolean?=null,
