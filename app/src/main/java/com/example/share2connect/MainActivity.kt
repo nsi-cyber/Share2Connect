@@ -1,11 +1,18 @@
 package com.example.share2connect
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.media.Image
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.share2connect.Fragments.ChooseCategoryFragment
@@ -15,6 +22,8 @@ import com.example.share2connect.Fragments.MyAdsFragment
 import com.example.share2connect.Pages.LoginActivity
 import com.example.share2connect.Pages.MainFragment
 import com.example.share2connect.Pages.ProfileFragment
+import com.example.share2connect.Utils.Helper
+import com.example.share2connect.retrofit.SessionManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 
@@ -26,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var bottomNavigationView: BottomNavigationView
 
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -57,9 +67,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-
-
 
 
 

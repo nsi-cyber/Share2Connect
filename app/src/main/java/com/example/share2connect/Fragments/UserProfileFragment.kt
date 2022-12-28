@@ -31,11 +31,10 @@ private const val ARG_PARAM2 = "param2"
  * Use the [UserProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class UserProfileFragment : Fragment() {
+class UserProfileFragment(var user:UserModel) : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    lateinit var userObject: UserModel
     lateinit  var sessionManager : SessionManager
 
 
@@ -63,10 +62,8 @@ class UserProfileFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        sessionManager = SessionManager(this.requireContext())
 
-        if(1==0)
-            userObject=sessionManager.getUserObject()!!
+
 
     }
 
@@ -78,9 +75,9 @@ class UserProfileFragment : Fragment() {
         val view=inflater.inflate(R.layout.fragment_user_profile, container, false)
 
         userImage = view.findViewById(R.id.userImage)
-        userName = view.findViewById(R.id.userName)
+        userName = view.findViewById(R.id.nameText)
         userBio = view.findViewById(R.id.bioText)
-        userDepartment = view.findViewById(R.id.userDepartment)
+        userDepartment = view.findViewById(R.id.departmentText)
         userMail = view.findViewById(R.id.mailText)
         userPhone = view.findViewById(R.id.phoneText)
         userAttends = view.findViewById(R.id.attends)
@@ -90,13 +87,14 @@ class UserProfileFragment : Fragment() {
 
 
 
-        if(1==0) {//api
-            userName.text = userObject.fullName
-            userBio.text = userObject.about
-            userDepartment.text = userObject.department
-            userMail.text = userObject.email
-            userPhone.text = userObject.phone
-            val bmp = BitmapFactory.decodeByteArray(userObject.Image, 0, userObject.Image.size)
+        if(1==1) {//api
+            userName.text = user.fullName
+            userBio.text = user.about
+            userDepartment.text = user.department
+            userMail.text = user.email
+            userPhone.text = user.phone
+            if(user.Image!=null){
+            val bmp = BitmapFactory.decodeByteArray(user.Image, 0, user.Image!!.size)
             userImage.setImageBitmap(
                 Bitmap.createScaledBitmap(
                     bmp,
@@ -104,18 +102,21 @@ class UserProfileFragment : Fragment() {
                     userImage.height,
                     false
                 )
-            )
+            )}
         }
 
-        userAdverts.setOnClickListener { activity?.let { it1 -> Helper.changeFragment(UserAdsFragment(userObject.id), it1.supportFragmentManager) } }
+        userAdverts.setOnClickListener { activity?.let { it1 -> Helper.changeFragment(UserAdsFragment(user.id),
+
+
+            it1.supportFragmentManager) } }
         userAttends.setOnClickListener { activity?.let { it1 -> Helper.changeFragment(JoinedFragment(
          1  // userObject.id
         ), it1.supportFragmentManager) } }
 
 
 
-        whatsapp.setOnClickListener { openWhatsApp(userObject.phone) }
-        gmail.setOnClickListener { openMail(userObject.email) }
+        whatsapp.setOnClickListener { user.phone?.let { it1 -> openWhatsApp(it1) } }
+        gmail.setOnClickListener { user.email?.let { it1 -> openMail(it1) } }
 
 
 
@@ -151,23 +152,5 @@ class UserProfileFragment : Fragment() {
     }
 
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment UserProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            UserProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

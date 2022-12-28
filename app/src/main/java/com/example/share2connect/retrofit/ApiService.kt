@@ -33,12 +33,17 @@ interface ApiService {
 
 
 
-    @GET(Constants.GET_POST)
-    fun getPost(@Body postId: String): Call<Map<*,*>>
+    @GET("/api/announcements/user/{id}")
+    @Headers("Accept: application/json",
+        "Content-Type: application/json")
+    fun getUserPosts(@Path("id")  userId: Int): Call<AnnouncementsResponse>
 
 
-    @GET(Constants.GET_USER)
-    fun getUser(@Body userId: Int): Call<Map<*,*>>
+
+    @GET("api/users/get-user/{id}")
+    @Headers("Accept: application/json",
+        "Content-Type: application/json")
+    fun getUser(@Path("id")  userId: Int): Call<LoginResponse>
 
 
 }

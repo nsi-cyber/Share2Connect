@@ -94,7 +94,7 @@ userObject=sessionManager.getUserObject()!!
             userPhone.text = userObject.phone
             if(userObject.Image!=null){
 
-            val bmp = BitmapFactory.decodeByteArray(userObject.Image, 0, userObject.Image.size)
+            val bmp = BitmapFactory.decodeByteArray(userObject.Image, 0, userObject.Image!!.size)
             userImage.setImageBitmap(
                 Bitmap.createScaledBitmap(
                     bmp,

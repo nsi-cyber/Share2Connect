@@ -146,8 +146,12 @@ val view=inflater.inflate(R.layout.fragment_main, container, false)
             changeFragment(ChooseCategoryFragment())
         }
 
-        adapter.setOnItemClickListener { item, view -> var pos= item.getPosition(item)
-        changeFragment(DetailFragment(baseModel!!.announcements!!.get(pos).category.toString(),baseModel!!.announcements!!.get(pos).postId.toString()))
+        adapter.setOnItemClickListener { item, view ->
+
+
+
+
+      changeFragment(DetailFragment(item.model as BaseComponent))
 
         }
 

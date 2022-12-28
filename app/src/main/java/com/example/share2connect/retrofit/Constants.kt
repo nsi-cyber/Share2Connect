@@ -7,9 +7,15 @@ object Constants {
     const val LOGIN_URL = "api/login"
     const val SIGNUP_URL = "api/register"
     const val GET_DATA_ALL = "api/announcements/all "
+
     const val GET_POST = "api/ilanlar/"
     const val NEW_POST = "api/announcements/new"
-    const val GET_USER = "api/announcements/new"
+
+    const val GET_USER = "api/users/get-user/"
+    const val GET_USER_POSTS = "/api/announcements/user/"
+
+
+
 
     // const val POSTS_URL = "posts"
 

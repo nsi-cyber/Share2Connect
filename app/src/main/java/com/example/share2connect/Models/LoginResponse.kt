@@ -11,7 +11,7 @@ data class LoginResponse (
         var message: String,
 
         @SerializedName("token")
-        var token: String ,
+        var token: String?=null,
 
         @SerializedName("user")
         var user: UserModel

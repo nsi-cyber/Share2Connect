@@ -82,7 +82,7 @@ sessionManager.clearAll()
 
                     if (loginResponse?.status == 200 && loginResponse.user != null) {
 
-                        sessionManager.saveAuthToken(loginResponse.token)
+                        loginResponse.token?.let { it1 -> sessionManager.saveAuthToken(it1) }
                         intentLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
 
                         //Todo save to sharedpreferences name

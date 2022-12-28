@@ -12,6 +12,7 @@ import com.ace1ofspades.recyclerview.viewHolders.ViewHolder
 import com.example.share2connect.Components.LeaderboardCard
 import com.example.share2connect.Models.BaseModel
 import com.example.share2connect.Models.LeaderModel
+import com.example.share2connect.Models.UserModel
 import com.example.share2connect.R
 import com.example.share2connect.Utils.AdvertEnum
 import com.example.share2connect.Utils.Helper
@@ -81,7 +82,7 @@ lateinit var baseModel:ArrayList<LeaderModel>
             println(isn)
              println(baseModel[isn].id)
 
-                activity?.let { Helper.changeFragment(UserProfileFragment(), it.supportFragmentManager) }
+                activity?.let { Helper.changeFragment(UserProfileFragment(UserModel()), it.supportFragmentManager) }
             }
 
 

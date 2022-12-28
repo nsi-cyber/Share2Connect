@@ -4,29 +4,29 @@ import com.google.gson.annotations.SerializedName
 
 data class UserModel (
     @SerializedName("userId")
-    var id: Int,
+    var id: Int?=null,
 
     @SerializedName("userNameText")
-    var fullName: String,
+    var fullName: String?=null,
 
     @SerializedName("Image")
-    var Image: ByteArray,
+    var Image: ByteArray?=null,
 
     @SerializedName("userMail")
-    var email: String,
+    var email: String?=null,
     @SerializedName("userGender")
-    var gender: String,
+    var gender: String?=null,
 
     @SerializedName("userPassword")
-    var password: String,
+    var password: String?=null,
 
     @SerializedName("userBio")
-    var about: String,
+    var about: String?=null,
 
     @SerializedName("userPhoneNumber")
-    var phone: String,
+    var phone: String?=null,
 
     @SerializedName("userDepartment")
-    var department: String
+    var department: String?=null
 
 )

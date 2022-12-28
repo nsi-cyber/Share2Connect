@@ -2,6 +2,7 @@ package com.example.share2connect.Utils
 
 import android.app.Activity
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
@@ -12,6 +13,9 @@ import java.io.ByteArrayOutputStream
 class Helper
 {
     companion object {
+        fun toBitmap(data:ByteArray): Bitmap {
+            return BitmapFactory.decodeByteArray(data, 0, data.size)
+        }
     fun imageToBitmap(image: ImageView): ByteArray {
         val bitmap = (image.drawable as BitmapDrawable).bitmap
         val stream = ByteArrayOutputStream()
