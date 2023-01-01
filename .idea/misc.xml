@@ -31,6 +31,7 @@
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.3936775060651754" />
         <entry key="app/src/main/res/layout/card_004.xml" value="0.3302083333333333" />
         <entry key="app/src/main/res/layout/card_e001.xml" value="0.5410659702041432" />
+        <entry key="app/src/main/res/layout/card_e001_edit.xml" value="0.47753295898437503" />
         <entry key="app/src/main/res/layout/card_e001f.xml" value="0.35332411869439434" />
         <entry key="app/src/main/res/layout/card_e002.xml" value="0.4649154663085938" />
         <entry key="app/src/main/res/layout/card_e002f.xml" value="0.18819655521783182" />
@@ -55,6 +56,7 @@
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.3115942028985507" />
         <entry key="app/src/main/res/layout/fragment_choose_category.xml" value="0.37258961995442713" />
         <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.4508405676932602" />
+        <entry key="app/src/main/res/layout/fragment_edit_ad.xml" value="0.215625" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.3115942028985507" />
         <entry key="app/src/main/res/layout/fragment_joined.xml" value="0.1887031408308004" />
         <entry key="app/src/main/res/layout/fragment_leaderboard.xml" value="0.2602165560600768" />
