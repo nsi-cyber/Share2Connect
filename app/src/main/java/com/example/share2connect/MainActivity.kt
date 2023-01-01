@@ -2,17 +2,14 @@ package com.example.share2connect
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.media.Image
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.share2connect.Fragments.ChooseCategoryFragment
@@ -43,6 +40,9 @@ class MainActivity : AppCompatActivity() {
         navView = findViewById(R.id.navView)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
+
+
+
         toggle =
             ActionBarDrawerToggle(this@MainActivity, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -70,32 +70,23 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.firstItem -> {
                     bottomNavigationView.selectedItemId = R.id.profile
                     drawerLayout.close()
                     changeFragment(ProfileFragment())
-                    Toast.makeText(this@MainActivity, "First Item Clicked", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@MainActivity, "Profil", Toast.LENGTH_SHORT)
                         .show()
                 }
-                R.id.secondtItem -> {
-                    drawerLayout.close()
-                    Toast.makeText(this@MainActivity, "Second Item Clicked", Toast.LENGTH_SHORT)
-                        .show()
-                }
+
                 R.id.thirdItem -> {
                     changeFragment(ChooseCategoryFragment())
                     bottomNavigationView.selectedItemId = R.id.home
 
                     drawerLayout.close()
 
-                    Toast.makeText(this@MainActivity, "third Item Clicked", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@MainActivity, "İlan Paylaş", Toast.LENGTH_SHORT)
                         .show()
                 }
                 R.id.fourthItem -> {
@@ -106,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                         .setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
                     startActivity(intent)
                     finish()
-                    Toast.makeText(this@MainActivity, "third Item Clicked", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@MainActivity, "Çıkış Yapıldı", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
@@ -117,6 +108,19 @@ class MainActivity : AppCompatActivity() {
         // Eger başlangıcta fragment cagırmak istersek cagırmak istenilen fragmenti asagıda ki satırda cagırabiliriz
         changeFragment(MainFragment())
 
+        val navigationView: NavigationView = findViewById(R.id.navView)
+        val headerView: View = navigationView.getHeaderView(0)
+        val navUserImage: ImageView = headerView.findViewById(R.id.navImage)
+        val navUserName: TextView = headerView.findViewById(R.id.navUserName)
+        val navUserDepartment: TextView = headerView.findViewById(R.id.navUserDepartment)
+        navUserName.text = SessionManager(this).getUserObject()?.fullName ?: "UserName"
+        navUserDepartment.text = SessionManager(this).getUserObject()?.department ?: "Department"
+
+        navUserImage.setImageBitmap(SessionManager(this).getUserObject()?.userImage?.let {
+            Helper.toBitmap(
+                it
+            )
+        })
 
     }
 

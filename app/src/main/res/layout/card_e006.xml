@@ -102,6 +102,7 @@
                     android:layout_gravity="bottom"
                     android:layout_weight="0"
                     android:backgroundTint="#434343"
+                    android:clickable="false"
                     android:drawableRight="@drawable/ic_tick"
                     android:drawableTint="#FFFFFF"
                     android:text="göster" />

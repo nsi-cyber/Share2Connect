@@ -4,9 +4,6 @@
         android:id="@+id/firstItem"
         android:title="Profile" />
     <item
-        android:id="@+id/secondtItem"
-        android:title="Change Password" />
-    <item
         android:id="@+id/thirdItem"
         android:title="Share a post" />
     <item

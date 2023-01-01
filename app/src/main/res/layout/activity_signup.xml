@@ -150,11 +150,11 @@
                         android:inputType="textPersonName" />
 
                     <ImageView
-                        android:id="@+id/imageView5"
+                        android:id="@+id/passShow"
                         android:layout_width="30dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0"
-                        app:srcCompat="@drawable/ic_eye" />
+                        app:srcCompat="@drawable/ic_hide" />
 
                 </LinearLayout>
 
@@ -172,12 +172,7 @@
                         android:hint="Tekrar Şifre"
                         android:inputType="textPersonName" />
 
-                    <ImageView
-                        android:id="@+id/imageView6"
-                        android:layout_width="30dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0"
-                        app:srcCompat="@drawable/ic_eye" />
+
 
                 </LinearLayout>
 

@@ -60,10 +60,10 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:hint="Şifre"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPassword" />
 
                     <ImageView
-                        android:id="@+id/imageView5"
+                        android:id="@+id/passShow"
                         android:layout_width="30dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0"

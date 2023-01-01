@@ -9,8 +9,8 @@ data class UserModel (
     @SerializedName("userNameText")
     var fullName: String?=null,
 
-    @SerializedName("Image")
-    var Image: ByteArray?=null,
+    @SerializedName("userImage")
+    var userImage: ByteArray?=null,
 
     @SerializedName("userMail")
     var email: String?=null,

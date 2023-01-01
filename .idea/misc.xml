@@ -6,14 +6,18 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.10731414868105515" />
         <entry key="app/src/main/res/drawable/ic_attend.xml" value="0.349" />
         <entry key="app/src/main/res/drawable/ic_booked.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_cat.xml" value="0.189" />
         <entry key="app/src/main/res/drawable/ic_club_activities.xml" value="0.303" />
         <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.349" />
         <entry key="app/src/main/res/drawable/ic_eye.xml" value="0.303" />
+        <entry key="app/src/main/res/drawable/ic_female.xml" value="0.189" />
         <entry key="app/src/main/res/drawable/ic_group_activities.xml" value="0.303" />
+        <entry key="app/src/main/res/drawable/ic_hide.xml" value="0.2215" />
         <entry key="app/src/main/res/drawable/ic_home.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_home_activities.xml" value="0.303" />
         <entry key="app/src/main/res/drawable/ic_leaderboard.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_library.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_male.xml" value="0.189" />
         <entry key="app/src/main/res/drawable/ic_party_activities.xml" value="0.303" />
         <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_road_activities.xml" value="0.303" />

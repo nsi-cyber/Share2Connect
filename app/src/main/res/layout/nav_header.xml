@@ -23,7 +23,7 @@
                 app:cardCornerRadius="99dp">
 
                 <ImageView
-                    android:id="@+id/imageView222"
+                    android:id="@+id/navImage"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     tools:srcCompat="@tools:sample/avatars" />
@@ -37,7 +37,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView13222"
+                    android:id="@+id/navUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -46,7 +46,7 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/textView12221"
+                    android:id="@+id/navUserDepartment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"

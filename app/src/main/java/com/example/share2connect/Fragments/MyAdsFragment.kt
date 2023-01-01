@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ace1ofspades.recyclerview.GroupAdapter
 import com.ace1ofspades.recyclerview.viewHolders.ViewHolder
+import com.example.share2connect.Models.AnnouncementsResponse
 import com.example.share2connect.Models.BaseModel
 import com.example.share2connect.R
 import com.example.share2connect.Utils.AdvertEnum
@@ -16,6 +17,9 @@ import com.example.share2connect.retrofit.ApiClient
 import com.example.share2connect.retrofit.SessionManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,17 +49,7 @@ class MyAdsFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-    }
-    fun getData() {
-        var data = ""
-        data = context?.assets?.open("sampleData.json")?.bufferedReader().use {
-            it?.readText() ?: ""
-        }
-        baseModel = Gson().fromJson<BaseModel>(data, object : TypeToken<BaseModel>() {}.type)
-        initializeData()
-    }
-
-    fun initializeData() {
+    }fun initializeData() {
 
         baseModel?.announcements?.let { componentModels ->
             adapter.clear()
@@ -68,6 +62,33 @@ class MyAdsFragment : Fragment() {
                 row.fragment = this
                 adapter.add(row)
             }}}
+    fun getDataApi(userId: Int) {
+
+        apiClient?.getApiService()
+            ?.getUserPosts(userId)
+            ?.enqueue(object : Callback<AnnouncementsResponse> {
+
+                override fun onFailure(call: Call<AnnouncementsResponse>, t: Throwable) {
+                    println("error= "+ t )
+                }
+
+                override fun onResponse(
+                    call: Call<AnnouncementsResponse>,
+                    response: Response<AnnouncementsResponse>
+                ) {
+                    if (response.code() == 200) {
+
+                        baseModel=BaseModel(announcements = response.body()!!.data)
+
+                        initializeData()
+                    } else {
+                        // Error logging in
+                    }
+                }
+
+            })
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -78,7 +99,7 @@ class MyAdsFragment : Fragment() {
 
         recyclerView.layoutManager= GridLayoutManager(context, 1)
         recyclerView.adapter=adapter
-        getData()
+        sessionManager.getUserObject()?.id?.let { getDataApi(it) }
 
 
 

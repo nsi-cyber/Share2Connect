@@ -93,8 +93,8 @@ class UserProfileFragment(var user:UserModel) : Fragment() {
             userDepartment.text = user.department
             userMail.text = user.email
             userPhone.text = user.phone
-            if(user.Image!=null){
-            val bmp = BitmapFactory.decodeByteArray(user.Image, 0, user.Image!!.size)
+            if(user.userImage!=null){
+            val bmp = BitmapFactory.decodeByteArray(user.userImage, 0, user.userImage!!.size)
             userImage.setImageBitmap(
                 Bitmap.createScaledBitmap(
                     bmp,
@@ -105,7 +105,7 @@ class UserProfileFragment(var user:UserModel) : Fragment() {
             )}
         }
 
-        userAdverts.setOnClickListener { activity?.let { it1 -> Helper.changeFragment(UserAdsFragment(user.id),
+        userAdverts.setOnClickListener { activity?.let { it1 -> Helper.changeFragment(UserAdsFragment(user.id,user.fullName),
 
 
             it1.supportFragmentManager) } }

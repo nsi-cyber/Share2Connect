@@ -92,9 +92,10 @@ userObject=sessionManager.getUserObject()!!
             userDepartment.text = userObject.department
             userMail.text = userObject.email
             userPhone.text = userObject.phone
-            if(userObject.Image!=null){
 
-            val bmp = BitmapFactory.decodeByteArray(userObject.Image, 0, userObject.Image!!.size)
+            if(userObject.userImage!=null){
+
+            val bmp = BitmapFactory.decodeByteArray(userObject.userImage, 0, userObject.userImage!!.size)
             userImage.setImageBitmap(
                 Bitmap.createScaledBitmap(
                     bmp,

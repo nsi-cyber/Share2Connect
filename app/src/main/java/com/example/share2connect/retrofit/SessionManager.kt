@@ -17,8 +17,16 @@ class SessionManager(context: Context) {
         const val USER_TOKEN = "token"
         const val USER_OBJECT = "userObject"
         const val USERNAME = "userName"
+        const val USERMAIL = "userMail"
     }
-fun clearAll(){prefs.edit().clear().apply()}
+fun clearAll(){
+    var st=getUserMail()
+    prefs.edit().clear().apply()
+
+    if (st != null) {
+        saveUserMail(st)
+    }
+}
     /**
      * Function to save auth token
      */
@@ -34,6 +42,14 @@ fun clearAll(){prefs.edit().clear().apply()}
     fun saveUsername(username: String) {
         val editor = prefs.edit()
         editor.putString(USERNAME, username)
+        editor.apply()
+    }
+    /**
+     * Function to save username
+     */
+    fun saveUserMail(usermail: String) {
+        val editor = prefs.edit()
+        editor.putString(USERMAIL, usermail)
         editor.apply()
     }
 
@@ -61,6 +77,12 @@ fun clearAll(){prefs.edit().clear().apply()}
      */
     fun getUsername(): String? {
         return prefs.getString(USERNAME, null)
+    }
+    /**
+     * Function to get user mail
+     */
+    fun getUserMail(): String? {
+        return prefs.getString(USERMAIL, null)
     }
 
     /**

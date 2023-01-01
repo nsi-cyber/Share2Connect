@@ -66,6 +66,7 @@ class DetailFragment(var baseComponent: BaseComponent) : Fragment() {
 
     fun makeViewsGone(vararg views: View) {
         views.forEach { view -> view.visibility = View.GONE }
+
     }
 
     fun makeViewsVisible(vararg views: View) {
@@ -245,7 +246,10 @@ println("error"+ t.toString())                }
 
 
 
-
+if(baseComponent.data?.adImage ==null)
+{
+    adImage.visibility=View.GONE
+}
 
 
         return view

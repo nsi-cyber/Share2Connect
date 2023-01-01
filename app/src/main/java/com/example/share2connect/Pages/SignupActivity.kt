@@ -1,17 +1,20 @@
 package com.example.share2connect.Pages
 
+import android.app.ProgressDialog
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.InputType
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.share2connect.Models.SignupReq
 import com.example.share2connect.Models.SignupResponse
 import com.example.share2connect.R
+import com.example.share2connect.Utils.Helper.Companion.imageToBitmap
 import com.example.share2connect.retrofit.ApiClient
 import com.example.share2connect.retrofit.SessionManager
 import com.google.android.gms.security.ProviderInstaller
@@ -19,52 +22,48 @@ import com.google.android.material.card.MaterialCardView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.ByteArrayOutputStream
 
 class SignupActivity : AppCompatActivity() {
-    companion object {
-        val IMAGE_REQUEST_CODE = 1_000
-    }
+
+
     private var imageUri: Uri? = null
 
-    var genderText = ""
-    var imageHas=false
-    lateinit var radioGroup: RadioGroup
-    lateinit var changePhoto: CardView
-    lateinit var passConfCard: MaterialCardView
-    lateinit var passCard: MaterialCardView
-    lateinit var mailCard: MaterialCardView
-    lateinit var signupButton: TextView
-    lateinit var editBio: EditText
-    lateinit var editTextPhone: EditText
-    lateinit var editFaculty: EditText
-    lateinit var editPassConf: EditText
-    lateinit var editPass: EditText
-    lateinit var editMail: EditText
-    lateinit var editName: EditText
-    lateinit var photo: ImageView
-
+    private var genderText = ""
+    private var isShowing = true
+    private var imageHas = false
+    private lateinit var radioGroup: RadioGroup
+    private lateinit var changePhoto: CardView
+    private lateinit var signupButton: TextView
+    private lateinit var editBio: EditText
+    private lateinit var editTextPhone: EditText
+    private lateinit var editFaculty: EditText
+    private lateinit var editPassConf: EditText
+    private lateinit var editPass: EditText
+    private lateinit var editMail: EditText
+    private lateinit var editName: EditText
+    private lateinit var photo: ImageView
+    private lateinit var passShow: ImageView
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
-        ProviderInstaller.installIfNeeded(this);
+        ProviderInstaller.installIfNeeded(this)
 
-        photo = findViewById<ImageView>(R.id.picture)
-        editMail = findViewById<EditText>(R.id.editMail)
-        editName = findViewById<EditText>(R.id.editName)
-        editPass = findViewById<EditText>(R.id.editPass)
-        editFaculty = findViewById<EditText>(R.id.editFaculty)
-        editBio = findViewById<EditText>(R.id.editBio)
-        editPassConf = findViewById<EditText>(R.id.editPassConf)
-        signupButton = findViewById<TextView>(R.id.buttonSignup)
-        editTextPhone = findViewById<EditText>(R.id.editTextPhone)
+        photo = findViewById(R.id.picture)
+        passShow = findViewById(R.id.passShow)
+        editMail = findViewById(R.id.editMail)
+        editName = findViewById(R.id.editName)
+        editPass = findViewById(R.id.editPass)
+        editFaculty = findViewById(R.id.editFaculty)
+        editBio = findViewById(R.id.editBio)
+        editPassConf = findViewById(R.id.editPassConf)
+        signupButton = findViewById(R.id.buttonSignup)
+        editTextPhone = findViewById(R.id.editTextPhone)
 
-        changePhoto = findViewById<CardView>(R.id.changeCard)
-        radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
-
+        changePhoto = findViewById(R.id.changeCard)
+        radioGroup = findViewById(R.id.radioGroup)
 
         apiClient = ApiClient(this)
         sessionManager = SessionManager(this)
@@ -73,108 +72,147 @@ class SignupActivity : AppCompatActivity() {
             pickImageFromGallery()
         }
 
-        radioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { radioGroup, i ->
-            var radioButton = findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
-            genderText = radioButton.text.toString()
-        })
-        var intent = Intent(this, LoginActivity::class.java)
+        passShow.setOnClickListener {
+            if(!isShowing)
+            {
+                isShowing=true
+                passShow.setImageResource(R.drawable.ic_hide)
+                editPass.inputType=InputType.TYPE_CLASS_TEXT
+                editPassConf.inputType=InputType.TYPE_CLASS_TEXT
 
-        signupButton.setOnClickListener {
-            //if api connected
-         if (1==1) {
-
-             if (checkEmpty()) {
-if(imageHas){
-    apiClient.getApiService().singup(
-    SignupReq(userMail = editMail.text.toString(),
-        userPassword = editPass.text.toString(),
-        userGender = genderText,
-        userNameText = editName.text.toString(),
-        userDepartment = editFaculty.text.toString(),
-        userPhoneNumber = editTextPhone.text.toString(),
-        userImage = imageToBitmap(photo),
-        userBio = editBio.text.toString()
-    )
-)}
-                 else{      apiClient.getApiService().singup(
-    SignupReq(userMail = editMail.text.toString(),
-        userPassword = editPass.text.toString(),
-        userGender = genderText,
-        userNameText = editName.text.toString(),
-        userDepartment = editFaculty.text.toString(),
-        userPhoneNumber = editTextPhone.text.toString(),
-        userBio = editBio.text.toString()
-    )
-)}
-
-
-                     .enqueue(object : Callback<SignupResponse> {
-
-                         override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
-                                    println(t.toString())
-                         }
-
-                         override fun onResponse(
-                             call: Call<SignupResponse>,
-                             response: Response<SignupResponse>
-                         ) {
-                             val signupResponse = response.body()
-                             if (signupResponse?.status == 200) {
-                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-                                 startActivity(intent)
-                                 finish()
-                             } else {
-                                 // Error logging in
-                             }
-                         }
-                     })
-
-             } else
-                 Toast.makeText(this, "Please fill all spaces correctly !", Toast.LENGTH_SHORT)
-                     .show()
-         } else
-             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-
-            startActivity(intent)
-            finish()
-
-
-
-
+            }
+            else {
+                isShowing=false
+                passShow.setImageResource(R.drawable.ic_eye)
+                editPass.inputType=InputType.TYPE_TEXT_VARIATION_PASSWORD
+                editPassConf.inputType= InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
 
         }
 
+        radioGroup.setOnCheckedChangeListener { _, i ->
+            val radioButton = findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
+            genderText = radioButton.text.toString()
+            if (!imageHas) {
+                when (genderText) {
+                    "Erkek" -> photo.setImageResource(R.drawable.ic_male)
+                    "Kadın" -> photo.setImageResource(R.drawable.ic_female)
+                    "Cevaplamıyorum" -> photo.setImageResource(R.drawable.ic_cat)
+                }
+            }
+        }
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).flags = Intent.FLAG_ACTIVITY_NO_HISTORY
 
-    }
+        signupButton.setOnClickListener {
+            val name = editName.text.toString().trim()
+            val mail = editMail.text.toString().trim()
+            val pass = editPass.text.toString().trim()
+            val passConf = editPassConf.text.toString().trim()
+            val faculty = editFaculty.text.toString().trim()
+            val phone = editTextPhone.text.toString().trim()
+            val bio = editBio.text.toString().trim()
 
-    private fun imageToBitmap(image: ImageView): ByteArray {
-        val bitmap = (image.drawable as BitmapDrawable).bitmap
-        val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream)
+            if (name.isEmpty()) {
+                editName.error = "Bu alan boş bırakılamaz"
+                editName.requestFocus()
+                return@setOnClickListener
+            }
 
-        return stream.toByteArray()
-    }
-    private fun checkEmpty(): Boolean {
-        return (editPass.text.toString().equals(editPassConf.text.toString()))
-                && (editName.text.length > 1)
-                && (editPassConf.text.length > 1)
-                && (editPass.text.length > 1)
-                && (editMail.text.length > 1)
-                && (genderText.length > 1)
-                && (editBio.text.length > 1)
-                && (editFaculty.text.length > 1)
+            if (mail.isEmpty()) {
+                editMail.error = "Bu alan boş bırakılamaz"
+                editMail.requestFocus()
+                return@setOnClickListener
+            }
 
+            if (pass.isEmpty()) {
+                editPass.error = "Bu alan boş bırakılamaz"
+                editPass.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (passConf.isEmpty()) {
+                editPassConf.error = "Bu alan boş bırakılamaz"
+                editPassConf.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (faculty.isEmpty()) {
+                editFaculty.error = "Bu alan boş bırakılamaz"
+                editFaculty.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (phone.isEmpty()) {
+                editTextPhone.error = "Bu alan boş bırakılamaz"
+                editTextPhone.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (bio.isEmpty()) {
+                editBio.error = "Bu alan boş bırakılamaz"
+                editBio.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (pass != passConf) {
+                editPassConf.error = "Şifreler uyuşmuyor"
+                editPassConf.requestFocus()
+                return@setOnClickListener
+            }
+            val mProgressDialog = ProgressDialog(this)
+            mProgressDialog.setTitle("Kayıt Olunuyor")
+            mProgressDialog.setMessage("Lütfen Bekleyiniz")
+            mProgressDialog.show()
+            val signupReq = SignupReq(userNameText = name, userMail =  mail, userPassword = pass, userDepartment = faculty, userPhoneNumber = phone, userBio = bio, userImage =  imageToBitmap(photo), userGender = genderText)
+            val call = apiClient.getApiService().singup(signupReq)
+            call.enqueue(object : Callback<SignupResponse> {
+                override fun onResponse(
+                    call: Call<SignupResponse>,
+                    response: Response<SignupResponse>
+                ) {
+                    if (response.isSuccessful) {
+
+                        val signupResponse = response.body()
+                        println("signup Response: " + signupResponse.toString())
+                        if (response.code() == 200) {
+                            Toast.makeText(this@SignupActivity, "Kayıt Başarılı", Toast.LENGTH_LONG)
+                                .show()
+
+                            startActivity(intent)
+                            mProgressDialog.hide()
+
+                            finish()
+                        }
+                        mProgressDialog.hide()
+
+
+
+                    }
+                }
+
+                override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
+                    Toast.makeText(this@SignupActivity, t.message, Toast.LENGTH_LONG).show()
+                    mProgressDialog.hide()
+
+                }
+            })
+        }
     }
 
     private fun pickImageFromGallery() {
-        val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-        startActivityForResult(gallery, 100)
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, 1000)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == 100){
+        if (resultCode == RESULT_OK && requestCode == 1000) {
             imageUri = data?.data
-            photo.setImageURI(imageUri)
+            imageHas = true
+            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+            photo.setImageBitmap(bitmap)
         }
-    }}
+    }
+}
