@@ -1,5 +1,7 @@
 package com.example.share2connect.Fragments
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -7,13 +9,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.share2connect.Models.AdvertDataModel
 import com.example.share2connect.Models.AdvertResponse
+import com.example.share2connect.Models.BaseComponent
 import com.example.share2connect.Pages.MainFragment
 import com.example.share2connect.R
 import com.example.share2connect.Utils.Helper
@@ -37,10 +37,14 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AdvertFragment003.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AdvertFragment003 : Fragment() {
+class AdvertFragment003(var isUpdate:Boolean?=false,var model: BaseComponent?=null) : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    var cal = Calendar.getInstance()
+    private var date: String = "12"
+    var gpsCoordinate: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,7 +92,9 @@ class AdvertFragment003 : Fragment() {
 
         return stream.toByteArray()
     }
-    fun post(){
+    fun post(bool:Boolean) {
+        if(date!="12")
+            date=selectDate.text.toString()+selectTime.text.toString()
 
         changeFragment(
             AdvertShareFragment(
@@ -98,12 +104,13 @@ class AdvertFragment003 : Fragment() {
                 adSeatText = advertSeat.text.toString(),
               //  publishDate = phoneDate(),
                 adDescText = advertDesc.text.toString(),
-                adDateText = "12",
-                adImage = imageToBitmap(descImage),
+                adDateText = date,
+                    adPlaceGPS = gpsCoordinate,
+               // adImage = imageToBitmap(descImage),
                 adRouteEndText = placeLastName.text.toString(),
                 adRouteStartText = placeFirstName.text.toString(),
                 adPriceText = advertFee.text.toString(),
-            ),"E003"
+            ),"E003",bool
         ),requireActivity().supportFragmentManager)
 
 
@@ -120,6 +127,13 @@ class AdvertFragment003 : Fragment() {
 
         var view=inflater.inflate(R.layout.fragment_advert003, container, false)
         with(view){
+
+
+            var lay=findViewById<LinearLayout>(R.id.linearLayout3)
+
+            if (isUpdate==true)
+                lay.visibility=View.GONE
+
             advertName=findViewById(R.id.editTextTitle)
             advertSeat=findViewById(R.id.editTextSeat)
             advertDesc=findViewById(R.id.editTextDesc)
@@ -132,8 +146,53 @@ class AdvertFragment003 : Fragment() {
             advertFee=findViewById(R.id.editTextFee)
             inspect=findViewById(R.id.button)
         }
-        inspect.setOnClickListener { post() }
 
+
+        val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
+                                   dayOfMonth: Int) {
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                val myFormat = "MM/dd/yyyy" // mention the format you need
+                val sdf = SimpleDateFormat(myFormat, Locale.US)
+                selectDate!!.text = sdf.format(cal.getTime())
+            }
+        }
+
+        val mTimePicker: TimePickerDialog
+        val mcurrentTime = Calendar.getInstance()
+        val hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
+        val minute = mcurrentTime.get(Calendar.MINUTE)
+
+        mTimePicker = TimePickerDialog(requireContext(), object : TimePickerDialog.OnTimeSetListener {
+            override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                selectTime.setText(String.format("%d : %d", hourOfDay, minute))
+            }
+        }, hour, minute, true)
+
+        selectTime.setOnClickListener({ v ->
+            mTimePicker.show()
+        })
+
+        selectDate.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View) {
+                DatePickerDialog(requireContext(),
+                    dateSetListener,
+                    // set DatePickerDialog to point to today's date when it loads up
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH)).show()
+            }
+
+        })
+
+        if(isUpdate == true)
+            fillUpdate()
+
+        inspect.setOnClickListener {
+            isUpdate?.let { it1 -> post(it1) }
+        }
         returnFirst=view.findViewById(R.id.button1)
         returnFirst.setOnClickListener { activity?.let {
             Helper.changeFragment(
@@ -148,6 +207,19 @@ class AdvertFragment003 : Fragment() {
 
 
         return view    }
+    fun fillUpdate() {
+
+        advertName.setText(model?.data?.adNameText)
+        advertDesc.setText(model?.data?.adDescText)
+        advertSeat.setText(model?.data?.adSeatText)
+        placeFirstName.setText(model?.data?.adRouteStartText)
+        placeLastName.setText(model?.data?.adRouteEndText)
+        date = model?.data?.adDateText.toString()
+        gpsCoordinate = model?.data?.adPlaceGPS.toString()
+        advertFee.setText(model?.data?.adPriceText)
+        descImage.setImageBitmap(model?.data?.adImage?.let { Helper.toBitmap(it) })
+
+    }
 
     companion object {
         /**

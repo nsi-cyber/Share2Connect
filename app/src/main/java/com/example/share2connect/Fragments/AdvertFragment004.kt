@@ -1,5 +1,7 @@
 package com.example.share2connect.Fragments
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -7,13 +9,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.share2connect.Models.AdvertDataModel
 import com.example.share2connect.Models.AdvertResponse
+import com.example.share2connect.Models.BaseComponent
 import com.example.share2connect.Pages.MainFragment
 import com.example.share2connect.R
 import com.example.share2connect.Utils.Helper
@@ -37,7 +37,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AdvertFragment004.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AdvertFragment004 : Fragment() {
+class AdvertFragment004(var isUpdate:Boolean?=false,var model: BaseComponent?=null) : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -61,6 +61,22 @@ class AdvertFragment004 : Fragment() {
     lateinit var advertFee: EditText
     lateinit var inspect: Button
     lateinit var returnFirst: Button
+
+    var cal = Calendar.getInstance()
+    private var date: String = "12"
+    var gpsCoordinate: String = ""
+
+    fun fillUpdate() {
+
+        advertName.setText(model?.data?.adNameText)
+        advertDesc.setText(model?.data?.adDescText)
+        placeName.setText(model?.data?.adPlaceText)
+        gpsCoordinate = model?.data?.adPlaceGPS.toString()
+        advertFee.setText(model?.data?.adPriceText)
+        descImage.setImageBitmap(model?.data?.adImage?.let { Helper.toBitmap(it) })
+
+    }
+
     fun phoneDate(): String {
         return  SimpleDateFormat("dd.MM.yyyy  h:mm a").format(Calendar.getInstance().getTime())
 
@@ -72,7 +88,9 @@ class AdvertFragment004 : Fragment() {
 
         return stream.toByteArray()
     }
-    fun post(){
+
+    fun post(bool:Boolean) {
+
 
         changeFragment(
             AdvertShareFragment(
@@ -82,10 +100,10 @@ class AdvertFragment004 : Fragment() {
               //  publishDate = phoneDate(),
 
                 adDescText = advertDesc.text.toString(),
-                adImage = imageToBitmap(descImage),
+               // adImage = imageToBitmap(descImage),
                 adPlaceText = placeName.text.toString(),
                 adPriceText = advertFee.text.toString(),
-            ),"E004"
+            ),"E004",bool
         ),requireActivity().supportFragmentManager)
 
 
@@ -99,6 +117,15 @@ class AdvertFragment004 : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_advert004, container, false)
         with(view){
+
+
+
+
+            var lay=findViewById<LinearLayout>(R.id.linearLayout3)
+
+            if (isUpdate==true)
+                lay.visibility=View.GONE
+
             advertName=findViewById(R.id.editTextTitle)
             advertDesc=findViewById(R.id.editTextDesc)
             descImage=findViewById(R.id.imageViewDesc)
@@ -108,8 +135,15 @@ class AdvertFragment004 : Fragment() {
             advertFee=findViewById(R.id.editTextFee)
             inspect=findViewById(R.id.button)
         }
-        inspect.setOnClickListener { post() }
 
+
+
+        if(isUpdate == true)
+            fillUpdate()
+
+        inspect.setOnClickListener {
+            isUpdate?.let { it1 -> post(it1) }
+        }
         returnFirst = view.findViewById(R.id.button1)
         returnFirst.setOnClickListener {
             activity?.let {

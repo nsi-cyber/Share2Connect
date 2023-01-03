@@ -95,7 +95,7 @@ userObject=sessionManager.getUserObject()!!
 
             if(userObject.userImage!=null){
 
-            val bmp = BitmapFactory.decodeByteArray(userObject.userImage, 0, userObject.userImage!!.size)
+            val bmp = BitmapFactory.decodeByteArray(userObject.userImage!!.toByteArray(), 0, userObject.userImage!!.size)
             userImage.setImageBitmap(
                 Bitmap.createScaledBitmap(
                     bmp,

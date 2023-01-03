@@ -45,6 +45,7 @@
         <entry key="app/src/main/res/layout/card_e006f.xml" value="0.18819655521783182" />
         <entry key="app/src/main/res/layout/component_categories.xml" value="0.34103260869565216" />
         <entry key="app/src/main/res/layout/content_login.xml" value="0.3115942028985507" />
+        <entry key="app/src/main/res/layout/edit_card.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/fragment_advert001.xml" value="0.2866847826086957" />
         <entry key="app/src/main/res/layout/fragment_advert002.xml" value="0.18292682926829268" />
         <entry key="app/src/main/res/layout/fragment_advert003.xml" value="0.3259412383765787" />
@@ -57,6 +58,7 @@
         <entry key="app/src/main/res/layout/fragment_choose_category.xml" value="0.37258961995442713" />
         <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.4508405676932602" />
         <entry key="app/src/main/res/layout/fragment_edit_ad.xml" value="0.215625" />
+        <entry key="app/src/main/res/layout/fragment_edit_ad_detail.xml" value="0.215625" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.3115942028985507" />
         <entry key="app/src/main/res/layout/fragment_joined.xml" value="0.1887031408308004" />
         <entry key="app/src/main/res/layout/fragment_leaderboard.xml" value="0.2602165560600768" />
@@ -64,7 +66,7 @@
         <entry key="app/src/main/res/layout/fragment_my_ads.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_my_profile.xml" value="0.3632246376811594" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.32558139534883723" />
-        <entry key="app/src/main/res/layout/fragment_profile_edit.xml" value="0.34103260869565216" />
+        <entry key="app/src/main/res/layout/fragment_profile_edit.xml" value="0.3101104736328125" />
         <entry key="app/src/main/res/layout/fragment_user_ads.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.307909604519774" />
         <entry key="app/src/main/res/layout/leader_card.xml" value="0.18819655521783182" />

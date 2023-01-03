@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.share2connect.Models.BaseComponent
 import com.example.share2connect.R
+import com.example.share2connect.Utils.Helper
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,7 +19,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ParticipiantsEditFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ParticipiantsEditFragment : Fragment() {
+class ParticipiantsEditFragment(var model: BaseComponent?=null) : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -34,8 +36,9 @@ class ParticipiantsEditFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_participiants_edit, container, false)
+val view=  inflater.inflate(R.layout.fragment_participiants_edit, container, false)
+
+        return view
     }
 
     companion object {

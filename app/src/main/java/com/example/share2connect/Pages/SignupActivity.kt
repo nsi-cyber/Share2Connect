@@ -75,17 +75,17 @@ class SignupActivity : AppCompatActivity() {
         passShow.setOnClickListener {
             if(!isShowing)
             {
-                isShowing=true
+                isShowing=false
                 passShow.setImageResource(R.drawable.ic_hide)
-                editPass.inputType=InputType.TYPE_CLASS_TEXT
-                editPassConf.inputType=InputType.TYPE_CLASS_TEXT
+                editPass.inputType = InputType.TYPE_CLASS_TEXT
+                editPassConf.inputType = InputType.TYPE_CLASS_TEXT
 
             }
             else {
-                isShowing=false
+                isShowing=true
                 passShow.setImageResource(R.drawable.ic_eye)
-                editPass.inputType=InputType.TYPE_TEXT_VARIATION_PASSWORD
-                editPassConf.inputType= InputType.TYPE_TEXT_VARIATION_PASSWORD
+                editPass.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                editPassConf.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
             }
 
         }
@@ -164,7 +164,12 @@ class SignupActivity : AppCompatActivity() {
             mProgressDialog.setTitle("Kayıt Olunuyor")
             mProgressDialog.setMessage("Lütfen Bekleyiniz")
             mProgressDialog.show()
-            val signupReq = SignupReq(userNameText = name, userMail =  mail, userPassword = pass, userDepartment = faculty, userPhoneNumber = phone, userBio = bio, userImage =  imageToBitmap(photo), userGender = genderText)
+          var pht=imageToBitmap(photo)
+
+            val signupReq = SignupReq(userNameText = name, userMail =  mail, userPassword = pass, userDepartment = faculty, userPhoneNumber = phone, userBio = bio,
+                userImage =pht  ,
+                userGender = genderText)
+
             val call = apiClient.getApiService().singup(signupReq)
             call.enqueue(object : Callback<SignupResponse> {
                 override fun onResponse(
@@ -180,8 +185,7 @@ class SignupActivity : AppCompatActivity() {
                                 .show()
 
                             startActivity(intent)
-                            mProgressDialog.hide()
-
+                            mProgressDialog.dismiss()
                             finish()
                         }
                         mProgressDialog.hide()
@@ -192,8 +196,9 @@ class SignupActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
+
                     Toast.makeText(this@SignupActivity, t.message, Toast.LENGTH_LONG).show()
-                    mProgressDialog.hide()
+                    mProgressDialog.dismiss()
 
                 }
             })

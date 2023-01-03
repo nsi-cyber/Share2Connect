@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ace1ofspades.recyclerview.GroupAdapter
 import com.ace1ofspades.recyclerview.viewHolders.ViewHolder
+import com.example.share2connect.Components.EditCard
 import com.example.share2connect.Models.AnnouncementsResponse
 import com.example.share2connect.Models.BaseModel
 import com.example.share2connect.R
@@ -38,10 +39,7 @@ class MyAdsFragment : Fragment() {
 
     var adapter = GroupAdapter<ViewHolder>()
     var baseModel: BaseModel? = null
-    var searchList: BaseModel? = null
     lateinit var recyclerView: RecyclerView
-    private lateinit var sessionManager: SessionManager
-    private lateinit var apiClient: ApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,10 +59,17 @@ class MyAdsFragment : Fragment() {
                 println(i.data)
                 row.fragment = this
                 adapter.add(row)
+                val adOnComp = AdvertEnum.get(key = "addOn") ?: continue
+                val addOn = adOnComp.type.newInstance()
+                addOn.model = i
+                addOn.fragment = this
+
+                adapter.add(addOn)
+
             }}}
     fun getDataApi(userId: Int) {
 
-        apiClient?.getApiService()
+        ApiClient(requireContext())?.getApiService()
             ?.getUserPosts(userId)
             ?.enqueue(object : Callback<AnnouncementsResponse> {
 
@@ -99,7 +104,7 @@ class MyAdsFragment : Fragment() {
 
         recyclerView.layoutManager= GridLayoutManager(context, 1)
         recyclerView.adapter=adapter
-        sessionManager.getUserObject()?.id?.let { getDataApi(it) }
+        SessionManager(requireContext()).getUserObject()?.id?.let { getDataApi(it) }
 
 
 

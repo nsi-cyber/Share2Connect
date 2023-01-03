@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 abstract class BaseComponentClass : Item<ViewHolder, BaseComponent>() {
+
     fun <T> parse(src: Any?): T {
         return Gson().fromJson(
             Gson().toJson(src),

@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ace1ofspades.recyclerview.GroupAdapter
 import com.ace1ofspades.recyclerview.viewHolders.ViewHolder
-import com.example.share2connect.Models.AdvertDataModel
-import com.example.share2connect.Models.AdvertResponse
-import com.example.share2connect.Models.BaseComponent
-import com.example.share2connect.Models.BaseModel
+import com.example.share2connect.Models.*
 import com.example.share2connect.Pages.MainFragment
 import com.example.share2connect.R
 import com.example.share2connect.Utils.AdvertEnum
@@ -37,7 +34,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AdvertShareFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AdvertShareFragment(var advertModel:AdvertDataModel,var category: String) : Fragment() {
+class AdvertShareFragment(var advertModel:AdvertDataModel,var category: String,var isUpdate:Boolean=false) : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -76,12 +73,39 @@ lateinit var button:Button
         println(advertModel)
         row.fragment = this
         adapter.add(row)
+        var apiClient = context?.let { ApiClient(it) }!!
 
         button.setOnClickListener {
 
-                var apiClient = context?.let { ApiClient(it) }!!
+            if(isUpdate){
+                apiClient.getApiService().updatePost(
+                    asd)  .enqueue(object : Callback<MessageResponse> {
+
+                    override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
+                        println(t.toString())
+                    }
+
+                    override fun onResponse(
+                        call: Call<MessageResponse>,
+                        response: Response<MessageResponse>
+                    ) {
+                        val postResponse = response.body()
+
+                        if (postResponse?.status == 200) {
+                            Helper.changeFragment(MyAdsFragment(), activity!!.supportFragmentManager)
+
+                        } else {
+                            // Error logging in
+                        }
+                    }
+                })
+
+            }
+            else{
+
+
                 apiClient.getApiService().post(
-                asd)  .enqueue(object : Callback<AdvertResponse> {
+                    asd)  .enqueue(object : Callback<AdvertResponse> {
 
                     override fun onFailure(call: Call<AdvertResponse>, t: Throwable) {
                         println(t.toString())
@@ -102,6 +126,9 @@ lateinit var button:Button
                     }
                 })
 
+
+
+            }
 
 
 

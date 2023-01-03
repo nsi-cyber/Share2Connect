@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.share2connect.Models.BaseComponent
 import com.example.share2connect.R
+import com.example.share2connect.Utils.Helper
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,7 +19,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [EditAdDetailFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class EditAdDetailFragment : Fragment() {
+class EditAdDetailFragment(var model: BaseComponent?=null) : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -34,6 +36,21 @@ class EditAdDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
+
+
+
+        when(model?.category)
+        {
+            "E001"-> Helper.changeFragment(AdvertFragment001(isUpdate = true, model = model),requireActivity().supportFragmentManager)
+            "E002"-> Helper.changeFragment(AdvertFragment002(isUpdate = true, model = model),requireActivity().supportFragmentManager)
+            "E003"-> Helper.changeFragment(AdvertFragment003(isUpdate = true, model = model),requireActivity().supportFragmentManager)
+            "E004"-> Helper.changeFragment(AdvertFragment004(isUpdate = true, model = model),requireActivity().supportFragmentManager)
+            "E005"-> Helper.changeFragment(AdvertFragment006(isUpdate = true, model = model),requireActivity().supportFragmentManager)
+            "E006"-> Helper.changeFragment(AdvertFragment005(isUpdate = true, model = model),requireActivity().supportFragmentManager)
+
+        }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_edit_ad_detail, container, false)
     }

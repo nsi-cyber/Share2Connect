@@ -23,6 +23,18 @@ interface ApiService {
     fun post(@Body request: BaseComponent): Call<AdvertResponse>
 
 
+    @PUT("/api/announcements/update/}")
+    @Headers("Accept: application/json",
+        "Content-Type: application/json")
+    fun updatePost(@Body component: BaseComponent): Call<MessageResponse>
+
+
+    @PUT("/api/users/update")
+    @Headers("Accept: application/json",
+        "Content-Type: application/json")
+    fun updateUser(@Body component: UserModel): Call<MessageResponse>
+
+
     @GET(Constants.GET_DATA_ALL)
     @Headers("Accept: application/json",
         "Content-Type: application/json")
@@ -37,6 +49,18 @@ interface ApiService {
     @Headers("Accept: application/json",
         "Content-Type: application/json")
     fun getUserPosts(@Path("id")  userId: Int): Call<AnnouncementsResponse>
+
+
+
+
+
+    @DELETE("/api/announcements/delete/{id}")
+    @Headers("Accept: application/json",
+        "Content-Type: application/json")
+    fun deletePost(@Path("id")  postId: Int): Call<MessageResponse>
+
+
+
 
 
 

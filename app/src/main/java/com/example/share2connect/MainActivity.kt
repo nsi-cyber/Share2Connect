@@ -116,12 +116,15 @@ class MainActivity : AppCompatActivity() {
         navUserName.text = SessionManager(this).getUserObject()?.fullName ?: "UserName"
         navUserDepartment.text = SessionManager(this).getUserObject()?.department ?: "Department"
 
-        navUserImage.setImageBitmap(SessionManager(this).getUserObject()?.userImage?.let {
+        /*
+        navUserImage.setImageBitmap(SessionManager(this).getUserObject()?.userImage!!.toByteArray()?.let {
             Helper.toBitmap(
                 it
             )
         })
 
+
+         */
     }
 
     override fun onBackPressed() {

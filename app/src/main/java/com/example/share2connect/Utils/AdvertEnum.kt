@@ -9,7 +9,9 @@ enum class AdvertEnum(val key: String, val type: Class<BaseComponentClass>) {
     RoadEvent("E003", E_003().javaClass),
     HomeEvent("E004", E_004().javaClass),
         ConcertEvent("E005", E_005().javaClass),
-        StudyEvent("E006",E_006().javaClass);
+        StudyEvent("E006",E_006().javaClass),
+        addOn("addOn",EditCard().javaClass)
+        ;
 
 
 

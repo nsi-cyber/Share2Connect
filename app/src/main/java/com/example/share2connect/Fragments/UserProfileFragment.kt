@@ -94,7 +94,7 @@ class UserProfileFragment(var user:UserModel) : Fragment() {
             userMail.text = user.email
             userPhone.text = user.phone
             if(user.userImage!=null){
-            val bmp = BitmapFactory.decodeByteArray(user.userImage, 0, user.userImage!!.size)
+            val bmp = BitmapFactory.decodeByteArray(user.userImage!!.toByteArray(), 0, user.userImage!!.size)
             userImage.setImageBitmap(
                 Bitmap.createScaledBitmap(
                     bmp,

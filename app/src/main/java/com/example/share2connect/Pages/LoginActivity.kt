@@ -96,6 +96,7 @@ if(pastUserMail!=null)
                     .show()
                 return@setOnClickListener
             }
+
             val mProgressDialog = ProgressDialog(this)
             mProgressDialog.setTitle("Giriş Yapılıyor")
             mProgressDialog.setMessage("Lütfen Bekleyiniz")
@@ -105,7 +106,7 @@ if(pastUserMail!=null)
                 .enqueue(object : Callback<LoginResponse> {
                     override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                         println("error= " + t)
-                        mProgressDialog.hide()
+                        mProgressDialog.dismiss()
                     }
 
                     override fun onResponse(
@@ -123,10 +124,10 @@ if(pastUserMail!=null)
 
                             if(rememberMe.isChecked)
                                 sessionManager.saveUserMail(editMail.text.toString())
-                            mProgressDialog.hide()
+                            mProgressDialog.dismiss()
                             finish()
                         } else {
-                            mProgressDialog.hide()
+                            mProgressDialog.dismiss()
                             println(response.message() + "error")
                         }
                     }

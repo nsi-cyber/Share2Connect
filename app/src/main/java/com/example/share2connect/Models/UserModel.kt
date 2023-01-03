@@ -10,7 +10,7 @@ data class UserModel (
     var fullName: String?=null,
 
     @SerializedName("userImage")
-    var userImage: ByteArray?=null,
+    var userImage: Array<Byte>?=null,
 
     @SerializedName("userMail")
     var email: String?=null,

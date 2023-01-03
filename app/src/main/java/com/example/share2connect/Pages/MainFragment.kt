@@ -161,17 +161,19 @@ class MainFragment : Fragment() {
 
 
     fun getDataApi() {
+        /*
         val mProgressDialog = ProgressDialog(requireContext())
         mProgressDialog.setTitle("İlanlar Yükleniyor")
         mProgressDialog.setMessage("Lütfen Bekleyiniz")
         mProgressDialog.show()
+        */
         apiClient.getApiService()
             .getHomeData()
             .enqueue(object : Callback<AnnouncementsResponse> {
 
                 override fun onFailure(call: Call<AnnouncementsResponse>, t: Throwable) {
                     println("error= " + t)
-                    mProgressDialog.hide()
+                  //  mProgressDialog.hide()
                 }
 
                 override fun onResponse(
@@ -179,7 +181,7 @@ class MainFragment : Fragment() {
                     response: Response<AnnouncementsResponse>
                 ) {
                     if (response.code() == 200) {
-                        mProgressDialog.hide()
+                       // mProgressDialog.hide()
 
                         baseModel = BaseModel(announcements = response.body()!!.data)
 
@@ -187,7 +189,7 @@ class MainFragment : Fragment() {
                     } else {
                         // Error logging in
                         println("error " + response.message().toString())
-                        mProgressDialog.hide()
+                      //  mProgressDialog.hide()
 
                     }
                 }
