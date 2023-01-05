@@ -22,8 +22,8 @@ data class SignupReq (
     @SerializedName("userBio")
     var userBio: String,
 
-    @SerializedName("userImage")
-    var userImage: Array<Byte>?=null,
+    @SerializedName("userImageUrl")
+    var userImage: String?=null,
 
     @SerializedName("userPhoneNumber")
     var userPhoneNumber: String,
@@ -58,7 +58,6 @@ data class SignupReq (
         result = 31 * result + userPassword.hashCode()
         result = 31 * result + userDepartment.hashCode()
         result = 31 * result + userBio.hashCode()
-        result = 31 * result + (userImage?.contentHashCode() ?: 0)
         result = 31 * result + userPhoneNumber.hashCode()
         return result
     }

@@ -37,8 +37,7 @@ class EditCard() : BaseComponentClass() {
         edit = findViewById(R.id.edit)
 
         list.setOnClickListener {
-            //fragment.fragmentManager.let {  }
-            EditAdFragment().fragmentManager?.let { it1 ->
+            fragment!!.fragmentManager?.let { it1 ->
             Helper.changeFragment(ParticipiantsEditFragment(),
                 it1
             )
@@ -82,7 +81,7 @@ class EditCard() : BaseComponentClass() {
 
 
         edit.setOnClickListener {
-            EditAdFragment().fragmentManager?.let { it1 ->
+            fragment!!.fragmentManager?.let { it1 ->
             Helper.changeFragment(EditAdDetailFragment(itemModel),
                 it1
             )

@@ -1,5 +1,6 @@
 package com.example.share2connect.Pages
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
@@ -19,12 +20,23 @@ import com.example.share2connect.retrofit.ApiClient
 import com.example.share2connect.retrofit.SessionManager
 import com.google.android.gms.security.ProviderInstaller
 import com.google.android.material.card.MaterialCardView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
+import java.util.*
 
 class SignupActivity : AppCompatActivity() {
+    private val PICK_IMAGE_REQUEST = 71
+    private var filePath: Uri? = null
+    private var firebaseStore: FirebaseStorage? = null
+    private var storageReference: StorageReference? = null
 
+    val storage = Firebase.storage("gs://share2connect-93ec8.appspot.com")
 
     private var imageUri: Uri? = null
 
@@ -46,10 +58,52 @@ class SignupActivity : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
 
+
+
+    private fun launchGallery() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            if(data == null || data.data == null){
+                return
+            }
+
+            filePath = data.data
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
+                photo.setImageBitmap(bitmap)
+                imageHas=true
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun uploadImage():String{
+        var str="myImages/" + UUID.randomUUID().toString()
+        if(filePath != null){
+            val ref = storageReference?.child(str)
+            val uploadTask = ref?.putFile(filePath!!)
+
+        }else{
+            Toast.makeText(this, "Please Upload an Image", Toast.LENGTH_SHORT).show()
+        }
+        return str
+    }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
         ProviderInstaller.installIfNeeded(this)
+        firebaseStore = FirebaseStorage.getInstance()
+        storageReference = FirebaseStorage.getInstance().reference
 
         photo = findViewById(R.id.picture)
         passShow = findViewById(R.id.passShow)
@@ -69,7 +123,7 @@ class SignupActivity : AppCompatActivity() {
         sessionManager = SessionManager(this)
 
         changePhoto.setOnClickListener {
-            pickImageFromGallery()
+            launchGallery()
         }
 
         passShow.setOnClickListener {
@@ -164,11 +218,25 @@ class SignupActivity : AppCompatActivity() {
             mProgressDialog.setTitle("Kayıt Olunuyor")
             mProgressDialog.setMessage("Lütfen Bekleyiniz")
             mProgressDialog.show()
-          var pht=imageToBitmap(photo)
-
-            val signupReq = SignupReq(userNameText = name, userMail =  mail, userPassword = pass, userDepartment = faculty, userPhoneNumber = phone, userBio = bio,
-                userImage =pht  ,
+            var paths=uploadImage()
+            var signupReq: SignupReq? =null
+            if(imageHas==true){      signupReq = SignupReq(userNameText = name, userMail =  mail, userPassword = pass, userDepartment = faculty, userPhoneNumber = phone, userBio = bio,
+                userImage =paths  ,
                 userGender = genderText)
+            }
+            else{
+                if(genderText=="Erkek")
+                    signupReq = SignupReq(userNameText = name, userMail =  mail, userPassword = pass, userDepartment = faculty, userPhoneNumber = phone, userBio = bio,
+                userGender = genderText, userImage = "male_profile.png")
+                else if(genderText=="Kadın")
+                    signupReq = SignupReq(userNameText = name, userMail =  mail, userPassword = pass, userDepartment = faculty, userPhoneNumber = phone, userBio = bio,
+                        userGender = genderText, userImage = "female_profile.png")
+                else
+
+                    signupReq = SignupReq(userNameText = name, userMail =  mail, userPassword = pass, userDepartment = faculty, userPhoneNumber = phone, userBio = bio,
+                        userGender = genderText, userImage = "cat_profile.png")
+            }
+
 
             val call = apiClient.getApiService().singup(signupReq)
             call.enqueue(object : Callback<SignupResponse> {
@@ -205,19 +273,4 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    private fun pickImageFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, 1000)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == 1000) {
-            imageUri = data?.data
-            imageHas = true
-            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
-            photo.setImageBitmap(bitmap)
-        }
-    }
 }

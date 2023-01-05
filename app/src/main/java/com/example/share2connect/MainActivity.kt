@@ -2,6 +2,7 @@ package com.example.share2connect
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -23,6 +24,7 @@ import com.example.share2connect.Utils.Helper
 import com.example.share2connect.retrofit.SessionManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.storage.FirebaseStorage
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
     lateinit var bottomNavigationView: BottomNavigationView
-
 
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,15 +117,18 @@ class MainActivity : AppCompatActivity() {
         navUserName.text = SessionManager(this).getUserObject()?.fullName ?: "UserName"
         navUserDepartment.text = SessionManager(this).getUserObject()?.department ?: "Department"
 
-        /*
-        navUserImage.setImageBitmap(SessionManager(this).getUserObject()?.userImage!!.toByteArray()?.let {
-            Helper.toBitmap(
-                it
-            )
-        })
+/*
+val uris=SessionManager(this).getUserObject()?.userImage!!.toString()
+        val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(uris)
+        imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
+            val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+            navUserImage.setImageBitmap(bitmap)
+        }.addOnFailureListener {
+            // Handle any errors
+        }
+        */
 
 
-         */
     }
 
     override fun onBackPressed() {

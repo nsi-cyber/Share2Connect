@@ -1,6 +1,8 @@
 package com.example.share2connect.Fragments
 
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +19,7 @@ import com.example.share2connect.R
 import com.example.share2connect.Utils.Helper
 import com.example.share2connect.retrofit.ApiClient
 import com.google.android.material.card.MaterialCardView
+import com.google.firebase.storage.FirebaseStorage
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,6 +41,7 @@ class DetailFragment(var baseComponent: BaseComponent) : Fragment() {
 
 
     lateinit var typeImage: ImageView
+    lateinit var userProfilePicture: ImageView
     lateinit var typeText: TextView
     lateinit var adNameText: TextView
     lateinit var adDescText: TextView
@@ -150,6 +154,7 @@ var strr=""
                 R.id.adTicketText -> textView.text = "Bilet Sayısı: "+dataObject.adTicketText
                 R.id.adPriceText -> textView.text = "Ücret: "+dataObject.adPriceText
                 R.id.adPlaceText -> textView.text = "Konum: "+dataObject.adPlaceText
+
             }
         }
 
@@ -182,6 +187,23 @@ var strr=""
                 ) {
                     data = response.body()!!.user
 
+                    /*
+
+                    val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(data!!.userImage!!)
+                    imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
+                        val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+                        userProfilePicture.setImageBitmap(bitmap)
+                    }.addOnFailureListener {
+                        // Handle any errors
+                    }
+
+                    */
+
+                    when(data!!.gender){
+                        "Erkek"->userGender.strokeColor=(Color.parseColor("#03A9F4"))
+                        "Kadın"->userGender.strokeColor=(Color.parseColor("#C61111"))
+                        "Cevaplamıyorum"->userGender.strokeColor=(Color.parseColor("#FF7D54"))
+                    }
                     userNameText.text = data?.fullName
                     userDepartmentText.text = data?.department
                     whatsappCard.setOnClickListener { data?.phone?.let { it1 -> openWhatsApp(it1) } }
@@ -208,6 +230,7 @@ println("error"+ t.toString())                }
         val view = inflater.inflate(R.layout.fragment_detail, container, false)
 
         userProfileButton = view.findViewById(R.id.userProfileButton)
+        userProfilePicture = view.findViewById(R.id.userProfilePicture)
         userGender = view.findViewById(R.id.userGender)
         userNameText = view.findViewById(R.id.userNameText)
         userDepartmentText = view.findViewById(R.id.userDepartmentText)
@@ -243,6 +266,7 @@ println("error"+ t.toString())                }
 
 
         baseComponent.data?.let { bindTextViews(it) }
+
 
 
 

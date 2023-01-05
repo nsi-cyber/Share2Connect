@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "835113116475",
+    "project_id": "share2connect-93ec8",
+    "storage_bucket": "share2connect-93ec8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:835113116475:android:a675a22d7e0f0d5b54cd1e",
+        "android_client_info": {
+          "package_name": "com.example.bitirmeprojesi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "835113116475-vf1of8696rmpobc1kbviqa9ovhvl2lc9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjWXBWsn3qOyE03Sbip3m1_DI_2riwFM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "835113116475-vf1of8696rmpobc1kbviqa9ovhvl2lc9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:835113116475:android:07735a3fde3db64a54cd1e",
+        "android_client_info": {
+          "package_name": "com.example.share2connect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "835113116475-vf1of8696rmpobc1kbviqa9ovhvl2lc9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjWXBWsn3qOyE03Sbip3m1_DI_2riwFM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "835113116475-vf1of8696rmpobc1kbviqa9ovhvl2lc9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

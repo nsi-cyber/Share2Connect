@@ -254,7 +254,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 app:cardCornerRadius="99dp"
-                app:strokeColor="#C61111"
+                app:strokeColor="#FF7D54"
                 app:strokeWidth="3dp">
 
                 <ImageView

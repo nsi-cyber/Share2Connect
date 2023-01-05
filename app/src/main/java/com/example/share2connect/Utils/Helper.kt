@@ -19,21 +19,23 @@ class Helper
             return BitmapFactory.decodeByteArray(data, 0, data.size)
         }
 
-        fun imageToBitmap(image: ImageView): Array<Byte> {
+        fun imageToBitmap(image: ImageView): ByteArray{
+
             val drawable = image.drawable
             if (drawable is BitmapDrawable) {
                 val bitmap = drawable.bitmap
                 val stream = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 1, stream)
-                return stream.toByteArray().toTypedArray()
+                return stream.toByteArray()
             } else if (drawable is VectorDrawable) {
+
                 val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
                 val canvas = Canvas(bitmap)
                 drawable.setBounds(0, 0, canvas.width, canvas.height)
                 drawable.draw(canvas)
                 val stream = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 1, stream)
-                return stream.toByteArray().toTypedArray()
+                return stream.toByteArray()
             }
             throw IllegalArgumentException("Unsupported drawable type")
         }

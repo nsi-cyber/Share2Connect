@@ -264,7 +264,7 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:id="@+id/imageView10"
+                                    android:id="@+id/placeGPS"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
                                     android:layout_weight="0"

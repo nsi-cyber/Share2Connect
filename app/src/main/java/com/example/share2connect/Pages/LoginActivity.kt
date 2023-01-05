@@ -34,10 +34,11 @@ class LoginActivity : AppCompatActivity() {
 
         this.doubleBackToExitPressedOnce = true
         Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
-
+println("here WON")
         Handler(Looper.getMainLooper()).postDelayed(Runnable {
             doubleBackToExitPressedOnce = false
         }, 2000)
+
 
     }
 
@@ -113,12 +114,12 @@ if(pastUserMail!=null)
                         call: Call<LoginResponse>,
                         response: Response<LoginResponse>
                     ) {
+
                         val loginResponse = response.body()
 
                         if (loginResponse?.status == 200 && loginResponse.user != null) {
                             loginResponse.token?.let { sessionManager.saveAuthToken(it) }
-                            intentLogin.flags =
-                                Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NO_HISTORY
+
                             sessionManager.saveUserObject(response.body()!!.user)
                             startActivity(intentLogin)
 
@@ -126,6 +127,7 @@ if(pastUserMail!=null)
                                 sessionManager.saveUserMail(editMail.text.toString())
                             mProgressDialog.dismiss()
                             finish()
+
                         } else {
                             mProgressDialog.dismiss()
                             println(response.message() + "error")

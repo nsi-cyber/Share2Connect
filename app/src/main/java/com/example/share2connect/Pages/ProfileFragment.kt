@@ -17,6 +17,7 @@ import com.example.share2connect.Models.UserModel
 import com.example.share2connect.R
 import com.example.share2connect.Utils.Helper
 import com.example.share2connect.retrofit.SessionManager
+import com.google.firebase.storage.FirebaseStorage
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -92,19 +93,14 @@ userObject=sessionManager.getUserObject()!!
             userDepartment.text = userObject.department
             userMail.text = userObject.email
             userPhone.text = userObject.phone
-
-            if(userObject.userImage!=null){
-
-            val bmp = BitmapFactory.decodeByteArray(userObject.userImage!!.toByteArray(), 0, userObject.userImage!!.size)
-            userImage.setImageBitmap(
-                Bitmap.createScaledBitmap(
-                    bmp,
-                    userImage.width,
-                    userImage.height,
-                    false
-                )
-            )
-            }
+            /*
+            val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(SessionManager(requireContext()).getUserObject()?.userImage!!)
+            imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+                userImage.setImageBitmap(bitmap)
+            }.addOnFailureListener {
+                // Handle any errors
+            }*/
         }
 
 userAdverts.setOnClickListener {

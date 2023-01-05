@@ -28,11 +28,13 @@ import retrofit2.Response
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
+
 /**
  * A simple [Fragment] subclass.
  * Use the [ProfileEditFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class ProfileEditFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -79,7 +81,6 @@ class ProfileEditFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_profile_edit, container, false)
         with(view) {
             photo = findViewById(R.id.picture)
-            passShow = findViewById(R.id.passShow)
             editName = findViewById(R.id.editName)
             editPass = findViewById(R.id.editPass)
             editFaculty = findViewById(R.id.editFaculty)
@@ -88,7 +89,6 @@ class ProfileEditFragment : Fragment() {
             editTextPhone = findViewById(R.id.editTextPhone)
 
             changePhoto = findViewById(R.id.changeCard)
-            radioGroup = findViewById(R.id.radioGroup)
         }
 
         apiClient = ApiClient(requireContext())
@@ -110,21 +110,6 @@ class ProfileEditFragment : Fragment() {
             pickImageFromGallery()
         }
 
-        passShow.setOnClickListener {
-            if (!isShowing) {
-                isShowing = false
-                passShow.setImageResource(R.drawable.ic_hide)
-                editPass.inputType = InputType.TYPE_CLASS_TEXT
-                editPassConf.inputType = InputType.TYPE_CLASS_TEXT
-
-            } else {
-                isShowing = true
-                passShow.setImageResource(R.drawable.ic_eye)
-                editPass.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
-                editPassConf.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
-            }
-
-        }
 
 
 

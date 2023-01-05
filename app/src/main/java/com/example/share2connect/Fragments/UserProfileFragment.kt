@@ -19,6 +19,7 @@ import com.example.share2connect.Pages.ProfileEditFragment
 import com.example.share2connect.R
 import com.example.share2connect.Utils.Helper
 import com.example.share2connect.retrofit.SessionManager
+import com.google.firebase.storage.FirebaseStorage
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -93,16 +94,19 @@ class UserProfileFragment(var user:UserModel) : Fragment() {
             userDepartment.text = user.department
             userMail.text = user.email
             userPhone.text = user.phone
-            if(user.userImage!=null){
-            val bmp = BitmapFactory.decodeByteArray(user.userImage!!.toByteArray(), 0, user.userImage!!.size)
-            userImage.setImageBitmap(
-                Bitmap.createScaledBitmap(
-                    bmp,
-                    userImage.width,
-                    userImage.height,
-                    false
-                )
-            )}
+
+
+            /*
+            val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(user!!.userImage!!)
+            imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+                userImage.setImageBitmap(bitmap)
+            }.addOnFailureListener {
+                // Handle any errors
+            }
+        */
+
+
         }
 
         userAdverts.setOnClickListener { activity?.let { it1 -> Helper.changeFragment(UserAdsFragment(user.id,user.fullName),

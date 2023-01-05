@@ -5,9 +5,11 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.location.Address
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,8 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.adevinta.leku.*
+import com.adevinta.leku.locale.SearchZoneRect
 import com.example.share2connect.MainActivity
 import com.example.share2connect.Models.*
 import com.example.share2connect.R
@@ -22,6 +26,7 @@ import com.example.share2connect.Utils.Helper
 import com.example.share2connect.Utils.Helper.Companion.changeFragment
 import com.example.share2connect.retrofit.ApiClient
 import com.example.share2connect.retrofit.SessionManager
+import com.google.android.gms.maps.model.LatLng
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -44,6 +49,102 @@ class AdvertFragment001(var isUpdate: Boolean? = false, var model: BaseComponent
     var gpsCoordinate: String = ""
 
 
+    var latitudeGPS="39.782613"
+    var longitudeGPS="30.5104952"
+
+    fun placePicker(){
+        val locationPickerIntent = LocationPickerActivity.Builder()
+            .withLocation(41.4036299, 2.1743558)
+            .withGeolocApiKey("AIzaSyBc0uFtvsPaNowF9Ytcvx5lYXupUia6JW8")
+            .withGooglePlacesApiKey("AIzaSyBc0uFtvsPaNowF9Ytcvx5lYXupUia6JW8")
+            .withSearchZone("tr_TR")
+            .withSearchZone(SearchZoneRect(LatLng(39.7979205, 30.4424081,), LatLng(39.7907312, 30.5579732)))
+            .withDefaultLocaleSearchZone()
+            .shouldReturnOkOnBackPressed()
+            .withStreetHidden()
+            .withCityHidden()
+            .withZipCodeHidden()
+            .withSatelliteViewHidden()
+
+            .withGoogleTimeZoneEnabled()
+            .withVoiceSearchHidden()
+            .withUnnamedRoadHidden()
+            .build(requireContext())
+
+        startActivityForResult(locationPickerIntent, 1234)
+    }
+
+    private fun pickImageFromGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+
+        requireActivity().startActivityForResult(intent, 9032)
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == AppCompatActivity.RESULT_OK && requestCode == 9032) {
+
+            imageUri = data?.data
+            imageHas = true
+            val bitmap =
+                MediaStore.Images.Media.getBitmap(MainActivity().contentResolver, imageUri)
+            descImage.setImageBitmap(bitmap)
+        }
+        if (resultCode == AppCompatActivity.RESULT_OK && data != null) {
+            Log.d("RESULT****", "OK")
+            //if (requestCode == 1) {
+            if (1 == 1) {
+                val latitude = data.getDoubleExtra(LATITUDE, 0.0)
+                Log.d("LATITUDE****", latitude.toString())
+                latitudeGPS=latitude.toString()
+                val longitude = data.getDoubleExtra(LONGITUDE, 0.0)
+                Log.d("LONGITUDE****", longitude.toString())
+                longitudeGPS=longitude.toString()
+
+                val address = data.getStringExtra(LOCATION_ADDRESS)
+                Log.d("ADDRESS****", address.toString())
+                val postalcode = data.getStringExtra(ZIPCODE)
+                Log.d("POSTALCODE****", postalcode.toString())
+                val bundle = data.getBundleExtra(TRANSITION_BUNDLE)
+                if (bundle != null) {
+                    bundle.getString("test")?.let { Log.d("BUNDLE TEXT****", it) }
+                }
+                val fullAddress = data.getParcelableExtra<Address>(ADDRESS)
+                if (fullAddress != null) {
+                    Log.d("FULL ADDRESS****", fullAddress.toString())
+                }
+                val timeZoneId = data.getStringExtra(TIME_ZONE_ID)
+                if (timeZoneId != null) {
+                    Log.d("TIME ZONE ID****", timeZoneId)
+                }
+                val timeZoneDisplayName = data.getStringExtra(TIME_ZONE_DISPLAY_NAME)
+                if (timeZoneDisplayName != null) {
+                    Log.d("TIME ZONE NAME****", timeZoneDisplayName)
+                }
+            } else if (requestCode == 2) {
+                val latitude = data.getDoubleExtra(LATITUDE, 0.0)
+                Log.d("LATITUDE****", latitude.toString())
+                latitudeGPS=latitude.toString()
+
+                val longitude = data.getDoubleExtra(LONGITUDE, 0.0)
+                Log.d("LONGITUDE****", longitude.toString())
+                longitudeGPS=longitude.toString()
+
+                val address = data.getStringExtra(LOCATION_ADDRESS)
+                Log.d("ADDRESS****", address.toString())
+                val lekuPoi = data.getParcelableExtra<LekuPoi>(LEKU_POI)
+                Log.d("LekuPoi****", lekuPoi.toString())
+            }
+        }
+        if (resultCode == AppCompatActivity.RESULT_CANCELED) {
+            Log.d("RESULT****", "CANCELLED")
+        }
+    }
+
+
+
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -54,6 +155,7 @@ class AdvertFragment001(var isUpdate: Boolean? = false, var model: BaseComponent
     lateinit var selectDate: TextView
     lateinit var selectTime: TextView
     lateinit var descImage: ImageView
+    lateinit var placeGPSButton: ImageView
     lateinit var placeName: EditText
     lateinit var recyclerView: RecyclerView
     lateinit var advertFee: EditText
@@ -84,24 +186,6 @@ class AdvertFragment001(var isUpdate: Boolean? = false, var model: BaseComponent
 
     }
 
-    private fun pickImageFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-
-        requireActivity()
-            .startActivityForResult(intent, 9032)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == AppCompatActivity.RESULT_OK && requestCode == 9032) {
-
-            imageUri = data?.data
-            imageHas = true
-            val bitmap =
-                MediaStore.Images.Media.getBitmap(MainActivity().contentResolver, imageUri)
-            descImage.setImageBitmap(bitmap)
-        }
-    }
 
 
     fun getGps(): String {
@@ -140,6 +224,7 @@ var lay=findViewById<LinearLayout>(R.id.linearLayout3)
 
             advertName = findViewById(R.id.editTextTitle)
             advertDesc = findViewById(R.id.editTextDesc)
+            placeGPSButton = findViewById(R.id.placeGPS)
             selectDate = findViewById(R.id.selectDate)
             selectTime = findViewById(R.id.selectTime)
             descImage = findViewById(R.id.imageViewDesc)
@@ -149,7 +234,7 @@ var lay=findViewById<LinearLayout>(R.id.linearLayout3)
             inspect = findViewById(R.id.button)
 
         }
-
+placeGPSButton.setOnClickListener { placePicker() }
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
@@ -213,10 +298,8 @@ var lay=findViewById<LinearLayout>(R.id.linearLayout3)
 
 
 
-
         return view
     }
-
 
     fun post(bool:Boolean) {
         if(date!="12")
