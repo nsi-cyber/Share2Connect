@@ -332,7 +332,7 @@
                                         android:layout_weight="0"
                                         android:background="#B3B3B3"
                                         android:ems="10"
-                                        android:hint="0"
+                                        android:hint="Ücretsiz"
                                         android:inputType="textPersonName"
                                         android:singleLine="true" />
                                 </LinearLayout>

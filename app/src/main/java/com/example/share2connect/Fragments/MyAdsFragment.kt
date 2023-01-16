@@ -14,6 +14,7 @@ import com.example.share2connect.Models.AnnouncementsResponse
 import com.example.share2connect.Models.BaseModel
 import com.example.share2connect.R
 import com.example.share2connect.Utils.AdvertEnum
+import com.example.share2connect.Utils.Helper
 import com.example.share2connect.retrofit.ApiClient
 import com.example.share2connect.retrofit.SessionManager
 import com.google.gson.Gson
@@ -66,7 +67,10 @@ class MyAdsFragment : Fragment() {
 
                 adapter.add(addOn)
 
-            }}}
+            }}
+
+
+    }
     fun getDataApi(userId: Int) {
 
         ApiClient(requireContext())?.getApiService()
@@ -107,6 +111,8 @@ class MyAdsFragment : Fragment() {
         SessionManager(requireContext()).getUserObject()?.id?.let { getDataApi(it) }
 
 
+        adapter.setOnItemClickListener{ item, view ->
+            Helper.changeFragment(MyAdsFragment(),requireActivity().supportFragmentManager)}
 
 
 

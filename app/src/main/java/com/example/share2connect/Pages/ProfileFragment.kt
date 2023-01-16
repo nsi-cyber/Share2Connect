@@ -93,14 +93,18 @@ userObject=sessionManager.getUserObject()!!
             userDepartment.text = userObject.department
             userMail.text = userObject.email
             userPhone.text = userObject.phone
-            /*
+
+
+
             val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(SessionManager(requireContext()).getUserObject()?.userImage!!)
             imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
                 val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
                 userImage.setImageBitmap(bitmap)
             }.addOnFailureListener {
                 // Handle any errors
-            }*/
+            }
+
+
         }
 
 userAdverts.setOnClickListener {

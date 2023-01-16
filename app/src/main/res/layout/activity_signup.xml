@@ -132,7 +132,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Telefon Numarası"
+                    android:hint="Telefon Numarası (0'sız yazınız)"
                     android:inputType="phone" />
 
                 <LinearLayout

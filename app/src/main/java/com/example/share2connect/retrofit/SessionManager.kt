@@ -19,6 +19,8 @@ class SessionManager(context: Context) {
         const val USERNAME = "userName"
         const val USERMAIL = "userMail"
     }
+
+
 fun clearAll(){
     var st=getUserMail()
     prefs.edit().clear().apply()
@@ -26,6 +28,13 @@ fun clearAll(){
     if (st != null) {
         saveUserMail(st)
     }
+
+}
+    fun clearAllPrefs(){
+
+    prefs.edit().clear().apply()
+
+
 }
     /**
      * Function to save auth token

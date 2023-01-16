@@ -59,7 +59,17 @@ class SignupActivity : AppCompatActivity() {
     private lateinit var apiClient: ApiClient
 
 
+    private fun uploadImage():String{
+        var str="myImages/" + UUID.randomUUID().toString()
+        if(filePath != null){
+            val ref = storageReference?.child(str)
+            val uploadTask = ref?.putFile(filePath!!)
 
+        }else{
+            Toast.makeText(this, "Please Upload an Image", Toast.LENGTH_SHORT).show()
+        }
+        return str
+    }
     private fun launchGallery() {
         val intent = Intent()
         intent.type = "image/*"
@@ -84,17 +94,7 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadImage():String{
-        var str="myImages/" + UUID.randomUUID().toString()
-        if(filePath != null){
-            val ref = storageReference?.child(str)
-            val uploadTask = ref?.putFile(filePath!!)
 
-        }else{
-            Toast.makeText(this, "Please Upload an Image", Toast.LENGTH_SHORT).show()
-        }
-        return str
-    }
 
 
 
@@ -221,20 +221,20 @@ class SignupActivity : AppCompatActivity() {
             var paths=uploadImage()
             var signupReq: SignupReq? =null
             if(imageHas==true){      signupReq = SignupReq(userNameText = name, userMail =  mail, userPassword = pass, userDepartment = faculty, userPhoneNumber = phone, userBio = bio,
-                userImage =paths  ,
+                userImage ="gs://share2connect-93ec8.appspot.com/"+paths  ,
                 userGender = genderText)
             }
             else{
                 if(genderText=="Erkek")
                     signupReq = SignupReq(userNameText = name, userMail =  mail, userPassword = pass, userDepartment = faculty, userPhoneNumber = phone, userBio = bio,
-                userGender = genderText, userImage = "male_profile.png")
+                userGender = genderText, userImage = "gs://share2connect-93ec8.appspot.com/male_profile.png")
                 else if(genderText=="Kadın")
                     signupReq = SignupReq(userNameText = name, userMail =  mail, userPassword = pass, userDepartment = faculty, userPhoneNumber = phone, userBio = bio,
-                        userGender = genderText, userImage = "female_profile.png")
+                        userGender = genderText, userImage = "gs://share2connect-93ec8.appspot.com/female_profile.png")
                 else
 
                     signupReq = SignupReq(userNameText = name, userMail =  mail, userPassword = pass, userDepartment = faculty, userPhoneNumber = phone, userBio = bio,
-                        userGender = genderText, userImage = "cat_profile.png")
+                        userGender = genderText, userImage = "gs://share2connect-93ec8.appspot.com/cat_profile.png")
             }
 
 

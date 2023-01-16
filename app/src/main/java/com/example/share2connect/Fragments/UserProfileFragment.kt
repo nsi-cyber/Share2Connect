@@ -96,7 +96,7 @@ class UserProfileFragment(var user:UserModel) : Fragment() {
             userPhone.text = user.phone
 
 
-            /*
+
             val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(user!!.userImage!!)
             imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
                 val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
@@ -104,7 +104,7 @@ class UserProfileFragment(var user:UserModel) : Fragment() {
             }.addOnFailureListener {
                 // Handle any errors
             }
-        */
+
 
 
         }

@@ -319,7 +319,7 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:id="@+id/imageView10"
+                                    android:id="@+id/placeGPSF"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
                                     android:layout_weight="0"
@@ -412,7 +412,7 @@
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:id="@+id/imageView102"
+                                    android:id="@+id/placeGPSE"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
                                     android:layout_weight="0"

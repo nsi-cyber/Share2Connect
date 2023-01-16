@@ -2,15 +2,24 @@ package com.example.share2connect.Fragments
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.location.Address
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.adevinta.leku.*
+import com.adevinta.leku.locale.SearchZoneRect
+import com.example.share2connect.MainActivity
 import com.example.share2connect.Models.AdvertDataModel
 import com.example.share2connect.Models.AdvertResponse
 import com.example.share2connect.Models.BaseComponent
@@ -20,6 +29,7 @@ import com.example.share2connect.Utils.Helper
 import com.example.share2connect.Utils.Helper.Companion.changeFragment
 import com.example.share2connect.retrofit.ApiClient
 import com.example.share2connect.retrofit.SessionManager
+import com.google.android.gms.maps.model.LatLng
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -61,6 +71,92 @@ class AdvertFragment005 (var isUpdate:Boolean?=false,var model: BaseComponent?=n
     lateinit var selectTime: TextView
 
     lateinit var recyclerView: RecyclerView
+    var latitudeGPS = "39.782613"
+    var longitudeGPS = "30.5104952"
+    private var imageUri: Uri? = null
+    private var imageHas = false
+    lateinit var placeGPSButton: ImageView
+
+    fun placePicker() {
+        val locationPickerIntent = LocationPickerActivity.Builder()
+            .withLocation(41.4036299, 2.1743558)
+            .withGeolocApiKey("AIzaSyBc0uFtvsPaNowF9Ytcvx5lYXupUia6JW8")
+            .withGooglePlacesApiKey("AIzaSyBc0uFtvsPaNowF9Ytcvx5lYXupUia6JW8")
+            .withSearchZone("tr_TR")
+            .withSearchZone(
+                SearchZoneRect(
+                    LatLng(39.7979205, 30.4424081),
+                    LatLng(39.7907312, 30.5579732)
+                )
+            )
+            .withDefaultLocaleSearchZone()
+            .shouldReturnOkOnBackPressed()
+            .withStreetHidden()
+            .withCityHidden()
+            .withZipCodeHidden()
+            .withSatelliteViewHidden()
+
+            .withGoogleTimeZoneEnabled()
+            .withVoiceSearchHidden()
+            .withUnnamedRoadHidden()
+            .build(requireContext())
+
+        startActivityForResult(locationPickerIntent, 1234)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        if (resultCode == AppCompatActivity.RESULT_OK && data != null) {
+            Log.d("RESULT****", "OK")
+            //if (requestCode == 1) {
+            if (1 == 1) {
+                val latitude = data.getDoubleExtra(LATITUDE, 0.0)
+                Log.d("LATITUDE****", latitude.toString())
+                latitudeGPS = latitude.toString()
+                val longitude = data.getDoubleExtra(LONGITUDE, 0.0)
+                Log.d("LONGITUDE****", longitude.toString())
+                longitudeGPS = longitude.toString()
+
+                val address = data.getStringExtra(LOCATION_ADDRESS)
+                Log.d("ADDRESS****", address.toString())
+                val postalcode = data.getStringExtra(ZIPCODE)
+                Log.d("POSTALCODE****", postalcode.toString())
+                val bundle = data.getBundleExtra(TRANSITION_BUNDLE)
+                if (bundle != null) {
+                    bundle.getString("test")?.let { Log.d("BUNDLE TEXT****", it) }
+                }
+                val fullAddress = data.getParcelableExtra<Address>(ADDRESS)
+                if (fullAddress != null) {
+                    Log.d("FULL ADDRESS****", fullAddress.toString())
+                }
+                val timeZoneId = data.getStringExtra(TIME_ZONE_ID)
+                if (timeZoneId != null) {
+                    Log.d("TIME ZONE ID****", timeZoneId)
+                }
+                val timeZoneDisplayName = data.getStringExtra(TIME_ZONE_DISPLAY_NAME)
+                if (timeZoneDisplayName != null) {
+                    Log.d("TIME ZONE NAME****", timeZoneDisplayName)
+                }
+            } else if (requestCode == 2) {
+                val latitude = data.getDoubleExtra(LATITUDE, 0.0)
+                Log.d("LATITUDE****", latitude.toString())
+                latitudeGPS = latitude.toString()
+
+                val longitude = data.getDoubleExtra(LONGITUDE, 0.0)
+                Log.d("LONGITUDE****", longitude.toString())
+                longitudeGPS = longitude.toString()
+
+                val address = data.getStringExtra(LOCATION_ADDRESS)
+                Log.d("ADDRESS****", address.toString())
+                val lekuPoi = data.getParcelableExtra<LekuPoi>(LEKU_POI)
+                Log.d("LekuPoi****", lekuPoi.toString())
+            }
+        }
+        if (resultCode == AppCompatActivity.RESULT_CANCELED) {
+            Log.d("RESULT****", "CANCELLED")
+        }
+    }
+
 
 
     lateinit var inspect: Button
@@ -77,8 +173,8 @@ class AdvertFragment005 (var isUpdate:Boolean?=false,var model: BaseComponent?=n
     }
 
     fun post(bool:Boolean) {
-        if(date!="12")
-            date=selectDate.text.toString()+selectTime.text.toString()
+        if(date=="12")
+            date=selectDate.text.toString()+" , "+selectTime.text.toString()
 
         changeFragment(
             AdvertShareFragment(
@@ -87,9 +183,10 @@ class AdvertFragment005 (var isUpdate:Boolean?=false,var model: BaseComponent?=n
                 adNameText = advertName.text.toString(),
                // publishDate = phoneDate(),
                 adDescText = advertDesc.text.toString(),
-                adDateText = "12",
+                adDateText = date,
+                    adPlaceGPS = latitudeGPS+","+longitudeGPS,
                 adPlaceText = placeName.text.toString(),
-            ),"E006",bool
+            ),"E005",bool
         ),requireActivity().supportFragmentManager)
 
 
@@ -106,7 +203,11 @@ class AdvertFragment005 (var isUpdate:Boolean?=false,var model: BaseComponent?=n
         date = model?.data?.adDateText.toString()
         gpsCoordinate = model?.data?.adPlaceGPS.toString()
         advertDesc.setText(model?.data?.adDescText)
+        if(date!="12"){
 
+            selectDate.text=date.split(',')[0]
+            selectTime.text=date.split(',')[1]
+        }
     }
 
 
@@ -124,6 +225,9 @@ class AdvertFragment005 (var isUpdate:Boolean?=false,var model: BaseComponent?=n
             selectTime = findViewById(R.id.selectTime)
             recyclerView=findViewById(R.id.recyclerView)
             inspect=findViewById(R.id.button)
+
+            placeGPSButton = findViewById(R.id.placeGPS)
+            placeGPSButton.setOnClickListener { placePicker() }
         }
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {

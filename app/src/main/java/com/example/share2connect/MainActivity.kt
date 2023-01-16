@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         navUserName.text = SessionManager(this).getUserObject()?.fullName ?: "UserName"
         navUserDepartment.text = SessionManager(this).getUserObject()?.department ?: "Department"
 
-/*
+
 val uris=SessionManager(this).getUserObject()?.userImage!!.toString()
         val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(uris)
         imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
@@ -126,7 +126,7 @@ val uris=SessionManager(this).getUserObject()?.userImage!!.toString()
         }.addOnFailureListener {
             // Handle any errors
         }
-        */
+
 
 
     }

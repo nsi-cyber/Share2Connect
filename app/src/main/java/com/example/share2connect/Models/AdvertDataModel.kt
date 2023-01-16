@@ -21,8 +21,8 @@ data class AdvertDataModel (
     @SerializedName("adDescText")
     var adDescText: String?=null,
 
-    @SerializedName("adImage")
-    var adImage: ByteArray?=null,
+    @SerializedName("adImageUrl")
+    var adImage: String?=null,
 
     @SerializedName("adClubName")
     var adClubName: String?=null,

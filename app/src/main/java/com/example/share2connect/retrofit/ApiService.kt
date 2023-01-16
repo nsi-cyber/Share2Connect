@@ -23,7 +23,7 @@ interface ApiService {
     fun post(@Body request: BaseComponent): Call<AdvertResponse>
 
 
-    @PUT("/api/announcements/update/}")
+    @PUT("/api/announcements/update")
     @Headers("Accept: application/json",
         "Content-Type: application/json")
     fun updatePost(@Body component: BaseComponent): Call<MessageResponse>

@@ -1,7 +1,9 @@
 package com.example.share2connect.Pages
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -19,9 +21,15 @@ import com.example.share2connect.R
 import com.example.share2connect.Utils.Helper
 import com.example.share2connect.retrofit.ApiClient
 import com.example.share2connect.retrofit.SessionManager
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,6 +47,11 @@ class ProfileEditFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var filePath: Uri? = null
+    private var firebaseStore: FirebaseStorage? = null
+    private var storageReference: StorageReference? = null
+
+    val storage = Firebase.storage("gs://share2connect-93ec8.appspot.com")
 
 
 
@@ -72,6 +85,9 @@ class ProfileEditFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        firebaseStore = FirebaseStorage.getInstance()
+        storageReference = FirebaseStorage.getInstance().reference
+
     }
 
     override fun onCreateView(
@@ -91,6 +107,15 @@ class ProfileEditFragment : Fragment() {
             changePhoto = findViewById(R.id.changeCard)
         }
 
+        val uris=SessionManager(requireContext()).getUserObject()?.userImage!!.toString()
+        val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(uris)
+        imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
+            val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+            photo.setImageBitmap(bitmap)
+        }.addOnFailureListener {
+            // Handle any errors
+        }
+
         apiClient = ApiClient(requireContext())
         sessionManager = SessionManager(requireContext())
 
@@ -107,7 +132,7 @@ class ProfileEditFragment : Fragment() {
 
 
         changePhoto.setOnClickListener {
-            pickImageFromGallery()
+            launchGallery()
         }
 
 
@@ -168,6 +193,9 @@ class ProfileEditFragment : Fragment() {
             usr.fullName=editName.text.toString()
             usr.department=editFaculty.text.toString()
             usr.phone=editTextPhone.text.toString()
+            var paths=uploadImage()
+
+usr.userImage="gs://share2connect-93ec8.appspot.com/"+paths
 
             apiClient.getApiService().updateUser(usr)  .enqueue(object : Callback<MessageResponse> {
 
@@ -207,23 +235,40 @@ class ProfileEditFragment : Fragment() {
     }
 
 
+    private fun uploadImage():String{
+        var str="myImages/" + UUID.randomUUID().toString()
+        if(filePath != null){
+            val ref = storageReference?.child(str)
+            val uploadTask = ref?.putFile(filePath!!)
 
-    private fun pickImageFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, 1000)
+        }else{
+            Toast.makeText(requireContext(), "Please Upload an Image", Toast.LENGTH_SHORT).show()
+        }
+        return str
     }
-
+    private fun launchGallery() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 12312)
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == AppCompatActivity.RESULT_OK && requestCode == 1000) {
-            imageUri = data?.data
-            imageHas = true
-            val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, imageUri)
-            photo.setImageBitmap(bitmap)
+        if (requestCode == 12312 && resultCode == Activity.RESULT_OK) {
+            if(data == null || data.data == null){
+                return
+            }
+
+            filePath = data.data
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, filePath)
+                photo.setImageBitmap(bitmap)
+                imageHas=true
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
         }
     }
-
 
 
 

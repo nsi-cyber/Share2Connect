@@ -18,6 +18,7 @@ import com.example.share2connect.Models.UserModel
 import com.example.share2connect.R
 import com.example.share2connect.Utils.Helper
 import com.example.share2connect.retrofit.ApiClient
+import com.example.share2connect.retrofit.SessionManager
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.storage.FirebaseStorage
 import retrofit2.Call
@@ -43,6 +44,8 @@ class DetailFragment(var baseComponent: BaseComponent) : Fragment() {
     lateinit var typeImage: ImageView
     lateinit var userProfilePicture: ImageView
     lateinit var typeText: TextView
+    lateinit var openMaps: TextView
+    lateinit var routeMaps: TextView
     lateinit var adNameText: TextView
     lateinit var adDescText: TextView
     lateinit var adImage: ImageView
@@ -103,6 +106,21 @@ class DetailFragment(var baseComponent: BaseComponent) : Fragment() {
 
 
     fun bindTextViews(dataObject: AdvertDataModel) {
+
+        val imageRef = baseComponent.data?.adImage?.let {
+            FirebaseStorage.getInstance().getReferenceFromUrl(
+                it
+            )
+        }
+        if (imageRef != null) {
+            imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+                adImage.setImageBitmap(bitmap)
+            }.addOnFailureListener {
+                // Handle any errors
+            }
+        }
+
         val textViewVariables = listOf(
             typeText,
             adNameText,
@@ -131,17 +149,17 @@ class DetailFragment(var baseComponent: BaseComponent) : Fragment() {
             "userNameText",
             "userDepartmentText"
         )
-var strr=""
+        var strr = ""
         when (baseComponent.category) {
-            "E001" -> strr="Grup İçi Etkinlikler"
-            "E002" -> strr="Kulüp Duyuruları"
-            "E003" -> strr="Yol Arkadaşlığı"
-            "E004" -> strr="Ev, Eşya İlanları"
-            "E005" -> strr="Çalışma Grubu İlanları"
-            "E006" -> strr="Parti ve Konser İlanları"
+            "E001" -> strr = "Grup İçi Etkinlikler"
+            "E002" -> strr = "Kulüp Duyuruları"
+            "E003" -> strr = "Yol Arkadaşlığı"
+            "E004" -> strr = "Ev, Eşya İlanları"
+            "E005" -> strr = "Çalışma Grubu İlanları"
+            "E006" -> strr = "Parti ve Konser İlanları"
 
 
-               }
+        }
 
         textViewVariables.forEach { textView ->
             when (textView.id) {
@@ -149,11 +167,20 @@ var strr=""
                 R.id.adNameText -> textView.text = dataObject.adNameText
                 R.id.adDescText -> textView.text = dataObject.adDescText
                 R.id.adClubName -> textView.text = dataObject.adClubName
-                R.id.adDateText -> textView.text = "Tarih: "+ dataObject.adDateText
-                R.id.adSeatText -> textView.text = "Koltuk Sayısı: "+dataObject.adSeatText
-                R.id.adTicketText -> textView.text = "Bilet Sayısı: "+dataObject.adTicketText
-                R.id.adPriceText -> textView.text = "Ücret: "+dataObject.adPriceText
-                R.id.adPlaceText -> textView.text = "Konum: "+dataObject.adPlaceText
+                R.id.adRouteText -> textView.text =
+                    "Rota: " + dataObject.adRouteStartText + " -> " + dataObject.adRouteEndText
+                R.id.adDateText -> textView.text = "Tarih: " + dataObject.adDateText
+                R.id.adSeatText -> textView.text = "Koltuk Sayısı: " + dataObject.adSeatText
+                R.id.adTicketText -> textView.text = "Bilet Sayısı: " + dataObject.adTicketText
+                R.id.adPriceText -> {
+                    if (dataObject.adPriceText == "")
+                        textView.text = "Ücret: " + " Ücretsiz"
+                    else
+                        textView.text = "Ücret: " + dataObject.adPriceText
+
+
+                }
+                R.id.adPlaceText -> textView.text = "Konum: " + dataObject.adPlaceText
 
             }
         }
@@ -187,7 +214,7 @@ var strr=""
                 ) {
                     data = response.body()!!.user
 
-                    /*
+
 
                     val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(data!!.userImage!!)
                     imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
@@ -197,25 +224,30 @@ var strr=""
                         // Handle any errors
                     }
 
-                    */
 
-                    when(data!!.gender){
-                        "Erkek"->userGender.strokeColor=(Color.parseColor("#03A9F4"))
-                        "Kadın"->userGender.strokeColor=(Color.parseColor("#C61111"))
-                        "Cevaplamıyorum"->userGender.strokeColor=(Color.parseColor("#FF7D54"))
+
+                    when (data!!.gender) {
+                        "Erkek" -> userGender.strokeColor = (Color.parseColor("#03A9F4"))
+                        "Kadın" -> userGender.strokeColor = (Color.parseColor("#C61111"))
+                        "Cevaplamıyorum" -> userGender.strokeColor = (Color.parseColor("#FF7D54"))
                     }
                     userNameText.text = data?.fullName
                     userDepartmentText.text = data?.department
                     whatsappCard.setOnClickListener { data?.phone?.let { it1 -> openWhatsApp(it1) } }
                     mailCard.setOnClickListener { data?.email?.let { it1 -> openMail(it1) } }
-                    userProfileButton.setOnClickListener { Helper.changeFragment(UserProfileFragment(
-                        data!!
-                    ),requireActivity().supportFragmentManager)}
+                    userProfileButton.setOnClickListener {
+                        Helper.changeFragment(
+                            UserProfileFragment(
+                                data!!
+                            ), requireActivity().supportFragmentManager
+                        )
+                    }
 
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-println("error"+ t.toString())                }
+                    println("error" + t.toString())
+                }
 
 
             })
@@ -254,9 +286,12 @@ println("error"+ t.toString())                }
         adTicketText = view.findViewById(R.id.adTicketText)
         adPriceText = view.findViewById(R.id.adPriceText)
         adRouteCard = view.findViewById(R.id.adRouteCard)
+        routeMaps = view.findViewById(R.id.routeMaps)
         adPlaceCard = view.findViewById(R.id.adPlaceCard)
         adRouteText = view.findViewById(R.id.adRouteText)
         adPlaceText = view.findViewById(R.id.adPlaceText)
+        openMaps = view.findViewById(R.id.openMaps)
+
 
         disableViews(baseComponent.category.toString())
 
@@ -267,17 +302,38 @@ println("error"+ t.toString())                }
 
         baseComponent.data?.let { bindTextViews(it) }
 
+        routeMaps.setOnClickListener {
+            val uri =
+                "http://maps.google.com/maps?f=d&hl=en&saddr=" + baseComponent.data!!.adRouteStartGPS + "&daddr=" + baseComponent.data!!.adRouteEndGPS
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+            intent.setPackage("com.google.android.apps.maps")
+            startActivity(intent)
+
+        }
+
+        openMaps.setOnClickListener {
+
+
+            val gmmIntentUri = Uri.parse(
+                "google.navigation:q=" + (baseComponent.data?.adPlaceGPS ?: "39.7979205,30.4424081")
+            )
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            startActivity(mapIntent)
+        }
+
+
+        if (baseComponent.data?.adImage == null) {
+            adImage.visibility = View.GONE
+        }
 
 
 
-if(baseComponent.data?.adImage ==null)
-{
-    adImage.visibility=View.GONE
-}
 
 
         return view
     }
+
 
     fun openMail(mail: String) {
 
