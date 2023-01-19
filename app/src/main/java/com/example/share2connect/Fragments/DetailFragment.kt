@@ -167,8 +167,7 @@ class DetailFragment(var baseComponent: BaseComponent) : Fragment() {
                 R.id.adNameText -> textView.text = dataObject.adNameText
                 R.id.adDescText -> textView.text = dataObject.adDescText
                 R.id.adClubName -> textView.text = dataObject.adClubName
-                R.id.adRouteText -> textView.text =
-                    "Rota: " + dataObject.adRouteStartText + " -> " + dataObject.adRouteEndText
+                R.id.adRouteText -> textView.text = "Rota: " + dataObject.adRouteStartText + " -> " + dataObject.adRouteEndText
                 R.id.adDateText -> textView.text = "Tarih: " + dataObject.adDateText
                 R.id.adSeatText -> textView.text = "Koltuk Sayısı: " + dataObject.adSeatText
                 R.id.adTicketText -> textView.text = "Bilet Sayısı: " + dataObject.adTicketText

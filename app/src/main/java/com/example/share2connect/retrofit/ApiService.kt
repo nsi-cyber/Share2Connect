@@ -32,7 +32,7 @@ interface ApiService {
     @PUT("/api/users/update")
     @Headers("Accept: application/json",
         "Content-Type: application/json")
-    fun updateUser(@Body component: UserModel): Call<MessageResponse>
+    fun updateUser(@Body component: UserModel): Call<UpdateUserResponse>
 
 
     @GET(Constants.GET_DATA_ALL)

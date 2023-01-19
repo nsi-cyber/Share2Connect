@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.share2connect.Fragments.MyAdsFragment
 import com.example.share2connect.Models.MessageResponse
+import com.example.share2connect.Models.UpdateUserResponse
 import com.example.share2connect.R
 import com.example.share2connect.Utils.Helper
 import com.example.share2connect.retrofit.ApiClient
@@ -197,15 +198,15 @@ class ProfileEditFragment : Fragment() {
 
 usr.userImage="gs://share2connect-93ec8.appspot.com/"+paths
 
-            apiClient.getApiService().updateUser(usr)  .enqueue(object : Callback<MessageResponse> {
+            apiClient.getApiService().updateUser(usr)  .enqueue(object : Callback<UpdateUserResponse> {
 
-                override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
+                override fun onFailure(call: Call<UpdateUserResponse>, t: Throwable) {
                     println(t.toString())
                 }
 
                 override fun onResponse(
-                    call: Call<MessageResponse>,
-                    response: Response<MessageResponse>
+                    call: Call<UpdateUserResponse>,
+                    response: Response<UpdateUserResponse>
                 ) {
                     val postResponse = response.body()
 
