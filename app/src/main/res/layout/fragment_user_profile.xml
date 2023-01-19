@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/userImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             tools:src="@tools:sample/avatars" />
 
         <TextView
@@ -238,7 +238,8 @@
                         android:id="@+id/imageView15"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        tools:src="@tools:sample/avatars" />
+                        app:srcCompat="@drawable/ic_whatsapp"
+                        tools:src="@drawable/ic_whatsapp" />
 
                     <TextView
                         android:id="@+id/textView28"
@@ -263,7 +264,8 @@
                         android:id="@+id/imageView135"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        tools:src="@tools:sample/avatars" />
+                        app:srcCompat="@drawable/ic_mail"
+                        tools:src="@drawable/ic_mail" />
 
                     <TextView
                         android:id="@+id/textView228"

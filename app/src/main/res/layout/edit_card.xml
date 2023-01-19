@@ -24,7 +24,7 @@
                 android:id="@+id/imageView122"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_booked" />
+                app:srcCompat="@drawable/ic_addparticipiants" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -33,7 +33,7 @@
                 android:layout_weight="0"
                 android:gravity="center"
                 android:minLines="2"
-                android:text="Katılımcıları  Listele"
+                android:text="Katılımcı Ekle"
                 android:textSize="10sp" />
         </LinearLayout>
 
@@ -50,7 +50,7 @@
                 android:id="@+id/imageView123"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_booked" />
+                app:srcCompat="@drawable/ic_editpost" />
 
             <TextView
                 android:id="@+id/textView121"
@@ -72,7 +72,7 @@
                 android:id="@+id/imageView12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_booked" />
+                app:srcCompat="@drawable/ic_remove" />
 
             <TextView
                 android:id="@+id/textView141"

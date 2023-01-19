@@ -289,7 +289,6 @@ class AdvertFragment004(var isUpdate:Boolean?=false,var model: BaseComponent?=nu
             descImage=findViewById(R.id.imageViewDesc)
             descImage=findViewById(R.id.imageViewDesc)
             placeName=findViewById(R.id.editTextPlaceFirst)
-            recyclerView=findViewById(R.id.recyclerView)
             advertFee=findViewById(R.id.editTextFee)
             inspect=findViewById(R.id.button)
             placeGPSButton.setOnClickListener { placePicker() }

@@ -127,7 +127,7 @@ class SignupActivity : AppCompatActivity() {
         }
 
         passShow.setOnClickListener {
-            if(!isShowing)
+            if(isShowing)
             {
                 isShowing=false
                 passShow.setImageResource(R.drawable.ic_hide)

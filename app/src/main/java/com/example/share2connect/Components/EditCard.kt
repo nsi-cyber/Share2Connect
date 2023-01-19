@@ -1,6 +1,7 @@
 package com.example.share2connect.Components
 
 import android.widget.LinearLayout
+import com.example.share2connect.Fragments.AddParticipiantsFragment
 import com.example.share2connect.Fragments.EditAdDetailFragment
 import com.example.share2connect.Fragments.EditAdFragment
 import com.example.share2connect.Fragments.ParticipiantsEditFragment
@@ -38,12 +39,11 @@ class EditCard() : BaseComponentClass() {
 
         list.setOnClickListener {
             fragment!!.fragmentManager?.let { it1 ->
-            Helper.changeFragment(ParticipiantsEditFragment(),
+            Helper.changeFragment(AddParticipiantsFragment(itemModel!!),
                 it1
             )
         }
 
-        //todo update methodu üzerinden kullanıcı ekle
         }
 
 
