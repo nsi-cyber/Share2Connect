@@ -52,6 +52,6 @@ data class AdvertDataModel (
     @SerializedName("adRouteEndGPS")
     var adRouteEndGPS: String?=null,
     @SerializedName("participants")
-    var participants: ArrayList<String>?=null,
+    var participants: ArrayList<Int>?=null,
 
     )

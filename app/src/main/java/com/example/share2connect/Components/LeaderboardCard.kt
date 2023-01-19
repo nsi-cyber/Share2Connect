@@ -13,7 +13,7 @@ import com.example.share2connect.R
 import com.example.share2connect.Utils.BaseComponentClass
 import com.example.share2connect.Utils.Parser
 
-class LeaderboardCard(var posS:String,var nameS:String,var depS:String,var pointS:String, var imageB:ByteArray,var id:String): Item<ViewHolder, BaseComponent>(){
+class LeaderboardCard(var posS:String,var nameS:String,var depS:String,var pointS:String,var imageUrl:String): Item<ViewHolder, BaseComponent>(){
 
     // ViewObjects
     lateinit var pos:TextView
@@ -31,15 +31,8 @@ class LeaderboardCard(var posS:String,var nameS:String,var depS:String,var point
 
     override fun configure() {
         super.configure()
-        val bmp = BitmapFactory.decodeByteArray(imageB, 0, imageB.size)
-        image.setImageBitmap(
-            Bitmap.createScaledBitmap(
-                bmp,
-                image.width,
-                image.height,
-                false
-            )
-        )
+
+
             pos.text=posS
             name.text=nameS
             dep.text=depS

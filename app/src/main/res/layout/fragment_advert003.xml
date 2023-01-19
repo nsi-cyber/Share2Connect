@@ -286,20 +286,6 @@
                                     android:inputType="textPersonName"
                                     android:singleLine="true" />
 
-                                <TextView
-                                    android:id="@+id/textView16"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="0"
-                                    android:text="Popüler Konumlar" />
-
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/recyclerView"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="20dp"
-                                    android:layout_gravity="bottom"
-                                    android:layout_weight="0"
-                                    android:orientation="horizontal" />
                             </LinearLayout>
 
                             <androidx.constraintlayout.widget.ConstraintLayout
@@ -379,20 +365,6 @@
                                     android:inputType="textPersonName"
                                     android:singleLine="true" />
 
-                                <TextView
-                                    android:id="@+id/textView136"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="0"
-                                    android:text="Popüler Konumlar" />
-
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/recyclerView2"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="20dp"
-                                    android:layout_gravity="bottom"
-                                    android:layout_weight="0"
-                                    android:orientation="horizontal" />
                             </LinearLayout>
 
                             <androidx.constraintlayout.widget.ConstraintLayout

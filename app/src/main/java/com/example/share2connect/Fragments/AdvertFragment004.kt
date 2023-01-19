@@ -81,7 +81,6 @@ class AdvertFragment004(var isUpdate:Boolean?=false,var model: BaseComponent?=nu
     lateinit var descImage: ImageView
     lateinit var placeName: EditText
 
-    lateinit var recyclerView: RecyclerView
     lateinit var advertFee: EditText
     lateinit var inspect: Button
     lateinit var returnFirst: Button
@@ -98,7 +97,7 @@ class AdvertFragment004(var isUpdate:Boolean?=false,var model: BaseComponent?=nu
 
     fun placePicker() {
         val locationPickerIntent = LocationPickerActivity.Builder()
-            .withLocation(41.4036299, 2.1743558)
+            .withLocation(39.782613, 30.5104952)
             .withGeolocApiKey("AIzaSyBc0uFtvsPaNowF9Ytcvx5lYXupUia6JW8")
             .withGooglePlacesApiKey("AIzaSyBc0uFtvsPaNowF9Ytcvx5lYXupUia6JW8")
             .withSearchZone("tr_TR")

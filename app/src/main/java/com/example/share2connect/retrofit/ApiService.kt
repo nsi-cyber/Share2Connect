@@ -70,4 +70,15 @@ interface ApiService {
     fun getUser(@Path("id")  userId: Int): Call<LoginResponse>
 
 
+    @GET("api/current-user/{email}")
+    @Headers("Accept: application/json",
+        "Content-Type: application/json")
+    fun getUserId(@Path("email")  userMail: String): Call<ParticipiantsIdModel>
+
+    @GET("api/leaderboard")
+    @Headers("Accept: application/json",
+        "Content-Type: application/json")
+    fun getLeaderboard(): Call<LeaderModel>
+
+
 }

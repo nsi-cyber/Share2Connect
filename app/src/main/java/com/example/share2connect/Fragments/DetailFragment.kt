@@ -354,7 +354,7 @@ class DetailFragment(var baseComponent: BaseComponent) : Fragment() {
             Intent.EXTRA_TEXT,
             "Merhaba, bir ilan için yazmıştım "
         )
-        sendIntent.putExtra("jid", "$smsNumber@s.whatsapp.net") //phone number without "+" prefix
+        sendIntent.putExtra("jid", "90$smsNumber@s.whatsapp.net") //phone number without "+" prefix
         sendIntent.setPackage("com.whatsapp")
         if (activity?.let { sendIntent.resolveActivity(it.packageManager) } == null) {
             Toast.makeText(this.context, "Error/n", Toast.LENGTH_SHORT).show()

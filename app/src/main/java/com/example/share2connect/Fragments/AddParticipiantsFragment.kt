@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ace1ofspades.recyclerview.GroupAdapter
 import com.ace1ofspades.recyclerview.viewHolders.ViewHolder
-import com.example.share2connect.Models.BaseComponent
-import com.example.share2connect.Models.MessageResponse
+import com.example.share2connect.Models.*
 import com.example.share2connect.R
 import com.example.share2connect.Utils.AdvertEnum
 import com.example.share2connect.Utils.Helper
@@ -26,6 +25,7 @@ import retrofit2.Response
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private lateinit var apiClient: ApiClient
 
 /**
  * A simple [Fragment] subclass.
@@ -59,6 +59,8 @@ class AddParticipiantsFragment(var baseComponent: BaseComponent) : Fragment() {
         mailText = view.findViewById(R.id.editMail)
         recyclerView = view.findViewById(R.id.recyclerView)
         addUser = view.findViewById(R.id.addUser)
+        apiClient = ApiClient(requireContext())
+
         recyclerView.layoutManager = GridLayoutManager(context, 1)
         recyclerView.adapter = adapter
         val component = AdvertEnum.get(key = baseComponent.category)
@@ -81,33 +83,70 @@ class AddParticipiantsFragment(var baseComponent: BaseComponent) : Fragment() {
 Toast.makeText(requireContext(),"Lütfen eklemek istediğiniz kullanıcının mail adresini giriniz.",Toast.LENGTH_SHORT)
 
 //todo check is mail valid and get the user id
-
             var id=2
-            var apiClient = context?.let { ApiClient(it) }!!
 
-            baseComponent.data?.participants?.add(id.toString())
-
-            apiClient.getApiService().updatePost(baseComponent)  .enqueue(object : Callback<MessageResponse> {
-
-                override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
-                    println(t.toString())
-                }
-
-                override fun onResponse(
-                    call: Call<MessageResponse>,
-                    response: Response<MessageResponse>
-                ) {
-                    val postResponse = response.body()
-
-                    if (postResponse?.status == 200) {
-                        Helper.changeFragment(MyAdsFragment(), activity!!.supportFragmentManager)
-
-                    } else {
-Toast.makeText(requireContext(),"Geçerli bir mail giriniz",Toast.LENGTH_SHORT)
-Toast.makeText(requireContext(),postResponse?.message.toString(),Toast.LENGTH_SHORT)
+            apiClient.getApiService().getUserId(mailText.text.toString())
+                .enqueue(object : Callback<ParticipiantsIdModel> {
+                    override fun onFailure(call: Call<ParticipiantsIdModel>, t: Throwable) {
+                        println("error= " + t)
                     }
-                }
-            })
+
+                    override fun onResponse(
+                        call: Call<ParticipiantsIdModel>,
+                        response: Response<ParticipiantsIdModel>
+                    ) {
+
+                        val loginResponse = response.body()
+
+                        if (loginResponse?.status == 200 ) {
+        id= response.body()!!.userId.toInt()
+
+
+
+                            baseComponent.data?.participants?.add(id)
+
+                            apiClient.getApiService().updatePost(baseComponent)  .enqueue(object : Callback<MessageResponse> {
+
+                                override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
+                                    println(t.toString())
+                                }
+
+                                override fun onResponse(
+                                    call: Call<MessageResponse>,
+                                    response: Response<MessageResponse>
+                                ) {
+                                    val postResponse = response.body()
+
+                                    if (postResponse?.status == 200) {
+                                        Helper.changeFragment(MyAdsFragment(), activity!!.supportFragmentManager)
+
+                                    } else {
+                                        Toast.makeText(requireContext(),"Geçerli bir mail giriniz",Toast.LENGTH_SHORT)
+                                        Toast.makeText(requireContext(),postResponse?.message.toString(),Toast.LENGTH_SHORT)
+                                    }
+                                }
+                            })
+
+
+                        } else {
+                           Toast.makeText(requireContext(),"Lütfen geçerli bir mail adresi giriniz.",Toast.LENGTH_SHORT)
+                        }
+                    }
+                })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

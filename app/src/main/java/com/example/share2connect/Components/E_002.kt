@@ -21,7 +21,6 @@ class E_002: BaseComponentClass() {
     lateinit var desc  :TextView
     lateinit var price :TextView
     lateinit var place :TextView
-    lateinit var info :TextView
     lateinit var button:Button
     ////
     var adapter = GroupAdapter<ViewHolder>()
@@ -38,7 +37,6 @@ class E_002: BaseComponentClass() {
         with(itemModel){
             title.text=itemModel?.adNameText
             club.text=itemModel?.adClubName
-            info.text=itemModel?.adDescText
             desc.text=itemModel?.adDescText
             price.setText("Fiyat: "+itemModel?.adPriceText)
             place.setText("Konum: "+itemModel?.adPlaceText)
@@ -54,7 +52,6 @@ class E_002: BaseComponentClass() {
         price = findViewById(R.id.priceText)
         place = findViewById(R.id.placeText)
         button = findViewById(R.id.button)
-        info = findViewById(R.id.infoText)
     }
 
     override fun getLayout(): Int = layout

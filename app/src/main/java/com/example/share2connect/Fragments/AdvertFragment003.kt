@@ -77,7 +77,7 @@ class AdvertFragment003(var isUpdate:Boolean?=false,var model: BaseComponent?=nu
     var isFirstGPS=true
     fun placePicker() {
         val locationPickerIntent = LocationPickerActivity.Builder()
-            .withLocation(41.4036299, 2.1743558)
+            .withLocation(39.782613, 30.5104952)
             .withGeolocApiKey("AIzaSyBc0uFtvsPaNowF9Ytcvx5lYXupUia6JW8")
             .withGooglePlacesApiKey("AIzaSyBc0uFtvsPaNowF9Ytcvx5lYXupUia6JW8")
             .withSearchZone("tr_TR")
@@ -228,7 +228,6 @@ else
     lateinit var placeFirstName: EditText
     lateinit var placeLastName: EditText
 
-    lateinit var recyclerView: RecyclerView
 
 
     lateinit var advertFee: EditText
@@ -305,7 +304,6 @@ else
             descImage=findViewById(R.id.imageViewDesc)
             placeFirstName=findViewById(R.id.editTextPlaceFirst)
             placeLastName=findViewById(R.id.editTextPlaceLast)
-            recyclerView=findViewById(R.id.recyclerView)
             advertFee=findViewById(R.id.editTextFee)
             inspect=findViewById(R.id.button)
         }

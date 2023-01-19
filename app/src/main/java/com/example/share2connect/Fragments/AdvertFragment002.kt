@@ -75,7 +75,6 @@ lateinit var returnFirst:Button
     lateinit var selectTime: TextView
     lateinit var descImage: ImageView
     lateinit var placeName: EditText
-    lateinit var recyclerView: RecyclerView
     lateinit var advertFee: EditText
     lateinit var inspect: Button
 
@@ -269,7 +268,6 @@ lateinit var returnFirst:Button
             selectTime=findViewById(R.id.selectTime)
             descImage=findViewById(R.id.imageViewDesc)
             placeName=findViewById(R.id.editTextPlace)
-            recyclerView=findViewById(R.id.recyclerView)
             advertFee=findViewById(R.id.editTextFee)
             inspect=findViewById(R.id.button)
         }
