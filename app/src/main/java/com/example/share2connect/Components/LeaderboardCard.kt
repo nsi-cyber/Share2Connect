@@ -33,14 +33,17 @@ class LeaderboardCard(var posS:String,var nameS:String,var depS:String,var point
 
     override fun configure() {
         super.configure()
+try {
 
-        val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(imageUrl)
-        imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
-            val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
-            image.setImageBitmap(bitmap)
-        }.addOnFailureListener {
-            // Handle any errors
-        }
+    val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(imageUrl)
+    imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
+        val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+        image.setImageBitmap(bitmap)
+    }.addOnFailureListener {
+        // Handle any errors
+    }
+}
+catch (e:Exception){}
             pos.text=posS
             name.text=nameS
             dep.text=depS

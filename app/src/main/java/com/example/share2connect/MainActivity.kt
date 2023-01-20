@@ -117,15 +117,20 @@ class MainActivity : AppCompatActivity() {
         navUserName.text = SessionManager(this).getUserObject()?.fullName ?: "UserName"
         navUserDepartment.text = SessionManager(this).getUserObject()?.department ?: "Department"
 
+try {
 
-val uris=SessionManager(this).getUserObject()?.userImage!!.toString()
-        val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(uris)
-        imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
-            val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
-            navUserImage.setImageBitmap(bitmap)
-        }.addOnFailureListener {
-            // Handle any errors
-        }
+    val uris=SessionManager(this).getUserObject()?.userImage!!.toString()
+    val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(uris)
+    imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
+        val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+        navUserImage.setImageBitmap(bitmap)
+    }.addOnFailureListener {
+        // Handle any errors
+    }
+}
+catch (e:java.lang.Exception){
+
+}
 
 
 

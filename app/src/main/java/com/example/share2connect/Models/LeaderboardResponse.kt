@@ -11,7 +11,7 @@ data class LeaderboardResponse (
     var message: String,
 
     @SerializedName("data")
-    var data: List<LeaderModel>
+    var data: ArrayList<LeaderModel>
 
 
 

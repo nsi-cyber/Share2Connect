@@ -1,7 +1,7 @@
 package com.example.share2connect.Fragments
 
 import android.content.Intent
-import android.graphics.Bitmap
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -15,7 +15,6 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.share2connect.Models.UserModel
-import com.example.share2connect.Pages.ProfileEditFragment
 import com.example.share2connect.R
 import com.example.share2connect.Utils.Helper
 import com.example.share2connect.retrofit.SessionManager
@@ -129,8 +128,9 @@ class UserProfileFragment(var user:UserModel) : Fragment() {
 
     fun openMail(mail:String){
 
+
         val intent = Intent(Intent.ACTION_SENDTO)
-        intent.data = Uri.parse("mailto:")
+        intent.data = Uri.parse("mailto:"+mail)
         intent.putExtra(Intent.EXTRA_EMAIL, mail)
         intent.putExtra(Intent.EXTRA_SUBJECT, "Campus uygulamasındaki ilan")
 
@@ -139,6 +139,9 @@ class UserProfileFragment(var user:UserModel) : Fragment() {
     }
 
 
+
+
+    
     private fun openWhatsApp(smsNumber: String) {
         val sendIntent = Intent(Intent.ACTION_SEND)
         sendIntent.type = "text/plain"
@@ -146,13 +149,11 @@ class UserProfileFragment(var user:UserModel) : Fragment() {
             Intent.EXTRA_TEXT,
             "Merhaba, bir ilan için yazmıştım "
         )
-        sendIntent.putExtra("jid", "$smsNumber@s.whatsapp.net") //phone number without "+" prefix
-        sendIntent.setPackage("com.whatsapp")
-        if (activity?.let { sendIntent.resolveActivity(it.getPackageManager()) } == null) {
-            Toast.makeText(this.context, "Error/n", Toast.LENGTH_SHORT).show()
-            return
-        }
-        startActivity(sendIntent)
+        val url = "https://wa.me/"+"90"+smsNumber
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        startActivity(i)
+
     }
 
 

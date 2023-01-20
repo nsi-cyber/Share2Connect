@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ace1ofspades.recyclerview.GroupAdapter
 import com.ace1ofspades.recyclerview.viewHolders.ViewHolder
 import com.example.share2connect.Components.LeaderboardCard
-import com.example.share2connect.Models.AnnouncementsResponse
-import com.example.share2connect.Models.BaseModel
-import com.example.share2connect.Models.LeaderModel
-import com.example.share2connect.Models.UserModel
+import com.example.share2connect.Models.*
 import com.example.share2connect.R
 import com.example.share2connect.Utils.AdvertEnum
 import com.example.share2connect.Utils.Helper
@@ -41,7 +39,7 @@ class LeaderboardFragment : Fragment() {
     private var param2: String? = null
 
     lateinit var recyclerView: RecyclerView
-lateinit var baseModel:ArrayList<LeaderModel>
+lateinit var baseModel:LeaderboardResponse
     var adapter = GroupAdapter<ViewHolder>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +57,9 @@ lateinit var baseModel:ArrayList<LeaderModel>
         // Inflate the layout for this fragment
         val view=inflater.inflate(R.layout.fragment_leaderboard, container, false)
         recyclerView=view.findViewById(R.id.recyclerView)
+
+        recyclerView.layoutManager= GridLayoutManager(context, 1)
+        recyclerView.adapter=adapter
         getDataApi()
         return view
     }
@@ -74,21 +75,20 @@ lateinit var baseModel:ArrayList<LeaderModel>
         apiClient = ApiClient(requireContext())
 
         apiClient.getApiService().getLeaderboard()
-            .enqueue(object : Callback<LeaderModel> {
+            .enqueue(object : Callback<LeaderboardResponse> {
 
-                override fun onFailure(call: Call<LeaderModel>, t: Throwable) {
+                override fun onFailure(call: Call<LeaderboardResponse>, t: Throwable) {
                     println("error= " + t)
                     //  mProgressDialog.hide()
                 }
 
                 override fun onResponse(
-                    call: Call<LeaderModel>,
-                    response: Response<LeaderModel>
+                    call: Call<LeaderboardResponse>,
+                    response: Response<LeaderboardResponse>
                 ) {
                     if (response.code() == 200) {
                         // mProgressDialog.hide()
-
-                                        baseModel = Gson().fromJson<ArrayList<LeaderModel>>(Gson().toJson(response.body()), object : TypeToken<ArrayList<LeaderModel>>() {}.type)
+                        baseModel = Gson().fromJson(Gson().toJson(response.body()), object : TypeToken<LeaderboardResponse>() {}.type)
 
                         initializeData()
                     } else {
@@ -105,10 +105,10 @@ lateinit var baseModel:ArrayList<LeaderModel>
 
 
     fun initializeData() {
-        var pos=0
-        baseModel.sortByDescending { it.puan }
+        var pos=1
+        baseModel.data.sortByDescending { it.puan }
 
-        baseModel.let { componentModels ->
+        baseModel.data.let { componentModels ->
             adapter.clear()
 
             for (i in componentModels) {

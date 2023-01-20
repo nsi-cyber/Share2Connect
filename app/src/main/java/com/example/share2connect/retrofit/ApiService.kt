@@ -75,10 +75,10 @@ interface ApiService {
         "Content-Type: application/json")
     fun getUserId(@Path("email")  userMail: String): Call<ParticipiantsIdModel>
 
-    @GET("api/leaderboard")
+    @GET("api/announcements/leaderboard")
     @Headers("Accept: application/json",
         "Content-Type: application/json")
-    fun getLeaderboard(): Call<LeaderModel>
+    fun getLeaderboard(): Call<LeaderboardResponse>
 
 
 }

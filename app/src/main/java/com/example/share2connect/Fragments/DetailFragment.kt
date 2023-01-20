@@ -337,7 +337,7 @@ class DetailFragment(var baseComponent: BaseComponent) : Fragment() {
     fun openMail(mail: String) {
 
         val intent = Intent(Intent.ACTION_SENDTO)
-        intent.data = Uri.parse("mailto:")
+        intent.data = Uri.parse("mailto:"+mail)
         intent.putExtra(Intent.EXTRA_EMAIL, mail)
         intent.putExtra(Intent.EXTRA_SUBJECT, "Campus uygulamasındaki ilan")
 
@@ -353,13 +353,11 @@ class DetailFragment(var baseComponent: BaseComponent) : Fragment() {
             Intent.EXTRA_TEXT,
             "Merhaba, bir ilan için yazmıştım "
         )
-        sendIntent.putExtra("jid", "90$smsNumber@s.whatsapp.net") //phone number without "+" prefix
-        sendIntent.setPackage("com.whatsapp")
-        if (activity?.let { sendIntent.resolveActivity(it.packageManager) } == null) {
-            Toast.makeText(this.context, "Error/n", Toast.LENGTH_SHORT).show()
-            return
-        }
-        startActivity(sendIntent)
+        val url = "https://wa.me/"+"90"+smsNumber
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        startActivity(i)
+
     }
 
 

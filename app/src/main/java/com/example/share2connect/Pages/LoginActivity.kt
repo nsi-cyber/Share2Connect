@@ -125,8 +125,6 @@ if(pastUserMail!=null)
 
                             if(rememberMe.isChecked)
                                 sessionManager.saveUserMail(editMail.text.toString())
-                            else
-                                sessionManager.clearAllPrefs()
                             mProgressDialog.dismiss()
                             finish()
 
