@@ -12,6 +12,8 @@ import com.example.share2connect.Models.BaseComponent
 import com.example.share2connect.R
 import com.example.share2connect.Utils.BaseComponentClass
 import com.example.share2connect.Utils.Parser
+import com.example.share2connect.retrofit.SessionManager
+import com.google.firebase.storage.FirebaseStorage
 
 class LeaderboardCard(var posS:String,var nameS:String,var depS:String,var pointS:String,var imageUrl:String): Item<ViewHolder, BaseComponent>(){
 
@@ -32,7 +34,13 @@ class LeaderboardCard(var posS:String,var nameS:String,var depS:String,var point
     override fun configure() {
         super.configure()
 
-
+        val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(imageUrl)
+        imageRef.getBytes(10 * 1024 * 1024).addOnSuccessListener {
+            val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+            image.setImageBitmap(bitmap)
+        }.addOnFailureListener {
+            // Handle any errors
+        }
             pos.text=posS
             name.text=nameS
             dep.text=depS

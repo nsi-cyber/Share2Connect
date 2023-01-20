@@ -82,10 +82,10 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.thirdItem -> {
-                    changeFragment(ChooseCategoryFragment())
                     bottomNavigationView.selectedItemId = R.id.home
 
                     drawerLayout.close()
+                    changeFragment(ChooseCategoryFragment())
 
                     Toast.makeText(this@MainActivity, "İlan Paylaş", Toast.LENGTH_SHORT)
                         .show()
